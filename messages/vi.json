@@ -1,0 +1,33 @@
+{
+  "Sidebar": {
+    "dashboard": "Tổng quan",
+    "customers": "Khách hàng",
+    "analytics": "Phân tích",
+    "settings_heading": "CÀI ĐẶT",
+    "messages": "Tin nhắn",
+    "setting": "Cấu hình",
+    "help": "Trợ giúp"
+  },
+  "Topbar": {
+    "title_dashboard": "Tổng quan",
+    "title_customers": "Quản lý khách hàng",
+    "title_analytics": "Phân tích dữ liệu",
+    "title_messages": "Tin nhắn",
+    "title_setting": "Cài đặt hệ thống",
+    "title_help": "Trung tâm trợ giúp",
+    "logout": "Đăng xuất",
+    "default_title": "Quản trị hệ thống"
+  },
+  "Customers": {
+    "title": "Danh sách khách hàng",
+    "new_customer": "THÊM KHÁCH HÀNG",
+    "search": "Tìm kiếm...",
+    "full_name": "Họ và Tên",
+    "status": "Trạng thái",
+    "email": "Hộp thư",
+    "dob": "Ngày sinh",
+    "status_approved": "Đã duyệt",
+    "status_blocked": "Đã khóa",
+    "status_rejected": "Từ chối"
+  }
+}
