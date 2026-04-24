@@ -1,15 +1,16 @@
-"use client";
+import { useState, useEffect } from 'react';
 
-import { useState, useEffect } from "react";
-import * as pdfjsLib from "pdfjs-dist";
+import * as pdfjsLib from 'pdfjs-dist';
+
+import type { PDFDocumentProxy, PDFDocumentLoadingTask } from 'pdfjs-dist';
 
 // Setup PDF worker
-if (typeof window !== "undefined" && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
   pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 }
 
 export function usePdfDocument(fileUrl: string | undefined, isOpen: boolean) {
-  const [pdfDoc, setPdfDoc] = useState<any>(null);
+  const [pdfDoc, setPdfDoc] = useState<PDFDocumentProxy | null>(null);
   const [numPages, setNumPages] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -22,7 +23,7 @@ export function usePdfDocument(fileUrl: string | undefined, isOpen: boolean) {
     }
 
     let isMounted = true;
-    let loadingTask: any = null;
+    let loadingTask: PDFDocumentLoadingTask | null = null;
 
     const loadPdf = async () => {
       setIsLoading(true);
@@ -34,10 +35,11 @@ export function usePdfDocument(fileUrl: string | undefined, isOpen: boolean) {
           setPdfDoc(pdf);
           setNumPages(pdf.numPages);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (isMounted) {
-          console.error("Error loading PDF", err);
-          setError(err);
+          const error = err instanceof Error ? err : new Error('Failed to load PDF');
+          console.error('Error loading PDF', error);
+          setError(error);
         }
       } finally {
         if (isMounted) {
@@ -50,12 +52,12 @@ export function usePdfDocument(fileUrl: string | undefined, isOpen: boolean) {
 
     return () => {
       isMounted = false;
-      if (loadingTask && typeof loadingTask.destroy === "function") {
-          try {
-              loadingTask.destroy();
-          } catch (e) {
-              console.error("Error destroying loading task", e);
-          }
+      if (loadingTask && typeof loadingTask.destroy === 'function') {
+        try {
+          loadingTask.destroy();
+        } catch (e) {
+          console.error('Error destroying loading task', e);
+        }
       }
     };
   }, [fileUrl, isOpen]);

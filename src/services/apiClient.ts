@@ -9,11 +9,11 @@ class ApiClient {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_URL || '/api';
+    this.baseURL = import.meta.env.VITE_API_URL || '/api';
   }
 
   private async request<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
-    const { params, requiresAuth = true, headers, ...customConfig } = options;
+    const { params, requiresAuth: _requiresAuth = true, headers, ...customConfig } = options;
 
     let url = endpoint.startsWith('http') ? endpoint : `${this.baseURL}${endpoint}`;
 
@@ -34,9 +34,7 @@ class ApiClient {
       const response = await fetch(url, config);
 
       if (response.status === 401) {
-        if (typeof window !== 'undefined') {
-          window.location.href = '/login';
-        }
+        window.dispatchEvent(new CustomEvent('auth:unauthorized'));
         throw new Error('Phiên đăng nhập hết hạn. Vui lòng đăng nhập lại.');
       }
 
@@ -47,14 +45,13 @@ class ApiClient {
       }
 
       return data as T;
-    } catch (error: any) {
+    } catch (error) {
       console.error('[API Error]:', error);
-      
-      // Global error toast notification (only in browser)
-      if (typeof window !== 'undefined') {
-        toast.error(error.message || 'Lỗi kết nối máy chủ');
-      }
-      
+
+      // Global error toast notification
+      const message = error instanceof Error ? error.message : 'Lỗi kết nối máy chủ';
+      toast.error(message);
+
       throw error;
     }
   }
@@ -63,7 +60,7 @@ class ApiClient {
     return this.request<T>(endpoint, { ...options, method: 'GET' });
   }
 
-  post<T>(endpoint: string, body: any, options?: FetchOptions) {
+  post<T>(endpoint: string, body: unknown, options?: FetchOptions) {
     return this.request<T>(endpoint, {
       ...options,
       method: 'POST',
@@ -71,7 +68,7 @@ class ApiClient {
     });
   }
 
-  put<T>(endpoint: string, body: any, options?: FetchOptions) {
+  put<T>(endpoint: string, body: unknown, options?: FetchOptions) {
     return this.request<T>(endpoint, {
       ...options,
       method: 'PUT',

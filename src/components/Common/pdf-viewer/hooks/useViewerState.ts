@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useCallback } from "react";
+import { useState, useCallback } from 'react';
 
 export function useViewerState() {
   const [activePage, setActivePage] = useState(1);
@@ -20,10 +18,10 @@ export function useViewerState() {
   const onPageVisible = useCallback((pageNum: number) => {
     setActivePage(pageNum);
   }, []);
-  
+
   const resetState = useCallback(() => {
-     setActivePage(1);
-     setScale(1.0);
+    setActivePage(1);
+    setScale(1.0);
   }, []);
 
   return {
@@ -33,6 +31,6 @@ export function useViewerState() {
     zoomIn,
     scrollToPage,
     onPageVisible,
-    resetState
+    resetState,
   };
 }

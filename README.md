@@ -1,6 +1,6 @@
 # Web Admin Project
 
-This project provides a clean, production-ready, and highly scalable foundation for our Next.js Web Admin application, applying the Feature-Sliced Design (FSD) model to ensure the source code is easy to read, maintain, and scale.
+This project provides a clean, production-ready, and highly scalable foundation for our Vite React SPA Web Admin application, applying the Feature-Sliced Design (FSD) model to ensure the source code is easy to read, maintain, and scale.
 
 ## 📂 Directory Structure
 
@@ -8,33 +8,33 @@ The project applies **Feature-Sliced Design (FSD)**. New features MUST NOT be cr
 
 ```text
 src/
-├── app/                  # Routing, Layouts & Global Pages (Server Components)
-│   ├── (admin)/          # Group route for internal pages (with AppLayout)
-│   └── login/            # Public pages without admin layout
-├── components/           # Shared UI Components (Atoms/Molecules)
-│   ├── Common/           # Complex components (DataTable, FileViewer)
-│   └── ui/               # Basic components (Button, Badge, Pagination)
+├── components/           # Shared UI Components
+│   ├── common/           # Complex & basic components (DataTable, Modal, Button)
+│   └── layout/           # Layout components (Sidebar, Topbar)
 ├── features/             # Core Domain logic
 │   └── [feature_name]/   # E.g., customers, orders, products...
 │       ├── api/          # API calls for this feature
 │       ├── components/   # UI Components specific to this feature
 │       └── schemas/      # TypeScript Interfaces & Zod Schemas
 ├── hooks/                # Global custom hooks (useAppStore, useAuth...)
-├── i18n/                 # next-intl configuration (request.ts) for i18n
+├── pages/                # Page Components loaded by React Router
+│   ├── admin/            # Internal pages (auth required)
+│   └── LoginPage.tsx     # Public pages
 ├── services/             # Global services (apiClient.ts)
-├── styles/               # Global CSS
-└── proxy.ts              # Next.js 16+ Middleware (Replaces middleware.ts)
+├── styles/               # Global CSS (Tailwind)
+└── main.tsx              # Entry point and Routing configuration
 ```
 
 ## 📐 Best Practices & Conventions
 
-### 1. Rendering Rules (Server vs Client)
-- **Server Components (Default):** `page.tsx` files in `app/` must be Server Components (NO `"use client"` directive). Used for fetching data directly, SEO handling, and passing props to Client Components.
-- **Client Components (`"use client"`):** Use only when the component needs direct user interaction (`onClick`, `onChange`), state management (`useState`, `useEffect`), or custom hooks (`useAppStore`, `useForm`). Files located in `src/features/[name]/components/` are typically Client Components.
+### 1. Rendering Rules & Routing (React SPA)
+- **Client-Side Rendering (CSR):** The entire application is a React SPA powered by Vite. Avoid synchronous data fetching that blocks UI rendering.
+- **Lazy Loading:** Use `React.lazy()` and `Suspense` for all pages in `src/pages/` to optimize code splitting and load times.
 
-### 2. Routing & Middleware (Next.js 16+)
-- **Middleware:** Starting from Next.js 16, `middleware.ts` is renamed to `proxy.ts`. All server-side routing logic and auth checks reside in `src/proxy.ts`.
-- **Internationalization (i18n):** Uses `next-intl` with cookie-based locale persistence (`NEXT_LOCALE`) to keep URLs clean (e.g., no `/vi/dashboard`). Managed via `src/i18n/request.ts` (does NOT use `next-intl/middleware`).
+### 2. Routing & Authentication
+- **React Router:** All routes are centrally configured in `src/main.tsx`.
+- **Auth Guards:** Route protection and redirects are handled purely on the client side via the `<ProtectedRoute>` component.
+- **Internationalization (i18n):** Uses the `next-intl` library (which provides a robust client-side API fully compatible with Vite SPA) initialized via `NextIntlClientProvider`. Translations are stored in the `messages/` directory.
 
 ### 3. State & Form Management
 - **Validation:** ANY Form must have its Schema defined using **Zod** before building the UI. Store Schema files at `src/features/[name]/schemas/`.
@@ -48,34 +48,38 @@ src/
 - **Interfaces/Types:** PascalCase (e.g., `Customer`, `UserRole`).
 
 ### 4. Code UI & CSS
-- **CSS Modules:** Default to using CSS Modules (`Component.module.css`) to scope CSS and avoid global class name conflicts.
-- **UI Reusability:** If a piece of UI (like a button, badge, or search bar) appears in 2 or more places, it MUST be extracted into a reusable Component within `src/components/ui/`.
-- **Color Variables:** Prioritize using global CSS variables defined in `globals.css` (e.g., `var(--gray-500)`) instead of hardcoding HEX colors.
+- **Tailwind CSS:** Default to Tailwind v4 for all styling. Avoid writing raw CSS unless necessary for complex animations or global variables.
+- **UI Reusability:** If a piece of UI (like a button, badge, or search bar) appears in 2 or more places, it MUST be extracted into a reusable Component within `src/components/common/`.
+- **Global CSS Variables:** Manage themes (light/dark, primary colors) using CSS variables in `src/styles/globals.css`. Use the `cn()` utility function (clsx + tailwind-merge) to safely merge Tailwind classes.
 
 ### 5. Workflow for Developing a New Feature
 When assigned to build a new page (e.g., **Products List**), follow this exact sequence:
 
 1. **Step 1:** Create the domain directory `src/features/products/`.
 2. **Step 2:** Define data structures in `src/features/products/schemas/productSchema.ts` (Zod schema, interfaces).
-3. **Step 3:** Create the UI Component `src/features/products/components/ProductsTable.tsx` (Client component to render the table and buttons).
-4. **Step 4:** Create the Server page `src/app/(admin)/products/page.tsx` to fetch data from the API and pass it into `<ProductsTable />`.
-5. **Step 5:** (Optional) Write API functions inside `src/features/products/api/`.
+3. **Step 3:** Create the UI Component `src/features/products/components/ProductsTable.tsx` to render the table.
+4. **Step 4:** Create the Page Component `src/pages/admin/ProductsPage.tsx` to fetch data from the API and pass it into `<ProductsTable />`.
+5. **Step 5:** Add the new route with `React.lazy()` inside `src/main.tsx`.
+6. **Step 6:** (Optional) Write API functions inside `src/features/products/api/`.
 
 ## 🚀 Getting Started
 
 ```bash
 # Install dependencies
-npm install
+yarn install
 
 # Run development server
-npm run dev
+yarn dev
 
 # Build for production & start
-npm run build && npm start
+yarn build && yarn start
 ```
 
 ## 🛠️ Built With
-- Next.js (App Router)
-- CSS Modules
+- Vite & React (SPA)
+- Tailwind CSS v4
 - TypeScript
+- React Router DOM
+- Zustand (State Management)
 - Zod & React Hook Form
+- i18n Support (via next-intl client API)
