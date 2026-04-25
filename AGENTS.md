@@ -1,5 +1,5 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+<!-- BEGIN:react-spa-agent-rules -->
+# React SPA Base (Vite)
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+This is a Vite-based React SPA. Use React Router for navigation and feature-sliced design (FSD) for structure.
+<!-- END:react-spa-agent-rules -->

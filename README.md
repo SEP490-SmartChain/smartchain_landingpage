@@ -1,4 +1,4 @@
-# Web Admin Project
+# React SPA Base
 
 This project provides a clean, production-ready, and highly scalable foundation for our Vite React SPA Web Admin application, applying the Feature-Sliced Design (FSD) model to ensure the source code is easy to read, maintain, and scale.
 

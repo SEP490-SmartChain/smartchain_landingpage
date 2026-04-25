@@ -1,4 +1,4 @@
-# Hướng dẫn Code Convention (Dự án Web Admin)
+# Hướng dẫn Code Convention (Dự án React SPA Base)
 
 Tài liệu này quy định các chuẩn mực về cấu trúc thư mục, quy tắc viết code và quản lý luồng dữ liệu (Data Flow) trong dự án, đảm bảo source code dễ đọc, dễ bảo trì và dễ scale.
 
