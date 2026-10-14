@@ -1,43 +1,35 @@
-const ARCH_LAYERS = [
-  {
-    step: '01',
-    name: 'Ingestion & Webhook Gateway',
-    tag: 'TẦNG KẾT NỐI ĐA KÊNH',
-    desc: 'Tiếp nhận 10.000+ đơn/s qua Webhook từ Shopee, TikTok Shop, Lazada, WooCommerce, Shopify và ERP nội bộ với độ trễ < 10ms.',
-    badge: '< 10ms Latency',
-    color: '#00E599',
-    tech: ['Kafka Stream', 'Webhook Validator', 'Idempotency Key'],
-  },
-  {
-    step: '02',
-    name: 'Haversine Spatial & Inventory Matrix',
-    tag: 'ĐỊNH TUYẾN KHO THÔNG MINH',
-    desc: 'Tính toán tọa độ người nhận theo công thức Haversine, quét tồn kho thời gian thực ở 4 Hub và tự động phân bổ đơn hoặc chia tách Sub-Orders.',
-    badge: '< 50ms Processing',
-    color: '#00B4FF',
-    tech: ['Spatial Index (PostGIS)', 'Haversine Matrix', 'Sub-Order Engine'],
-  },
-  {
-    step: '03',
-    name: 'Dynamic 3PL Rate Shopping Engine',
-    tag: 'ĐẤU GIÁ CƯỚC THỜI GIAN THỰC',
-    desc: 'Đấu giá cước trực tiếp với GHN, GHTK, Viettel Post, Ninja Van theo gram trọng lượng và cam kết SLA, tự động chọn đơn vị tối ưu nhất.',
-    badge: '15-28% Cost Saving',
-    color: '#FFB800',
-    tech: ['Multi-Carrier API', 'Rule Engine', 'Dynamic Tariff Cache'],
-  },
-  {
-    step: '04',
-    name: 'Stream Reconciliation & Audit Trail',
-    tag: 'ĐỐI SOÁT DỮ LIỆU TRIỆU DÒNG',
-    desc: 'Xử lý file đối soát 1.000.000 dòng trong 30 giây, tự động phát hiện chênh lệch trọng lượng thực tế, cước phát sinh và tiền COD thu hộ.',
-    badge: '99.99% Accuracy',
-    color: '#00E599',
-    tech: ['Stream Processing', 'Audit Ledger', 'Dispute Automation'],
-  },
-];
+import { useI18n } from '@/i18n/I18nContext';
 
 export default function LandingArchitecture() {
+  const { t } = useI18n();
+
+  const layers = [
+    {
+      step: '01',
+      ...t.architecture.layers.step1,
+      color: '#00E599',
+      tech: ['REST API', 'Google Sheets Hook', 'Idempotency Key'],
+    },
+    {
+      step: '02',
+      ...t.architecture.layers.step2,
+      color: '#00B4FF',
+      tech: ['Inventory Lock', 'FEFO Algorithm', 'Sub-Order Engine'],
+    },
+    {
+      step: '03',
+      ...t.architecture.layers.step3,
+      color: '#FFB800',
+      tech: ['Rule Engine', 'Carrier API', 'Idempotent Retry'],
+    },
+    {
+      step: '04',
+      ...t.architecture.layers.step4,
+      color: '#00E599',
+      tech: ['COD Reconciliation', 'Fee Ledger', 'Export Report'],
+    },
+  ];
+
   return (
     <section
       id="architecture"
@@ -50,28 +42,27 @@ export default function LandingArchitecture() {
           style={{ background: 'rgba(8,30,45,0.95)' }}
         >
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          <span>KIẾN TRÚC HỆ THỐNG ENTERPRISE</span>
+          <span>{t.architecture.badge}</span>
         </div>
 
         <h2
           className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight"
           style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
         >
-          Hạ Tầng Xử Lý Phân Tán{' '}
+          {t.architecture.heading}{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-            Siêu Tốc
+            {t.architecture.headingHighlight}
           </span>
         </h2>
 
         <p className="text-sm sm:text-base text-slate-400 max-w-[60ch] leading-relaxed">
-          Được thiết kế theo kiến trúc hướng sự kiện (Event-Driven Microservices), đảm bảo khả năng
-          mở rộng hàng triệu đơn hàng mỗi ngày mà không có điểm nghẽn.
+          {t.architecture.subheading}
         </p>
       </div>
 
       {/* Architecture Flow Pipeline */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {ARCH_LAYERS.map((layer) => (
+        {layers.map((layer) => (
           <div
             key={layer.step}
             className="group relative flex flex-col justify-between p-6 rounded-2xl border transition-transform duration-300 hover:-translate-y-1.5"

@@ -62,8 +62,9 @@ export default function LandingPage() {
 
         {/* ── Hero: 3D + Scrollytelling ───────────────────────────────────── */}
         <section
+          id="stories"
           className="relative w-full"
-          aria-label="SmartChain — Intelligent Multi-Warehouse Logistics"
+          aria-label="ORCA — Nền tảng SaaS Điều Phối Đơn Hàng Đa Kho & Phân Bổ Vận Chuyển"
         >
           {/* Fixed 3D canvas — hidden when user scrolls past story section */}
           <div

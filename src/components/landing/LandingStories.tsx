@@ -1,9 +1,10 @@
-import { useState, useRef, useEffect, type RefObject } from 'react';
+import { useState, useRef, useEffect, useMemo, type RefObject } from 'react';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { ADMIN_LOGIN_URL } from '@/config/site';
+import { useI18n } from '@/i18n/I18nContext';
 
 import type { LandingCanvasHandle } from './LandingCanvas';
 
@@ -12,16 +13,16 @@ gsap.registerPlugin(ScrollTrigger);
 // ── 6 Narrative Spatial Stops with Dynamic Left/Right Alternating HUD Layout ──
 // • Kho bên TRÁI (Tồn Kho Mù, Rate Shopping)  -> Camera dạt sang phải, Thẻ chữ hiện bên PHẢI (align: 'right')
 // • Kho bên PHẢI (Trễ Hạn, Smart Routing)      -> Camera dạt sang trái, Thẻ chữ hiện bên TRÁI (align: 'left')
-// • Lõi SmartChain ở GIỮA                     -> Thẻ chữ hiện bên TRÁI (align: 'left')
+// • Lõi ORCA ở GIỮA                           -> Thẻ chữ hiện bên TRÁI (align: 'left')
 export const SPATIAL_STOPS = [
   {
     id: 0,
     nodeCode: 'GLOBAL',
     tag: 'TỔNG QUAN HỆ THỐNG',
-    title: 'Mạng Lưới Điều Phối Logistics Đa Kho Thông Minh',
+    title: 'Mạng Lưới Điều Phối Đơn Hàng Đa Kho — Ba Miền',
     subtitle: 'Đồng bộ đa điểm · Tối ưu tự động',
     description: '',
-    nodeBadge: '4 NÚT HOẠT ĐỘNG · 1 TRUNG TÂM SMARTCHAIN',
+    nodeBadge: '3 KHO · HÀ NỘI · ĐÀ NẴNG · TP.HCM',
     accentColor: '#00E599',
     align: 'left' as const,
     stats: [],
@@ -37,27 +38,27 @@ export const SPATIAL_STOPS = [
   {
     id: 1,
     nodeCode: 'PAIN-01',
-    tag: 'NỖI ĐAU 01 · VẬN HÀNH THỦ CÔNG',
-    title: 'Tồn Kho Mù & Chọn Kho Bằng Tay',
-    subtitle: '10.000+ đơn/ngày · Quản lý trên Excel 50 cột',
+    tag: 'NỖI ĐAU 01 · GIAO HÀNG CHẬM',
+    title: 'Hàng Ở Một Nơi, Khách ở Ba Miền',
+    subtitle: 'Giao liên miền 3–5 ngày · Tự đóng hàng 125 giờ/tháng',
     description:
-      'Hàng hóa nằm phân tán ở nhiều kho nhưng hệ thống không liên thông. Đội ngũ vận hành phải gọi điện thoại kiểm tra từng kho, phân loại đơn thủ công dẫn đến nghẽn kho và xuất hàng chậm trễ.',
-    nodeBadge: '⚠️ NGUY CƠ: QUÁ TẢI CỤC BỘ',
+      'Shop ở Đà Nẵng bán hàng khô cho khách Hà Nội và TP.HCM. Mỗi kiện 1 kg gửi đi mất 35.000đ và 3–5 ngày. Tối nào hai vợ chồng cũng tự đóng hàng mà khách vẫn nhận chậm và dễ gửi nhầm vì không quét mã.',
+    nodeBadge: '⚠️ GIAO XA CHẬM & TỐN CÔNG ĐÓNG GÓI',
     accentColor: '#FFB800',
     align: 'right' as const, // Thẻ chữ bên PHẢI
     stats: [
-      { value: '85%', label: 'Lãng phí chia tay' },
-      { value: '50+', label: 'Cột Excel thủ công' },
-      { value: '3 ngày', label: 'Thời gian xử lý' },
+      { value: '3–5 ngày', label: 'Giao liên miền' },
+      { value: '35.000đ', label: 'Cước 1 kg xa' },
+      { value: '125 giờ', label: 'Tự đóng hàng/tháng' },
     ],
     hudPills: [
-      { icon: '📋', text: 'Tồn kho không đồng bộ thời gian thực giữa các sàn TMĐT và kho vật lý' },
+      { icon: '📦', text: 'Hàng ở một nơi, đơn ở hai miền còn lại đều gửi xa — chậm và tốn tiền' },
       {
-        icon: '⚠️',
-        text: 'Nguy cơ cạn hàng ảo hoặc bán vượt quá số lượng tồn thực tế (Overselling)',
+        icon: '⏰',
+        text: 'Tự đóng hàng không quét mã dễ gửi nhầm, gửi thiếu mà không biết',
       },
     ],
-    cta: 'Khám phá cách SmartChain xử lý',
+    cta: 'ORCA giúp giao nhanh hơn 1–4 ngày',
     ctaLink: '#features',
     // Node ở [-2.6, 0, -2.6]. Camera nhìn sang [-1.2, ...] -> Kho nằm trọn vẹn ở nửa bên TRÁI!
     cam: {
@@ -68,27 +69,27 @@ export const SPATIAL_STOPS = [
   {
     id: 2,
     nodeCode: 'PAIN-02',
-    tag: 'NỖI ĐAU 02 · LỆCH TUYẾN & ĐƠN KẸT',
-    title: 'Giao Hàng Xa, Trễ Hạn & Hoàn Đơn',
-    subtitle: 'Đơn kẹt > 48h · Chi phí vận chuyển tăng gấp 3',
+    tag: 'NỖI ĐAU 02 · HÀNG HẾT HẠN',
+    title: 'Hàng Có Hạn Dùng Bị Huỷ Vì Không Theo Dõi Lô',
+    subtitle: 'Bán lô mới trước · Lô cũ nằm đến khi hết hạn',
     description:
-      'Khách ở Cần Thơ nhưng đơn lại xuất từ kho Bắc Ninh do thiếu dữ liệu định tuyến. Thời gian giao kéo dài 4–5 ngày khiến khách hủy đơn, tỷ lệ hoàn hàng (RTO) lên tới 18.5%, biên lợi nhuận bốc hơi.',
-    nodeBadge: '⚠️ NGHỄN TUYẾN & TỶ LỆ HOÀN CAO',
+      'Shop không theo dõi lô, bán hàng mới trước, lô cũ nằm lại đến khi hết hạn. Hàng đặc sản, gạo, cà phê có hạn dùng ngắn — phải huỷ càng lãng phí. Không biết lô nào đã giao cho ai để thu hồi khi có sự cố.',
+    nodeBadge: '⚠️ HÀNG HẾT HẠN & KHÔNG TRUY XUẤT ĐƯỢC',
     accentColor: '#FF4444',
     align: 'left' as const, // Thẻ chữ bên TRÁI
     stats: [
-      { value: '+4.2d', label: 'Thời gian trễ hẹn' },
-      { value: '18.5%', label: 'Tỷ lệ hoàn RTO' },
-      { value: '-30%', label: 'Lợi nhuận ròng' },
+      { value: 'Lãng phí', label: 'Hàng bị huỷ' },
+      { value: '???', label: 'Không biết lô đã giao' },
+      { value: 'Mất vốn', label: 'Không thu hồi được' },
     ],
     hudPills: [
       {
-        icon: '⏱️',
-        text: 'Giao hàng trễ khiến khách hàng mất kiên nhẫn và từ chối nhận hàng (RTO)',
+        icon: '🗓️',
+        text: 'Không theo dõi lô — không biết lô nào đã giao cho ai khi cần thu hồi',
       },
-      { icon: '💸', text: 'Doanh nghiệp gánh thêm 2 lần chi phí vận chuyển chiều đi và chiều về' },
+      { icon: '🛢️', text: 'Hàng bị huỷ vì hết hạn là lãng phí trực tiếp cho người bán' },
     ],
-    cta: 'Xem giải pháp Smart Routing',
+    cta: 'ORCA xuất lô gần hết hạn trước',
     ctaLink: '#features',
     // Node ở [2.6, 0, -2.6]. Camera nhìn sang [1.2, ...] -> Kho nằm trọn vẹn ở nửa bên PHẢI!
     cam: {
@@ -99,24 +100,24 @@ export const SPATIAL_STOPS = [
   {
     id: 3,
     nodeCode: 'SOL-01',
-    tag: 'GIẢI PHÁP 01 · ĐỊNH TUYẾN THÔNG MINH',
-    title: 'Smart Routing: Tối Ưu Kho Gần Nhất',
-    subtitle: 'Khoảng cách Haversine < 50ms · Tự động tách Sub-Orders',
+    tag: 'GIẢI PHÁP 01 · CHỌN KHO & LÔ',
+    title: 'ORCA Chọn Kho Gần Nhất & Xuất Lô Theo Hạn',
+    subtitle: 'FEFO — Xuất lô gần hết hạn trước · Tự tách đơn đa kho',
     description:
-      'SmartChain quét tọa độ người nhận và tồn kho 4 Hub trong dưới 50ms. Tự động chọn kho gần nhất còn hàng. Nếu đơn gồm nhiều sản phẩm ở các kho khác nhau, hệ thống tự động tách Sub-Orders và chia tiền COD chuẩn xác 0đ sai lệch.',
-    nodeBadge: '⚡ TỐI ƯU HÓA ĐỊNH TUYẾN',
-    accentColor: '#A855F7', // Distinct Cyber Violet
+      'ORCA tự chọn kho gần người mua nhất và xuất lô gần hết hạn trước. Nếu một kho không đủ hàng, tự tách đơn tối đa 3 kiện từ nhiều kho và phân bổ tiền COD chính xác 0đ sai lệch. Không bao giờ xuất lô đã hết hạn hoặc đang bị thu hồi.',
+    nodeBadge: '⚡ CHỌN KHO & LÔ TỐI ƯU',
+    accentColor: '#A855F7',
     align: 'left' as const, // Thẻ chữ bên TRÁI
     stats: [
-      { value: '< 50ms', label: 'Tốc độ định tuyến' },
-      { value: '-40%', label: 'Thời gian xử lý' },
+      { value: 'FEFO', label: 'Xuất lô đúng' },
+      { value: '≤3 kiện', label: 'Tách đơn đa kho' },
       { value: '0đ', label: 'Sai lệch tiền COD' },
     ],
     hudPills: [
-      { icon: '⚡', text: 'Tự động định vị kho xuất hàng tối ưu nhất theo tọa độ thực tế' },
-      { icon: '🔀', text: 'Tự động tách đơn & phân bổ tiền thu hộ COD chuẩn xác tuyệt đối' },
+      { icon: '⚡', text: 'Xuất lô gần hết hạn trước — giảm hàng bị huỷ vì hết hạn' },
+      { icon: '🔀', text: 'Tự tách đơn & phân bổ tiền thu hộ COD chuẩn xác tuyệt đối' },
     ],
-    cta: 'Xem chi tiết Smart Routing',
+    cta: 'Xem chi tiết cách chọn kho',
     ctaLink: '#features',
     // Node ở [2.6, 0, 2.6]. Camera nhìn sang [1.2, ...] -> Kho nằm trọn vẹn ở nửa bên PHẢI!
     cam: {
@@ -127,22 +128,22 @@ export const SPATIAL_STOPS = [
   {
     id: 4,
     nodeCode: 'SOL-02',
-    tag: 'GIẢI PHÁP 02 · ĐẤU GIÁ CƯỚC 3PL',
-    title: 'Rate Shopping: Đấu Giá Cước Thời Gian Thực',
-    subtitle: 'Tích hợp sẵn GHN, GHTK, Viettel Post, Ninja Van',
+    tag: 'GIẢI PHÁP 02 · CHỌN HÃNG TỰ ĐỘNG',
+    title: 'ORCA Chọn Hãng & Tự Chuyển Khi Hãng Lỗi',
+    subtitle: 'Tích hợp sẵn GHN, GHTK, Viettel Post, J&T',
     description:
-      'Không còn chọn hãng vận chuyển bằng cảm tính. Rule Engine so sánh bảng cước của 4+ đơn vị vận chuyển theo từng gram trọng lượng và địa chỉ người nhận. Tự động chọn hãng rẻ nhất, giao nhanh nhất trong 15ms.',
-    nodeBadge: '💰 TIẾT KIỆM 15% – 28% CƯỚC PHÍ',
+      'Luật chọn hãng do điều phối viên ORCA đặt. Hãng lỗi mùa sale thì hệ thống tự chuyển sang hãng dự phòng — không tạo trùng vận đơn. Mọi vận đơn đều tạo bằng tài khoản ORCA, người bán không cần tài khoản riêng với hãng.',
+    nodeBadge: '🔗 TỰ ĐỘNG FAILOVER HÃNG',
     accentColor: '#00B4FF',
     align: 'right' as const, // Thẻ chữ bên PHẢI
     stats: [
-      { value: '-25%', label: 'Chi phí cước' },
-      { value: '4+ 3PL', label: 'Hãng vận chuyển' },
-      { value: '< 200ms', label: 'Tạo mã vận đơn' },
+      { value: 'Tự động', label: 'Chuyển hãng khi lỗi' },
+      { value: '4+', label: 'Hãng dự phòng' },
+      { value: '0', label: 'Trùng vận đơn' },
     ],
     hudPills: [
-      { icon: '💰', text: 'Tiết kiệm trung bình 3.000đ – 8.000đ trên mỗi đơn hàng' },
-      { icon: '🔗', text: 'Tự động đẩy API lấy mã vận đơn trực tiếp sang GHTK, GHN, Viettel Post' },
+      { icon: '💰', text: 'Người bán không cần tài khoản riêng với GHN, GHTK hay Viettel Post' },
+      { icon: '🔗', text: 'Hãng lỗi thì tự failover sang hãng dự phòng — không kẹt đơn' },
     ],
     cta: 'Xem cấu hình Rule Engine',
     ctaLink: '#features',
@@ -156,11 +157,11 @@ export const SPATIAL_STOPS = [
     id: 5,
     nodeCode: 'CORE',
     tag: 'TRỌNG TÂM · TRUNG TÂM ĐIỀU PHỐI',
-    title: 'SmartChain: Lõi Điều Phối Hợp Nhất Toàn Diện',
-    subtitle: 'Stream Processing · 100% Phát hiện Lệch cước & Gian lận',
+    title: 'ORCA: Trợ Lý Kho Vận Cho Shop Online',
+    subtitle: 'Giao nhanh hơn 1–4 ngày · Không lo hàng hết hạn · Rõ tiền COD',
     description:
-      'Toàn bộ dữ liệu mạng lưới đổ về Lõi Điều Phối SmartChain. Đối soát 1.000.000 dòng file Excel từ các hãng vận chuyển hoàn tất trong 30 giây thay vì 3 ngày kế toán thức trắng. Bắt chính xác 100% lệch cân nặng và tiền COD.',
-    nodeBadge: '⚡ SMARTCHAIN ORCHESTRATION ENGINE',
+      'Toàn bộ chuỗi kho vận đổ về ORCA. Shop chỉ cần tạo phiếu gửi hàng và theo dõi — ORCA lo mọi việc: xếp hàng vào kệ, quét mã xuất kho, chụp ảnh kiện hàng, đối soát COD hàng tuần và chuyển khoản về tài khoản.',
+    nodeBadge: '⚡ ORCA — TRUNG TÂM KHO VẬN',
     accentColor: '#00E599',
     align: 'left' as const, // Thẻ chữ bên TRÁI
     stats: [
@@ -169,10 +170,10 @@ export const SPATIAL_STOPS = [
       { value: '1M+ Dòng', label: 'Xử lý dữ liệu' },
     ],
     hudPills: [
-      { icon: '🎯', text: 'Tự động phát hiện chênh lệch trọng lượng thực tế và cước khống' },
-      { icon: '📊', text: 'Báo cáo doanh thu, chi phí logistics và tiền COD về tài khoản tức thì' },
+      { icon: '🎯', text: 'Xuất lô gần hết hạn trước — giảm hàng bị huỷ, cảnh báo sắp hết hàng từng kho' },
+      { icon: '📊', text: 'Báo cáo tồn kho, đơn hàng, tiền COD — xuất theo kỳ để tự kê khai thuế' },
     ],
-    cta: 'Bắt đầu sử dụng SmartChain',
+    cta: 'Bắt đầu sử dụng ORCA',
     ctaLink: ADMIN_LOGIN_URL,
     // Center Core ở [0, 0, 0]. Camera nhìn sang [-1.4, ...] -> Lõi nằm trọn vẹn ở nửa bên PHẢI!
     cam: {
@@ -187,9 +188,20 @@ export default function LandingStories({
 }: {
   canvasRef: RefObject<LandingCanvasHandle | null>;
 }) {
+  const { t } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIdx, setActiveIdx] = useState<number>(0);
   const activeIdxRef = useRef<number>(0);
+
+  const spatialStops = useMemo(() => [
+    { ...SPATIAL_STOPS[0], ...t.hero.stops.global },
+    { ...SPATIAL_STOPS[1], ...t.hero.stops.pain1 },
+    { ...SPATIAL_STOPS[2], ...t.hero.stops.pain2 },
+    { ...SPATIAL_STOPS[3], ...t.hero.stops.sol1 },
+    { ...SPATIAL_STOPS[4], ...t.hero.stops.sol2 },
+    { ...SPATIAL_STOPS[5], ...t.hero.stops.core },
+  ], [t.hero.stops]);
+
   // Use ref + direct DOM mutation instead of React state to avoid re-render on every scroll tick
   const progressBarRef = useRef<HTMLDivElement>(null);
   const currentAccentRef = useRef<string>(SPATIAL_STOPS[0].accentColor);
@@ -253,7 +265,7 @@ export default function LandingStories({
     return () => ctx.revert();
   }, [canvasRef]);
 
-  const currentStop = SPATIAL_STOPS[activeIdx];
+  const currentStop = spatialStops[activeIdx] ?? spatialStops[0];
 
   const handleJumpToStop = (idx: number) => {
     if (!containerRef.current) return;
@@ -283,21 +295,19 @@ export default function LandingStories({
                 }}
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>HỆ THỐNG ĐIỀU PHỐI LOGISTICS ĐA KHO THÔNG MINH</span>
+                <span>{t.hero.systemBadge}</span>
               </div>
 
               <h1
                 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 tracking-tight"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
-                Khám Phá Mạng Lưới SmartChain
+                {t.hero.exploreTitle}
               </h1>
 
               <p className="text-[11px] sm:text-xs text-slate-300 font-mono flex items-center gap-2">
                 <span>🖱️</span>
-                <span>
-                  Lăn chuột hoặc Click trực tiếp vào 4 điểm nút & Lõi trung tâm để khám phá
-                </span>
+                <span>{t.hero.exploreHint}</span>
               </p>
 
               {/* Bouncing scroll prompt */}
@@ -307,7 +317,7 @@ export default function LandingStories({
                 className="mt-1 flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white border border-white/15 cursor-pointer transition-colors"
                 style={{ background: 'rgba(255,255,255,0.06)' }}
               >
-                <span>Bắt đầu tham quan</span>
+                <span>{t.hero.startTour}</span>
                 <span>↓</span>
               </button>
             </div>

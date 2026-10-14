@@ -3,17 +3,19 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 
 import { ADMIN_LOGIN_URL } from '@/config/site';
-
-const NAV_LINKS = [
-  { label: 'Solutions', href: '#features' },
-  { label: 'Architecture', href: '#architecture' },
-  { label: 'Enterprise Pricing', href: '#pricing' },
-  { label: 'API Docs', href: '#docs' },
-] as const;
+import { useI18n } from '@/i18n/I18nContext';
 
 export default function LandingNav() {
+  const { language, toggleLanguage, t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const navLinks = [
+    { label: t.nav.stories, href: '#stories' },
+    { label: t.nav.features, href: '#features-grid' },
+    { label: t.nav.architecture, href: '#architecture' },
+    { label: t.nav.pricing, href: '#pricing' },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 48);
@@ -31,7 +33,7 @@ export default function LandingNav() {
           initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-          className="flex items-center gap-6 px-4 py-2 rounded-full transition-all"
+          className="flex items-center gap-4 sm:gap-6 px-4 py-2 rounded-full transition-all"
           style={{
             background: scrolled ? 'rgba(5,11,20,0.85)' : 'rgba(5,11,20,0.6)',
             backdropFilter: 'blur(20px)',
@@ -43,26 +45,26 @@ export default function LandingNav() {
           }}
         >
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 mr-4" style={{ textDecoration: 'none' }}>
+          <a href="/" className="flex items-center gap-2.5 mr-2 sm:mr-4" style={{ textDecoration: 'none' }}>
             <span
               className="w-8 h-8 rounded-lg flex items-center justify-center text-sm font-black"
               style={{ background: '#00E599', color: '#050B14' }}
             >
-              SC
+              OR
             </span>
             <span
               className="font-bold text-white hidden sm:block"
               style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '15px' }}
             >
-              Smart<span style={{ color: '#00E599' }}>Chain</span>
+              <span style={{ color: '#00E599' }}>ORCA</span>
             </span>
           </a>
 
           {/* Desktop links */}
           <div className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <a
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 onClick={(e) => {
                   if (link.href.startsWith('#')) {
@@ -74,7 +76,7 @@ export default function LandingNav() {
                     }
                   }
                 }}
-                className="px-4 py-1.5 rounded-full text-sm font-medium text-white/70 hover:text-white hover:bg-white/8 transition-all cursor-pointer"
+                className="px-3.5 py-1.5 rounded-full text-sm font-medium text-white/70 hover:text-white hover:bg-white/8 transition-all cursor-pointer"
                 style={{
                   transitionDuration: '300ms',
                   transitionTimingFunction: 'cubic-bezier(0.32,0.72,0,1)',
@@ -86,16 +88,38 @@ export default function LandingNav() {
           </div>
 
           {/* Right actions */}
-          <div className="flex items-center gap-3 ml-4">
+          <div className="flex items-center gap-2 sm:gap-3 ml-2 sm:ml-4">
+            {/* Language Switcher Button */}
+            <button
+              type="button"
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-semibold tracking-wider border transition-all cursor-pointer hover:border-emerald-400 active:scale-95"
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                borderColor: 'rgba(255,255,255,0.15)',
+                color: '#ffffff',
+              }}
+              title={language === 'vi' ? 'Switch to English' : 'Chuyển sang Tiếng Việt'}
+              aria-label="Toggle language"
+            >
+              <span className={language === 'vi' ? 'text-emerald-400 font-bold' : 'text-slate-400 opacity-70'}>
+                VI
+              </span>
+              <span className="text-white/20">|</span>
+              <span className={language === 'en' ? 'text-emerald-400 font-bold' : 'text-slate-400 opacity-70'}>
+                EN
+              </span>
+            </button>
+
             <a
               href={ADMIN_LOGIN_URL}
-              className="hidden sm:block px-4 py-1.5 rounded-full text-sm font-medium text-white/70 hover:text-white transition-colors"
+              className="hidden sm:block px-3.5 py-1.5 rounded-full text-sm font-medium text-white/70 hover:text-white transition-colors"
             >
-              Sign In
+              {t.nav.login}
             </a>
             <a
               href={ADMIN_LOGIN_URL}
-              className="group flex items-center gap-2 px-5 py-1.5 rounded-full text-sm font-semibold transition-all active:scale-[0.97]"
+              className="group flex items-center gap-2 px-4 sm:px-5 py-1.5 rounded-full text-sm font-semibold transition-all active:scale-[0.97]"
               style={{
                 background: '#00E599',
                 color: '#050B14',
@@ -104,12 +128,12 @@ export default function LandingNav() {
                 transitionTimingFunction: 'cubic-bezier(0.32,0.72,0,1)',
               }}
             >
-              Contact Sales
+              {t.cta.button}
             </a>
 
             {/* Hamburger – mobile */}
             <button
-              className="lg:hidden w-8 h-8 flex flex-col justify-center items-center gap-[5px] ml-1"
+              className="lg:hidden w-8 h-8 flex flex-col justify-center items-center gap-[5px] ml-1 cursor-pointer"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Toggle menu"
             >
@@ -143,7 +167,7 @@ export default function LandingNav() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 flex flex-col items-center justify-center gap-6"
             style={{
               zIndex: 90,
               background: 'rgba(5,11,20,0.92)',
@@ -151,15 +175,37 @@ export default function LandingNav() {
               WebkitBackdropFilter: 'blur(28px)',
             }}
           >
-            {NAV_LINKS.map((link, i) => (
+            {/* Mobile language switch */}
+            <button
+              type="button"
+              onClick={() => {
+                toggleLanguage();
+              }}
+              className="flex items-center gap-2 px-4 py-1.5 rounded-full text-sm font-mono font-semibold tracking-wider border mb-2 cursor-pointer"
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                borderColor: 'rgba(255,255,255,0.2)',
+                color: '#ffffff',
+              }}
+            >
+              <span className={language === 'vi' ? 'text-emerald-400 font-bold' : 'text-slate-400'}>
+                Tiếng Việt (VI)
+              </span>
+              <span className="text-white/30">|</span>
+              <span className={language === 'en' ? 'text-emerald-400 font-bold' : 'text-slate-400'}>
+                English (EN)
+              </span>
+            </button>
+
+            {navLinks.map((link, i) => (
               <motion.a
-                key={link.label}
+                key={link.href}
                 href={link.href}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ delay: i * 0.06, duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-                className="text-3xl font-bold text-white hover:text-[#00E599] transition-colors cursor-pointer"
+                className="text-2xl font-bold text-white hover:text-[#00E599] transition-colors cursor-pointer"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
                 onClick={(e) => {
                   setMenuOpen(false);
@@ -176,16 +222,17 @@ export default function LandingNav() {
                 {link.label}
               </motion.a>
             ))}
+
             <motion.a
               href={ADMIN_LOGIN_URL}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ delay: 0.28, duration: 0.35 }}
-              className="mt-4 px-8 py-3 rounded-full font-semibold text-lg"
+              className="mt-4 px-8 py-3 rounded-full font-semibold text-base"
               style={{ background: '#00E599', color: '#050B14' }}
             >
-              Contact Sales
+              {t.cta.button}
             </motion.a>
           </motion.div>
         )}

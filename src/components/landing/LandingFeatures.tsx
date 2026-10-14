@@ -1,10 +1,10 @@
-// Feature data — 5 intentional cells, gapless bento 2+3 layout
-const FEATURES = [
+import { useI18n } from '@/i18n/I18nContext';
+
+// Feature base structure — 5 intentional cells, gapless bento 2+3 layout
+const FEATURE_SLOTS = [
   {
-    id: 'f1',
+    id: 'f1' as const,
     span: 'col-span-1 md:col-span-2 row-span-2',
-    title: 'Smart Warehouse Routing',
-    desc: 'Thuật toán tự động phân tích tồn kho từng kho, khoảng cách đến địa chỉ giao, rồi chọn kho tối ưu nhất — không cần dispatcher can thiệp.',
     accent: '#00E599',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
@@ -19,14 +19,10 @@ const FEATURES = [
         />
       </svg>
     ),
-    imageSeed: 'warehouse-logistics-dark',
-    tag: null,
   },
   {
-    id: 'f2',
+    id: 'f2' as const,
     span: 'col-span-1',
-    title: 'Rate Shopping 3PL',
-    desc: 'So sánh cước GHN, GHTK, Viettel Post theo thời gian thực. Luật đặt sẵn, chạy tự động.',
     accent: '#00b4ff',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
@@ -40,14 +36,10 @@ const FEATURES = [
         />
       </svg>
     ),
-    imageSeed: null,
-    tag: '4+ Carriers',
   },
   {
-    id: 'f3',
+    id: 'f3' as const,
     span: 'col-span-1',
-    title: 'Order Split Engine',
-    desc: 'Chia tách đơn từ nhiều kho, phân bổ COD chính xác vào từng sub-order — ngay lập tức.',
     accent: '#a855f7',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
@@ -60,14 +52,10 @@ const FEATURES = [
         />
       </svg>
     ),
-    imageSeed: null,
-    tag: 'Auto-split',
   },
   {
-    id: 'f4',
+    id: 'f4' as const,
     span: 'col-span-1 md:col-span-2',
-    title: 'Financial Reconciliation',
-    desc: 'Đối soát 1M+ dòng dữ liệu COD, cước phí, điều chỉnh trọng lượng từ carrier — hoàn thành trong vài giây thay vì 3 ngày thủ công.',
     accent: '#f59e0b',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
@@ -88,30 +76,36 @@ const FEATURES = [
         />
       </svg>
     ),
-    imageSeed: null,
-    tag: '1M+ rows / session',
   },
 ] as const;
 
 export default function LandingFeatures() {
+  const { t } = useI18n();
+
+  const features = [
+    { ...FEATURE_SLOTS[0], ...t.features.items.f1 },
+    { ...FEATURE_SLOTS[1], ...t.features.items.f2 },
+    { ...FEATURE_SLOTS[2], ...t.features.items.f3 },
+    { ...FEATURE_SLOTS[3], ...t.features.items.f4 },
+  ];
+
   return (
     <section
       className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 max-w-[1400px] mx-auto"
       id="features-grid"
     >
-      {/* Section header – no eyebrow (following eyebrow restraint rule) */}
+      {/* Section header */}
       <div className="mb-10 md:mb-16 max-w-2xl">
         <h2
           className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-white leading-tight mb-4"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
-          Kiến trúc được xây dựng
+          {t.features.heading}
           <br />
-          <span style={{ color: '#00E599' }}>cho quy mô enterprise.</span>
+          <span style={{ color: '#00E599' }}>{t.features.headingHighlight}</span>
         </h2>
         <p className="text-gray-400 leading-relaxed max-w-[52ch]">
-          Mỗi tính năng được thiết kế để loại bỏ một điểm nghẽn thực tế trong vận hành logistics đa
-          kho của doanh nghiệp Việt Nam.
+          {t.features.subheading}
         </p>
       </div>
 
@@ -120,7 +114,7 @@ export default function LandingFeatures() {
         className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(200px,auto)]"
         style={{ gridAutoFlow: 'dense' }}
       >
-        {FEATURES.map((feat) => (
+        {features.map((feat) => (
           <article
             key={feat.id}
             className={`group relative overflow-hidden rounded-2xl ${feat.span}`}

@@ -1,68 +1,30 @@
 import { ADMIN_LOGIN_URL } from '@/config/site';
-
-const PRICING_TIERS = [
-  {
-    name: 'Starter',
-    tag: 'DÀNH CHO SHOP TĂNG TRƯỞNG',
-    price: '2.490.000',
-    unit: 'đ / tháng',
-    desc: 'Tự động hóa phân bổ kho và kết nối 2 đơn vị vận chuyển chính.',
-    popular: false,
-    color: '#CBD5E1',
-    features: [
-      'Tối đa 5.000 đơn hàng / tháng',
-      'Quản lý 2 Hub kho hàng',
-      'Định tuyến Smart Routing cơ bản',
-      'Kết nối 2 hãng vận chuyển 3PL',
-      'Đối soát tự động định kỳ tuần',
-      'Hỗ trợ kỹ thuật qua Ticket & Email',
-    ],
-    cta: 'Dùng thử 14 ngày',
-    ctaLink: ADMIN_LOGIN_URL,
-  },
-  {
-    name: 'Growth Pro',
-    tag: 'DOANH NGHIỆP ĐA KHO',
-    price: '6.890.000',
-    unit: 'đ / tháng',
-    desc: 'Tối ưu toàn diện 4+ Hub kho, đấu giá cước 3PL và đối soát real-time.',
-    popular: true,
-    color: '#00E599',
-    features: [
-      'Tối đa 50.000 đơn hàng / tháng',
-      'Không giới hạn số lượng Hub kho',
-      'Smart Routing Haversine < 50ms',
-      'Tự động tách Sub-Orders & phân bổ COD',
-      'Đấu giá cước Rate Shopping 4+ 3PL',
-      'Stream Reconciliation đối soát 30s',
-      'Hỗ trợ kỹ thuật 24/7 qua Hotline & Telegram',
-    ],
-    cta: 'Bắt đầu với Growth Pro',
-    ctaLink: ADMIN_LOGIN_URL,
-  },
-  {
-    name: 'Enterprise',
-    tag: 'TẬP ĐOÀN & THƯƠNG HIỆU LỚN',
-    price: 'Tùy chỉnh',
-    unit: 'theo quy mô',
-    desc: 'Hạ tầng Dedicated riêng biệt, cam kết SLA 99.99% và tích hợp ERP tùy biến.',
-    popular: false,
-    color: '#00B4FF',
-    features: [
-      '1.000.000+ đơn hàng / tháng',
-      'Dedicated Server & Database cô lập',
-      'Tích hợp tùy biến SAP, Oracle, Odoo ERP',
-      'Thuật toán định tuyến AI riêng theo yêu cầu',
-      'Cam kết SLA 99.99% Uptime',
-      'Quản lý tài khoản chuyên trách (Account Manager)',
-      'Hợp đồng bảo mật & Ký quỹ tài chính',
-    ],
-    cta: 'Liên hệ Tư Vấn Enterprise',
-    ctaLink: ADMIN_LOGIN_URL,
-  },
-];
+import { useI18n } from '@/i18n/I18nContext';
 
 export default function LandingPricing() {
+  const { t } = useI18n();
+
+  const tiers = [
+    {
+      ...t.pricing.tiers.starter,
+      popular: false,
+      color: '#CBD5E1',
+      ctaLink: ADMIN_LOGIN_URL,
+    },
+    {
+      ...t.pricing.tiers.growth,
+      popular: true,
+      color: '#00E599',
+      ctaLink: ADMIN_LOGIN_URL,
+    },
+    {
+      ...t.pricing.tiers.enterprise,
+      popular: false,
+      color: '#00B4FF',
+      ctaLink: ADMIN_LOGIN_URL,
+    },
+  ];
+
   return (
     <section
       id="pricing"
@@ -75,29 +37,27 @@ export default function LandingPricing() {
           style={{ background: 'rgba(2,30,18,0.95)' }}
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>BẢNG GIÁ MINH BẠCH · KHÔNG CHI PHÍ ẨN</span>
+          <span>{t.pricing.badge}</span>
         </div>
 
         <h2
           className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight"
           style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
         >
-          Đầu Tư Một Lần, Tiết Kiệm{' '}
+          {t.pricing.heading}{' '}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-400">
-            25% Chi Phí
-          </span>{' '}
-          Mỗi Tháng
+            {t.pricing.headingHighlight}
+          </span>
         </h2>
 
         <p className="text-sm sm:text-base text-slate-400 max-w-[60ch] leading-relaxed">
-          Linh hoạt theo quy mô vận hành. Hoàn vốn ngay trong tháng đầu tiên nhờ giảm chi phí lệch
-          cước và đơn hoàn.
+          {t.pricing.subheading}
         </p>
       </div>
 
       {/* Pricing Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-        {PRICING_TIERS.map((tier) => (
+        {tiers.map((tier) => (
           <div
             key={tier.name}
             className={`relative flex flex-col justify-between p-8 rounded-3xl border transition-transform duration-300 ${

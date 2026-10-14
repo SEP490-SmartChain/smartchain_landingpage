@@ -4,6 +4,8 @@ import { Line, Html } from '@react-three/drei';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 
+import { useI18n } from '@/i18n/I18nContext';
+
 // ── Types ──────────────────────────────────────────────────────────────────────
 export interface LandingCanvasHandle {
   setCameraTarget: (x: number, y: number, z: number) => void;
@@ -22,8 +24,8 @@ export const NODES_DATA = [
     id: 0,
     stopIdx: 1,
     tag: 'NỖI ĐAU 01',
-    name: 'Tồn Kho Mù & Chọn Kho Thủ Công',
-    shortLabel: 'Tồn Kho Mù',
+    name: 'Hàng Ở Một Nơi, Khách Ba Miền',
+    shortLabel: 'Giao Xa & Chậm',
     code: 'PAIN-01',
     pos: [-2.6, 0, -2.6] as [number, number, number],
     accent: '#FFB800',
@@ -33,8 +35,8 @@ export const NODES_DATA = [
     id: 1,
     stopIdx: 2,
     tag: 'NỖI ĐAU 02',
-    name: 'Giao Xa, Trễ Hạn & Hoàn Đơn',
-    shortLabel: 'Trễ Hạn & Hoàn Đơn',
+    name: 'Hàng Hết Hạn Do Thiếu Quản Lý Lô',
+    shortLabel: 'Hàng Hết Hạn',
     code: 'PAIN-02',
     pos: [2.6, 0, -2.6] as [number, number, number],
     accent: '#FF4444',
@@ -44,8 +46,8 @@ export const NODES_DATA = [
     id: 2,
     stopIdx: 3,
     tag: 'GIẢI PHÁP 01',
-    name: 'Smart Routing Tối Ưu Tọa Độ',
-    shortLabel: 'Smart Routing',
+    name: 'Chọn Kho Gần & Xuất Lô FEFO',
+    shortLabel: 'Kho & Lô FEFO',
     code: 'SOL-01',
     pos: [2.6, 0, 2.6] as [number, number, number],
     accent: '#A855F7',
@@ -55,8 +57,8 @@ export const NODES_DATA = [
     id: 3,
     stopIdx: 4,
     tag: 'GIẢI PHÁP 02',
-    name: 'Rate Shopping Đấu Giá Cước',
-    shortLabel: 'Rate Shopping',
+    name: 'Chọn Hãng Tự Động & Failover',
+    shortLabel: 'Hãng & Failover',
     code: 'SOL-02',
     pos: [-2.6, 0, 2.6] as [number, number, number],
     accent: '#00B4FF',
@@ -496,8 +498,8 @@ function WarehouseNode({
   );
 }
 
-// ── Central SmartChain Core ────────────────────────────────────────────────────
-function CentralSmartChainCore({
+// ── Central ORCA Core ────────────────────────────────────────────────────────
+function CentralOrcaCore({
   color,
   activeSceneIdx,
   onSelect,
@@ -506,25 +508,26 @@ function CentralSmartChainCore({
   activeSceneIdx: number;
   onSelect?: (idx: number) => void;
 }) {
+  const { t } = useI18n();
   const [hovered, setHovered] = useState(false);
   const octRef = useRef<THREE.Mesh>(null);
   const ring1 = useRef<THREE.Mesh>(null);
   const ring2 = useRef<THREE.Mesh>(null);
   const innerGlowRef = useRef<THREE.Mesh>(null);
-  const t = useRef(0);
+  const timeRef = useRef(0);
 
   const isFocusedCore = activeSceneIdx === 5;
   const coreColor = isFocusedCore || hovered ? '#00E599' : color;
 
   useFrame((_, delta) => {
-    t.current += delta;
+    timeRef.current += delta;
     if (octRef.current) {
       octRef.current.rotation.y += delta * (isFocusedCore || hovered ? 3 : 0.9);
       octRef.current.rotation.x += delta * (isFocusedCore || hovered ? 1.4 : 0.45);
       const scale =
         isFocusedCore || hovered
-          ? 1.4 + 0.18 * Math.sin(t.current * 4)
-          : 1.0 + 0.09 * Math.sin(t.current * 2);
+          ? 1.4 + 0.18 * Math.sin(timeRef.current * 4)
+          : 1.0 + 0.09 * Math.sin(timeRef.current * 2);
       octRef.current.scale.setScalar(scale);
     }
     if (ring1.current) ring1.current.rotation.z += delta * (isFocusedCore || hovered ? 1.8 : 0.55);
@@ -532,8 +535,8 @@ function CentralSmartChainCore({
     if (innerGlowRef.current) {
       innerGlowRef.current.scale.setScalar(
         isFocusedCore || hovered
-          ? 1.2 + 0.3 * Math.sin(t.current * 3)
-          : 0.8 + 0.1 * Math.sin(t.current * 1.5),
+          ? 1.2 + 0.3 * Math.sin(timeRef.current * 3)
+          : 0.8 + 0.1 * Math.sin(timeRef.current * 1.5),
       );
     }
   });
@@ -607,7 +610,7 @@ function CentralSmartChainCore({
         />
       </mesh>
 
-      {/* SmartChain Label */}
+      {/* ORCA Core Label */}
       <Html position={[0, 0.92, 0]} center className="select-none pointer-events-auto">
         <button
           type="button"
@@ -624,7 +627,7 @@ function CentralSmartChainCore({
           }}
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>⚡ SmartChain</span>
+          <span>{t.hero.coreLabel}</span>
         </button>
       </Html>
     </group>
@@ -692,6 +695,17 @@ function MainScene({
   onSelectNode?: (idx: number) => void;
   dustCount?: number;
 }) {
+  const { t } = useI18n();
+  const nodesData = useMemo(
+    () => [
+      { ...NODES_DATA[0], ...t.hero.nodes.pain1 },
+      { ...NODES_DATA[1], ...t.hero.nodes.pain2 },
+      { ...NODES_DATA[2], ...t.hero.nodes.sol1 },
+      { ...NODES_DATA[3], ...t.hero.nodes.sol2 },
+    ],
+    [t.hero.nodes],
+  );
+
   const color = accentRef.current ?? '#00E599';
   const activeSceneIdx = sceneIndexRef.current ?? 0;
   const isCrisis = activeSceneIdx === 2 || color === '#FF4444';
@@ -718,14 +732,14 @@ function MainScene({
       <OrbitalDust count={dustCount} color={color} />
 
       <GridFloor color={color} />
-      <CentralSmartChainCore
+      <CentralOrcaCore
         color={color}
         activeSceneIdx={activeSceneIdx}
         onSelect={onSelectNode}
       />
 
       {/* Radar Scan Waves on focused node */}
-      {NODES_DATA.map((node) => (
+      {nodesData.map((node) => (
         <RadarWave
           key={node.id}
           position={node.pos}
@@ -735,7 +749,7 @@ function MainScene({
       ))}
 
       {/* 4 Interactive Nodes */}
-      {NODES_DATA.map((node) => (
+      {nodesData.map((node) => (
         <WarehouseNode
           key={node.id}
           node={node}

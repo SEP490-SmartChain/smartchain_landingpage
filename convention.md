@@ -1,4 +1,4 @@
-# SmartChain Landing Page Conventions
+# ORCA Landing Page Conventions
 
 - This repository contains the public marketing experience only. Admin pages,
   authentication state and business API clients belong in `smartchain_fe`.

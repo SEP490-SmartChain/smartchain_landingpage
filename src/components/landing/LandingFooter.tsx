@@ -1,12 +1,15 @@
-// Footer content belongs exclusively to the public marketing site.
-const FOOTER_LINKS = {
-  Product: ['Smart Routing', 'Rate Shopping', 'Order Split', 'Reconciliation', 'Analytics'],
-  Integrations: ['GHN API', 'GHTK API', 'Viettel Post', 'Ninja Van', 'Webhook SDK'],
-  Resources: ['API Documentation', 'Developer Guide', 'System Status', 'Changelog'],
-  Company: ['About SmartChain', 'Careers', 'Contact'],
-} as const;
+import { useI18n } from '@/i18n/I18nContext';
 
 export default function LandingFooter() {
+  const { t } = useI18n();
+
+  const footerGroups = [
+    { category: t.footer.groupServices, links: t.footer.links.services },
+    { category: t.footer.groupIntegrations, links: t.footer.links.integrations },
+    { category: t.footer.groupDocs, links: t.footer.links.docs },
+    { category: t.footer.groupCompany, links: t.footer.links.company },
+  ];
+
   return (
     <footer
       className="relative border-t py-12 md:py-20 px-4 md:px-8 lg:px-16"
@@ -24,31 +27,31 @@ export default function LandingFooter() {
                 className="w-9 h-9 rounded-lg flex items-center justify-center font-black text-sm"
                 style={{ background: '#00E599', color: '#050B14' }}
               >
-                SC
+                OR
               </span>
               <span
                 className="font-bold text-white"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
-                Smart<span style={{ color: '#00E599' }}>Chain</span>
+                <span style={{ color: '#00E599' }}>ORCA</span>
               </span>
             </a>
             <p className="text-sm text-gray-500 leading-relaxed max-w-[22ch]">
-              Automated Logistics Orchestration System cho e-commerce enterprise Việt Nam.
+              {t.footer.tagline}
             </p>
           </div>
 
           {/* Link columns */}
-          {Object.entries(FOOTER_LINKS).map(([category, links]) => (
-            <div key={category}>
+          {footerGroups.map((group) => (
+            <div key={group.category}>
               <h4
                 className="text-sm font-semibold text-white mb-4"
                 style={{ fontFamily: "'Space Grotesk', sans-serif" }}
               >
-                {category}
+                {group.category}
               </h4>
               <ul className="space-y-2.5">
-                {links.map((link) => (
+                {group.links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
@@ -69,10 +72,10 @@ export default function LandingFooter() {
           style={{ borderColor: 'rgba(255,255,255,0.06)' }}
         >
           <p className="text-xs text-gray-600">
-            © 2026 SmartChain · SEP490 SE_34 · FPT University Da Nang
+            {t.footer.copyright}
           </p>
           <div className="flex items-center flex-wrap gap-x-6 gap-y-2 justify-center sm:justify-end">
-            {['Privacy Policy', 'Terms of Service', 'API Terms'].map((l) => (
+            {[t.footer.privacy, t.footer.terms, t.footer.apiTerms].map((l) => (
               <a
                 key={l}
                 href="#"
