@@ -1,7 +1,7 @@
-# SmartChain Landing Page Conventions
+# orca Landing Page Conventions
 
 - This repository contains the public marketing experience only. Admin pages,
-  authentication state and business API clients belong in `smartchain_fe`.
+  authentication state and business API clients belong in `orca_fe`.
 - Keep composed landing sections in `src/components/landing/` and assemble them
   in `src/pages/LandingPage.tsx`.
 - Use Tailwind CSS v4 for layout and `src/styles/globals.css` or

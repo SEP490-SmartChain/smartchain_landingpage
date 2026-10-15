@@ -3,7 +3,7 @@ const FOOTER_LINKS = {
   Product: ['Smart Routing', 'Rate Shopping', 'Order Split', 'Reconciliation', 'Analytics'],
   Integrations: ['GHN API', 'GHTK API', 'Viettel Post', 'Ninja Van', 'Webhook SDK'],
   Resources: ['API Documentation', 'Developer Guide', 'System Status', 'Changelog'],
-  Company: ['About SmartChain', 'Careers', 'Contact'],
+  Company: ['About orca', 'Careers', 'Contact'],
 } as const;
 
 export default function LandingFooter() {
@@ -69,7 +69,7 @@ export default function LandingFooter() {
           style={{ borderColor: 'rgba(255,255,255,0.06)' }}
         >
           <p className="text-xs text-gray-600">
-            © 2026 SmartChain · SEP490 SE_34 · FPT University Da Nang
+            © 2026 orca · SEP490 SE_34 · FPT University Da Nang
           </p>
           <div className="flex items-center flex-wrap gap-x-6 gap-y-2 justify-center sm:justify-end">
             {['Privacy Policy', 'Terms of Service', 'API Terms'].map((l) => (

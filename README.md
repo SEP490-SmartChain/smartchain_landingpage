@@ -1,9 +1,9 @@
-# SmartChain Landing Page
+# orca Landing Page
 
-Public marketing site for SmartChain, built with React 19, Vite, Tailwind CSS v4,
+Public marketing site for orca, built with React 19, Vite, Tailwind CSS v4,
 GSAP, Motion and React Three Fiber.
 
-The admin and workspace application lives in the separate `smartchain_fe`
+The admin and workspace application lives in the separate `orca_fe`
 repository. All calls to action that enter that application derive their URL
 from `VITE_ADMIN_URL`.
 
@@ -22,7 +22,7 @@ development, `.env.example` points admin links to `http://localhost:2324`.
 
 | Variable         | Required | Description                                                              |
 | ---------------- | -------- | ------------------------------------------------------------------------ |
-| `VITE_ADMIN_URL` | Yes      | Base URL of the SmartChain admin site. `/login` is appended to this URL. |
+| `VITE_ADMIN_URL` | Yes      | Base URL of the orca admin site. `/login` is appended to this URL. |
 
 ## Source structure
 
@@ -31,7 +31,7 @@ src/
 ├── components/landing/  # Marketing sections, 3D scene and interactions
 ├── config/site.ts       # Validated environment-derived site URLs
 ├── pages/LandingPage.tsx
-├── styles/               # Global CSS and SmartChain design tokens
+├── styles/               # Global CSS and orca design tokens
 └── main.tsx
 ```
 

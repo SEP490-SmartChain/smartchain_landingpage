@@ -496,8 +496,8 @@ function WarehouseNode({
   );
 }
 
-// ── Central SmartChain Core ────────────────────────────────────────────────────
-function CentralSmartChainCore({
+// ── Central orca Core ────────────────────────────────────────────────────
+function CentralorcaCore({
   color,
   activeSceneIdx,
   onSelect,
@@ -607,7 +607,7 @@ function CentralSmartChainCore({
         />
       </mesh>
 
-      {/* SmartChain Label */}
+      {/* orca Label */}
       <Html position={[0, 0.92, 0]} center className="select-none pointer-events-auto">
         <button
           type="button"
@@ -624,7 +624,7 @@ function CentralSmartChainCore({
           }}
         >
           <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span>⚡ SmartChain</span>
+          <span>⚡ orca</span>
         </button>
       </Html>
     </group>
@@ -718,7 +718,7 @@ function MainScene({
       <OrbitalDust count={dustCount} color={color} />
 
       <GridFloor color={color} />
-      <CentralSmartChainCore
+      <CentralorcaCore
         color={color}
         activeSceneIdx={activeSceneIdx}
         onSelect={onSelectNode}

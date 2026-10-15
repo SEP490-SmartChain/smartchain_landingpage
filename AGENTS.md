@@ -1,6 +1,6 @@
-# SmartChain Landing Page (Vite)
+# orca Landing Page (Vite)
 
-This repository contains only the public SmartChain marketing site.
+This repository contains only the public orca marketing site.
 
 - Keep page sections in `src/components/landing/`.
 - Keep global theme styles and tokens in `src/styles/`.

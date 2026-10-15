@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 // ── 6 Narrative Spatial Stops with Dynamic Left/Right Alternating HUD Layout ──
 // • Kho bên TRÁI (Tồn Kho Mù, Rate Shopping)  -> Camera dạt sang phải, Thẻ chữ hiện bên PHẢI (align: 'right')
 // • Kho bên PHẢI (Trễ Hạn, Smart Routing)      -> Camera dạt sang trái, Thẻ chữ hiện bên TRÁI (align: 'left')
-// • Lõi SmartChain ở GIỮA                     -> Thẻ chữ hiện bên TRÁI (align: 'left')
+// • Lõi orca ở GIỮA                     -> Thẻ chữ hiện bên TRÁI (align: 'left')
 export const SPATIAL_STOPS = [
   {
     id: 0,
@@ -21,7 +21,7 @@ export const SPATIAL_STOPS = [
     title: 'Mạng Lưới Điều Phối Logistics Đa Kho Thông Minh',
     subtitle: 'Đồng bộ đa điểm · Tối ưu tự động',
     description: '',
-    nodeBadge: '4 NÚT HOẠT ĐỘNG · 1 TRUNG TÂM SMARTCHAIN',
+    nodeBadge: '4 NÚT HOẠT ĐỘNG · 1 TRUNG TÂM orca',
     accentColor: '#00E599',
     align: 'left' as const,
     stats: [],
@@ -57,7 +57,7 @@ export const SPATIAL_STOPS = [
         text: 'Nguy cơ cạn hàng ảo hoặc bán vượt quá số lượng tồn thực tế (Overselling)',
       },
     ],
-    cta: 'Khám phá cách SmartChain xử lý',
+    cta: 'Khám phá cách orca xử lý',
     ctaLink: '#features',
     // Node ở [-2.6, 0, -2.6]. Camera nhìn sang [-1.2, ...] -> Kho nằm trọn vẹn ở nửa bên TRÁI!
     cam: {
@@ -103,7 +103,7 @@ export const SPATIAL_STOPS = [
     title: 'Smart Routing: Tối Ưu Kho Gần Nhất',
     subtitle: 'Khoảng cách Haversine < 50ms · Tự động tách Sub-Orders',
     description:
-      'SmartChain quét tọa độ người nhận và tồn kho 4 Hub trong dưới 50ms. Tự động chọn kho gần nhất còn hàng. Nếu đơn gồm nhiều sản phẩm ở các kho khác nhau, hệ thống tự động tách Sub-Orders và chia tiền COD chuẩn xác 0đ sai lệch.',
+      'orca quét tọa độ người nhận và tồn kho 4 Hub trong dưới 50ms. Tự động chọn kho gần nhất còn hàng. Nếu đơn gồm nhiều sản phẩm ở các kho khác nhau, hệ thống tự động tách Sub-Orders và chia tiền COD chuẩn xác 0đ sai lệch.',
     nodeBadge: '⚡ TỐI ƯU HÓA ĐỊNH TUYẾN',
     accentColor: '#A855F7', // Distinct Cyber Violet
     align: 'left' as const, // Thẻ chữ bên TRÁI
@@ -156,11 +156,11 @@ export const SPATIAL_STOPS = [
     id: 5,
     nodeCode: 'CORE',
     tag: 'TRỌNG TÂM · TRUNG TÂM ĐIỀU PHỐI',
-    title: 'SmartChain: Lõi Điều Phối Hợp Nhất Toàn Diện',
+    title: 'orca: Lõi Điều Phối Hợp Nhất Toàn Diện',
     subtitle: 'Stream Processing · 100% Phát hiện Lệch cước & Gian lận',
     description:
-      'Toàn bộ dữ liệu mạng lưới đổ về Lõi Điều Phối SmartChain. Đối soát 1.000.000 dòng file Excel từ các hãng vận chuyển hoàn tất trong 30 giây thay vì 3 ngày kế toán thức trắng. Bắt chính xác 100% lệch cân nặng và tiền COD.',
-    nodeBadge: '⚡ SMARTCHAIN ORCHESTRATION ENGINE',
+      'Toàn bộ dữ liệu mạng lưới đổ về Lõi Điều Phối orca. Đối soát 1.000.000 dòng file Excel từ các hãng vận chuyển hoàn tất trong 30 giây thay vì 3 ngày kế toán thức trắng. Bắt chính xác 100% lệch cân nặng và tiền COD.',
+    nodeBadge: '⚡ orca ORCHESTRATION ENGINE',
     accentColor: '#00E599',
     align: 'left' as const, // Thẻ chữ bên TRÁI
     stats: [
@@ -172,7 +172,7 @@ export const SPATIAL_STOPS = [
       { icon: '🎯', text: 'Tự động phát hiện chênh lệch trọng lượng thực tế và cước khống' },
       { icon: '📊', text: 'Báo cáo doanh thu, chi phí logistics và tiền COD về tài khoản tức thì' },
     ],
-    cta: 'Bắt đầu sử dụng SmartChain',
+    cta: 'Bắt đầu sử dụng orca',
     ctaLink: ADMIN_LOGIN_URL,
     // Center Core ở [0, 0, 0]. Camera nhìn sang [-1.4, ...] -> Lõi nằm trọn vẹn ở nửa bên PHẢI!
     cam: {
@@ -290,7 +290,7 @@ export default function LandingStories({
                 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 tracking-tight"
                 style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
               >
-                Khám Phá Mạng Lưới SmartChain
+                Khám Phá Mạng Lưới orca
               </h1>
 
               <p className="text-[11px] sm:text-xs text-slate-300 font-mono flex items-center gap-2">
@@ -317,9 +317,8 @@ export default function LandingStories({
         {/* ── STOPS 1-5: AR Spatial Inspector HUD (Alternating Left / Right) ── */}
         {activeIdx > 0 && (
           <div
-            className={`w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 xl:px-16 relative z-20 pointer-events-none flex ${
-              currentStop.align === 'right' ? 'justify-end' : 'justify-start'
-            }`}
+            className={`w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 xl:px-16 relative z-20 pointer-events-none flex ${currentStop.align === 'right' ? 'justify-end' : 'justify-start'
+              }`}
           >
             <div className="w-full sm:max-w-[430px] lg:max-w-[460px] pt-16 sm:pt-14 md:pt-16 pointer-events-auto">
               <div

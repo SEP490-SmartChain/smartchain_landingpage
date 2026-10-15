@@ -30,7 +30,7 @@ export default function LandingCTA() {
         </h2>
 
         <p className="text-gray-400 leading-relaxed text-sm sm:text-base lg:text-lg mb-8 md:mb-12 max-w-[48ch] mx-auto px-2 sm:px-0 animate-[fadeUp_0.65s_0.1s_ease-out_both]">
-          Tham gia cùng các doanh nghiệp đang vận hành hàng nghìn đơn hàng mỗi ngày với SmartChain —
+          Tham gia cùng các doanh nghiệp đang vận hành hàng nghìn đơn hàng mỗi ngày với orca —
           không còn kẹt đơn, không còn lệch tiền.
         </p>
 
@@ -45,7 +45,7 @@ export default function LandingCTA() {
               boxShadow: '0 0 28px rgba(0,229,153,0.35)',
             }}
           >
-            Bắt đầu dùng SmartChain
+            Bắt đầu dùng orca
             <span
               className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center bg-black/15 group-hover:translate-x-0.5 transition-transform duration-200"
               aria-hidden="true"
