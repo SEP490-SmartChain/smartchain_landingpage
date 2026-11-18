@@ -1,200 +1,208 @@
-// Feature data — 5 intentional cells, gapless bento 2+3 layout
-const FEATURES = [
-  {
-    id: 'f1',
-    span: 'col-span-1 md:col-span-2 row-span-2',
-    title: 'Smart Warehouse Routing',
-    desc: 'Thuật toán tự động phân tích tồn kho từng kho, khoảng cách đến địa chỉ giao, rồi chọn kho tối ưu nhất — không cần dispatcher can thiệp.',
-    accent: '#00E599',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <rect x="6" y="16" width="14" height="18" rx="2" stroke="#00E599" strokeWidth="1.5" />
-        <rect x="28" y="16" width="14" height="18" rx="2" stroke="#00E599" strokeWidth="1.5" />
-        <path d="M20 24h8M24 20v8" stroke="#00E599" strokeWidth="1.5" strokeLinecap="round" />
-        <path
-          d="M13 16V10M35 16V10M13 10h22"
-          stroke="#00E599"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-    imageSeed: 'warehouse-logistics-dark',
-    tag: null,
-  },
-  {
-    id: 'f2',
-    span: 'col-span-1',
-    title: 'Rate Shopping 3PL',
-    desc: 'So sánh cước GHN, GHTK, Viettel Post theo thời gian thực. Luật đặt sẵn, chạy tự động.',
-    accent: '#00b4ff',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <circle cx="24" cy="24" r="16" stroke="#00b4ff" strokeWidth="1.5" />
-        <path
-          d="M24 14v10l6 4"
-          stroke="#00b4ff"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    imageSeed: null,
-    tag: '4+ Carriers',
-  },
-  {
-    id: 'f3',
-    span: 'col-span-1',
-    title: 'Order Split Engine',
-    desc: 'Chia tách đơn từ nhiều kho, phân bổ COD chính xác vào từng sub-order — ngay lập tức.',
-    accent: '#a855f7',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <path
-          d="M8 24h8l4-8 8 16 4-8h8"
-          stroke="#a855f7"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    imageSeed: null,
-    tag: 'Auto-split',
-  },
-  {
-    id: 'f4',
-    span: 'col-span-1 md:col-span-2',
-    title: 'Financial Reconciliation',
-    desc: 'Đối soát 1M+ dòng dữ liệu COD, cước phí, điều chỉnh trọng lượng từ carrier — hoàn thành trong vài giây thay vì 3 ngày thủ công.',
-    accent: '#f59e0b',
-    icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="w-10 h-10" aria-hidden="true">
-        <rect x="8" y="8" width="32" height="32" rx="4" stroke="#f59e0b" strokeWidth="1.5" />
-        <path
-          d="M16 24h16M16 18h10M16 30h12"
-          stroke="#f59e0b"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-        <circle cx="36" cy="36" r="6" fill="#050B14" stroke="#f59e0b" strokeWidth="1.5" />
-        <path
-          d="M34 36l1.5 1.5L38 34"
-          stroke="#f59e0b"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
-    imageSeed: null,
-    tag: '1M+ rows / session',
-  },
-] as const;
-
 export default function LandingFeatures() {
   return (
     <section
-      className="py-16 md:py-24 lg:py-32 px-4 md:px-8 lg:px-16 max-w-[1400px] mx-auto"
-      id="features-grid"
+      id="features"
+      aria-labelledby="features-heading"
+      className="relative py-20 sm:py-24 bg-[var(--sc-bg-primary)]"
     >
-      {/* Section header – no eyebrow (following eyebrow restraint rule) */}
-      <div className="mb-10 md:mb-16 max-w-2xl">
-        <h2
-          className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-white leading-tight mb-4"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-        >
-          Kiến trúc được xây dựng
-          <br />
-          <span style={{ color: '#00E599' }}>cho quy mô enterprise.</span>
-        </h2>
-        <p className="text-gray-400 leading-relaxed max-w-[52ch]">
-          Mỗi tính năng được thiết kế để loại bỏ một điểm nghẽn thực tế trong vận hành logistics đa
-          kho của doanh nghiệp Việt Nam.
-        </p>
-      </div>
+      <div className="mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
+        {/* Clean Section Header */}
+        <div className="max-w-2xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-3.5 py-1 text-xs font-semibold text-[var(--sc-primary)]">
+            <span>GIÁ TRỊ MANG LẠI CHO DOANH NGHIỆP</span>
+          </div>
 
-      {/* Gapless bento — 2 col desktop, 1 col mobile, grid-flow-dense */}
-      <div
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[minmax(200px,auto)]"
-        style={{ gridAutoFlow: 'dense' }}
-      >
-        {FEATURES.map((feat) => (
-          <article
-            key={feat.id}
-            className={`group relative overflow-hidden rounded-2xl ${feat.span}`}
-            style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              contain: 'layout',
-            }}
+          <h2
+            id="features-heading"
+            className="mt-3 text-3xl font-extrabold tracking-tight text-[var(--sc-text-primary)] sm:text-4xl"
+            style={{ fontFamily: 'var(--sc-font-display)' }}
           >
-            {/* Outer shell — double bezel technique */}
-            <div
-              className="absolute inset-[1px] rounded-[calc(1rem-1px)] overflow-hidden"
-              style={{ background: 'rgba(5,11,20,0.7)' }}
-            >
-              {/* Inner highlight */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.07)',
-                }}
-              />
-            </div>
+            Kiểm soát chặt chẽ hàng hóa,{' '}
+            <span className="text-[var(--sc-primary)]">tối ưu từng đồng chi phí vận hành.</span>
+          </h2>
 
-            {/* Content */}
-            <div className="relative z-10 p-5 sm:p-6 md:p-8 flex flex-col h-full">
-              {/* Accent glow blob — isolated on its own compositor layer */}
-              <div
-                className="absolute -top-10 -left-10 w-44 h-44 rounded-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-                style={{
-                  background: `radial-gradient(circle, ${feat.accent}22 0%, transparent 70%)`,
-                  willChange: 'opacity',
-                }}
-              />
+          <p className="mt-2.5 text-sm leading-relaxed text-[var(--sc-text-secondary)] sm:text-base">
+            Loại bỏ hoàn toàn nỗi lo thất thoát hàng tồn, giao nhầm hàng cận hạn hay chênh lệch tiền
+            thu hộ (COD) cuối tháng.
+          </p>
+        </div>
 
-              {/* Icon */}
-              <div className="mb-5 relative">{feat.icon}</div>
+        {/* Bento Grid */}
+        <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-3">
+          {/* Cell 1 (2 Cols): Expiry & Lot Control */}
+          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7 lg:col-span-2">
+            <div>
+              <span className="rounded-full bg-[var(--sc-primary-lighter)] px-3 py-1 text-xs font-bold text-[var(--sc-primary-dark)]">
+                QUẢN LÝ LÔ HÀNG &amp; HẠN SỬ DỤNG
+              </span>
 
-              {/* Title */}
               <h3
-                className="text-xl font-bold text-white mb-3 tracking-tight"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)] sm:text-2xl"
+                style={{ fontFamily: 'var(--sc-font-display)' }}
               >
-                {feat.title}
+                Tự động ưu tiên xuất theo hạn dùng &amp; Hỗ trợ thu hồi nhanh
               </h3>
 
-              {/* Description */}
-              <p className="text-sm text-gray-400 leading-relaxed flex-1">{feat.desc}</p>
+              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
+                Mỗi lô hàng nhập kho đều được theo dõi hạn sử dụng và vị trí kệ cụ thể. Hệ thống tự
+                động xuất các lô có hạn dùng gần nhất trước. Khi cần kiểm tra chất lượng đột xuất,
+                ORCA khoanh vùng lô hàng ngay lập tức và chuyển đơn sang lô thay thế để không làm
+                gián đoạn việc kinh doanh.
+              </p>
+            </div>
 
-              {/* Tag */}
-              {feat.tag && (
-                <div className="mt-6 self-start">
-                  <span
-                    className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold"
-                    style={{
-                      background: `${feat.accent}18`,
-                      color: feat.accent,
-                      border: `1px solid ${feat.accent}30`,
-                    }}
-                  >
-                    {feat.tag}
-                  </span>
+            <div className="mt-5 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-4">
+              <div className="flex items-center justify-between border-b border-[var(--sc-border-default)] pb-2.5">
+                <span className="text-xs font-semibold text-[var(--sc-text-primary)]">
+                  Khoanh vùng &amp; Chuyển đổi lô hàng tự động
+                </span>
+                <span className="rounded bg-[var(--sc-bg-surface)] px-2 py-0.5 text-xs font-bold text-[var(--sc-primary)]">
+                  Lô tháng 10/2026
+                </span>
+              </div>
+
+              <div className="mt-3 grid grid-cols-3 gap-2.5 text-center">
+                <div className="rounded-lg bg-[var(--sc-bg-surface)] p-2.5">
+                  <div className="text-base font-bold text-[var(--sc-text-primary)]">100%</div>
+                  <div className="text-[11px] text-[var(--sc-text-secondary)]">
+                    Truy xuất nguồn gốc
+                  </div>
                 </div>
-              )}
-
-              {/* Hover shimmer line */}
-              <div
-                className="absolute bottom-0 left-8 right-8 h-[1px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: `linear-gradient(90deg, transparent, ${feat.accent}88, transparent)`,
-                }}
-              />
+                <div className="rounded-lg bg-[var(--sc-bg-surface)] p-2.5">
+                  <div className="text-base font-bold text-[var(--sc-primary)]">Tự động</div>
+                  <div className="text-[11px] text-[var(--sc-text-secondary)]">
+                    Đổi sang lô đạt chuẩn
+                  </div>
+                </div>
+                <div className="rounded-lg bg-[var(--sc-bg-surface)] p-2.5">
+                  <div className="text-base font-bold text-[var(--sc-success-dark)]">0%</div>
+                  <div className="text-[11px] text-[var(--sc-text-secondary)]">
+                    Rủi ro giao hàng quá hạn
+                  </div>
+                </div>
+              </div>
             </div>
           </article>
-        ))}
+
+          {/* Cell 2: Smart Routing & Carrier Selection */}
+          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
+            <div>
+              <span className="rounded-full bg-[var(--sc-info-bg)] px-3 py-1 text-xs font-bold text-[var(--sc-info-dark)]">
+                TỐI ƯU GIAO VẬN
+              </span>
+
+              <h3
+                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)]"
+                style={{ fontFamily: 'var(--sc-font-display)' }}
+              >
+                Chọn Kho Gần Nhất &amp; So Sánh Cước Phí
+              </h3>
+
+              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
+                Tự động phân bổ đơn về kho gần người nhận nhất và chọn đối tác vận chuyển (GHN,
+                GHTK...) có mức cước tối ưu nhất.
+              </p>
+            </div>
+
+            <div className="mt-5 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-4 text-xs">
+              <div className="font-semibold text-[var(--sc-text-primary)]">
+                Xuất từ: Trung tâm Kho TP.HCM
+              </div>
+              <div className="mt-1 text-[var(--sc-text-secondary)]">
+                Đơn vị giao: <strong>GHN Tiêu chuẩn</strong> ·{' '}
+                <strong className="tabular-nums text-[var(--sc-primary)]">
+                  Tiết kiệm 22% cước
+                </strong>
+              </div>
+            </div>
+          </article>
+
+          {/* Cell 3: 48h Return QC */}
+          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
+            <div>
+              <span className="rounded-full bg-[var(--sc-success-bg)] px-3 py-1 text-xs font-bold text-[var(--sc-success-dark)]">
+                QUẢN LÝ HÀNG HOÀN
+              </span>
+
+              <h3
+                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)]"
+                style={{ fontFamily: 'var(--sc-font-display)' }}
+              >
+                Kiểm Định Hàng Hoàn Trong 48 Giờ
+              </h3>
+
+              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
+                Hàng hoàn về được kiểm tra ngoại quan kèm hình ảnh thực tế trong 48 giờ. Hàng nguyên
+                vẹn được nhập lại kệ bán ngay.
+              </p>
+            </div>
+
+            <div className="mt-5 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-4 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="rounded bg-[var(--sc-info-bg)] px-2 py-0.5 font-semibold text-[var(--sc-info-dark)]">
+                  Đã chụp ảnh đối chứng
+                </span>
+                <span className="text-[var(--sc-text-secondary)]">Cam kết 48h</span>
+              </div>
+              <div className="mt-2 text-[var(--sc-text-secondary)]">
+                Chủ hàng chủ động chọn nhập lại kho hoặc thanh lý
+              </div>
+            </div>
+          </article>
+
+          {/* Cell 4 (2 Cols): Transparent Billing & COD */}
+          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7 lg:col-span-2">
+            <div>
+              <span className="rounded-full bg-[var(--sc-primary-lighter)] px-3 py-1 text-xs font-bold text-[var(--sc-primary-dark)]">
+                MINH BẠCH TÀI CHÍNH &amp; DÒNG TIỀN
+              </span>
+
+              <h3
+                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)] sm:text-2xl"
+                style={{ fontFamily: 'var(--sc-font-display)' }}
+              >
+                Tính Phí Lưu Kho Theo Thể Tích Thực Tế &amp; Đối Soát COD Rõ Ràng
+              </h3>
+
+              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
+                Dung tích lưu kho được ghi nhận tự động mỗi ngày theo lượng hàng thực tế đang nằm
+                tại kho. Bảng kê cuối kỳ tách bạch rõ ràng giữa Phí thuê bao, Phí xử lý đơn hàng,
+                Tiền cọc và Tiền thu hộ (COD).
+              </p>
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {[
+                {
+                  tag: 'Trả theo thực tế',
+                  title: 'Tính phí m³/ngày minh bạch',
+                  desc: 'Dùng bao nhiêu không gian kệ tính bấy nhiêu, gộp định mức miễn phí trên toàn mạng lưới.',
+                },
+                {
+                  tag: 'Rõ ràng từng khoản',
+                  title: 'Sổ tiền & Công nợ tách biệt',
+                  desc: 'Tiền cọc hợp đồng, phí dịch vụ và tiền thu hộ COD không bao giờ bị trộn lẫn.',
+                },
+                {
+                  tag: 'Bảo vệ quyền lợi',
+                  title: 'Cam kết bồi thường rõ ràng',
+                  desc: 'Mọi khiếu nại hư hỏng hoặc thất lạc đều có video/hình ảnh tại kho làm căn cứ bồi hoàn.',
+                },
+              ].map((item) => (
+                <div
+                  key={item.tag}
+                  className="rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-3.5"
+                >
+                  <div className="text-[11px] font-bold text-[var(--sc-primary)]">{item.tag}</div>
+                  <div className="mt-1 text-sm font-semibold text-[var(--sc-text-primary)]">
+                    {item.title}
+                  </div>
+                  <p className="mt-1 text-xs text-[var(--sc-text-secondary)]">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </article>
+        </div>
       </div>
     </section>
   );

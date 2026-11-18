@@ -1,198 +1,163 @@
-import { useState, useRef, useEffect, type RefObject } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import { ADMIN_LOGIN_URL } from '@/config/site';
+import { ADMIN_REGISTER_URL } from '@/config/site';
 
-import type { LandingCanvasHandle } from './LandingCanvas';
+import LandingCanvas, { type LandingCanvasHandle } from './LandingCanvas';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// ── 6 Narrative Spatial Stops with Dynamic Left/Right Alternating HUD Layout ──
-// • Kho bên TRÁI (Tồn Kho Mù, Rate Shopping)  -> Camera dạt sang phải, Thẻ chữ hiện bên PHẢI (align: 'right')
-// • Kho bên PHẢI (Trễ Hạn, Smart Routing)      -> Camera dạt sang trái, Thẻ chữ hiện bên TRÁI (align: 'left')
-// • Lõi orca ở GIỮA                     -> Thẻ chữ hiện bên TRÁI (align: 'left')
 export const SPATIAL_STOPS = [
   {
     id: 0,
-    nodeCode: 'GLOBAL',
-    tag: 'TỔNG QUAN HỆ THỐNG',
-    title: 'Mạng Lưới Điều Phối Logistics Đa Kho Thông Minh',
-    subtitle: 'Đồng bộ đa điểm · Tối ưu tự động',
-    description: '',
-    nodeBadge: '4 NÚT HOẠT ĐỘNG · 1 TRUNG TÂM orca',
-    accentColor: '#00E599',
+    nodeCode: 'MỞ ĐẦU',
+    stepLabel: '00 · Xe tiến vào kho',
+    tag: 'CHƯƠNG MỞ ĐẦU · TIẾP VẬN HÀNG HÓA',
+    title: 'Xe Chở Hàng Tiến Vào Kho ORCA',
+    desc: 'Cuộn chuột để đưa xe hàng tiến vào cổng kho và mở khóa quy trình vận hành bên trong.',
+    accentColor: '#14b8a6',
     align: 'left' as const,
     stats: [],
-    hudPills: [],
     cta: '',
     ctaLink: '',
-    // Initial global high-floating camera
+    // Exterior 3/4 Isometric Panorama: Shows BOTH the Left Loading Dock Canopy & Gates AND the Front Glass Office Facade!
     cam: {
-      pos: [0, 7.5, 9.5] as [number, number, number],
-      target: [0, 0.65, 0] as [number, number, number],
+      pos: [-5.2, 4.8, 8.2] as [number, number, number],
+      target: [-0.6, 0.45, 0] as [number, number, number],
     },
   },
   {
     id: 1,
-    nodeCode: 'PAIN-01',
-    tag: 'NỖI ĐAU 01 · VẬN HÀNH THỦ CÔNG',
-    title: 'Tồn Kho Mù & Chọn Kho Bằng Tay',
-    subtitle: '10.000+ đơn/ngày · Quản lý trên Excel 50 cột',
-    description:
-      'Hàng hóa nằm phân tán ở nhiều kho nhưng hệ thống không liên thông. Đội ngũ vận hành phải gọi điện thoại kiểm tra từng kho, phân loại đơn thủ công dẫn đến nghẽn kho và xuất hàng chậm trễ.',
-    nodeBadge: '⚠️ NGUY CƠ: QUÁ TẢI CỤC BỘ',
-    accentColor: '#FFB800',
-    align: 'right' as const, // Thẻ chữ bên PHẢI
+    nodeCode: '01',
+    stepLabel: '01 · Nhập kho & Kiểm đếm',
+    tag: 'BƯỚC 01 · TRONG KHO TIẾP NHẬN',
+    title: 'Kiểm Đếm Độc Lập & Ghi Hình',
+    desc: 'Mái kho mở ra: hàng từ thùng xe đi qua băng chuyền quét mã, nhân viên kiểm đếm độc lập kèm video đối chứng.',
+    accentColor: '#14b8a6',
+    align: 'right' as const,
     stats: [
-      { value: '85%', label: 'Lãng phí chia tay' },
-      { value: '50+', label: 'Cột Excel thủ công' },
-      { value: '3 ngày', label: 'Thời gian xử lý' },
+      { value: '100%', label: 'Video đối chứng' },
+      { value: 'Độc lập', label: 'Kiểm đếm' },
+      { value: 'Tức thì', label: 'Cập nhật tồn' },
     ],
-    hudPills: [
-      { icon: '📋', text: 'Tồn kho không đồng bộ thời gian thực giữa các sàn TMĐT và kho vật lý' },
-      {
-        icon: '⚠️',
-        text: 'Nguy cơ cạn hàng ảo hoặc bán vượt quá số lượng tồn thực tế (Overselling)',
-      },
-    ],
-    cta: 'Khám phá cách orca xử lý',
+    cta: 'Xem chi tiết',
     ctaLink: '#features',
-    // Node ở [-2.6, 0, -2.6]. Camera nhìn sang [-1.2, ...] -> Kho nằm trọn vẹn ở nửa bên TRÁI!
+    // Zone 1 is at [-0.6, 0, -1.75]; HUD is on RIGHT -> frame Left side
     cam: {
-      pos: [-1.2, 4.0, 1.4] as [number, number, number],
-      target: [-1.2, 0.8, -2.6] as [number, number, number],
+      pos: [-0.1, 2.35, 1.55] as [number, number, number],
+      target: [-0.1, 0.25, -1.75] as [number, number, number],
     },
   },
   {
     id: 2,
-    nodeCode: 'PAIN-02',
-    tag: 'NỖI ĐAU 02 · LỆCH TUYẾN & ĐƠN KẸT',
-    title: 'Giao Hàng Xa, Trễ Hạn & Hoàn Đơn',
-    subtitle: 'Đơn kẹt > 48h · Chi phí vận chuyển tăng gấp 3',
-    description:
-      'Khách ở Cần Thơ nhưng đơn lại xuất từ kho Bắc Ninh do thiếu dữ liệu định tuyến. Thời gian giao kéo dài 4–5 ngày khiến khách hủy đơn, tỷ lệ hoàn hàng (RTO) lên tới 18.5%, biên lợi nhuận bốc hơi.',
-    nodeBadge: '⚠️ NGHỄN TUYẾN & TỶ LỆ HOÀN CAO',
-    accentColor: '#FF4444',
-    align: 'left' as const, // Thẻ chữ bên TRÁI
+    nodeCode: '02',
+    stepLabel: '02 · Kệ lưu trữ cao tầng',
+    tag: 'BƯỚC 02 · TRONG KHO LƯU TRỮ',
+    title: 'Kệ Cao Tầng & Quản Lý Hạn Dùng',
+    desc: 'Xe nâng đưa hàng vào hệ thống kệ cao tầng, tự động ưu tiên xuất các lô hàng có hạn sử dụng gần nhất trước.',
+    accentColor: '#f59e0b',
+    align: 'left' as const,
     stats: [
-      { value: '+4.2d', label: 'Thời gian trễ hẹn' },
-      { value: '18.5%', label: 'Tỷ lệ hoàn RTO' },
-      { value: '-30%', label: 'Lợi nhuận ròng' },
+      { value: '0 Đơn', label: 'Bán quá tồn' },
+      { value: 'Tự động', label: 'Ưu tiên hạn' },
+      { value: 'Chính xác', label: 'Từng ô kệ' },
     ],
-    hudPills: [
-      {
-        icon: '⏱️',
-        text: 'Giao hàng trễ khiến khách hàng mất kiên nhẫn và từ chối nhận hàng (RTO)',
-      },
-      { icon: '💸', text: 'Doanh nghiệp gánh thêm 2 lần chi phí vận chuyển chiều đi và chiều về' },
-    ],
-    cta: 'Xem giải pháp Smart Routing',
+    cta: 'Xem chi tiết',
     ctaLink: '#features',
-    // Node ở [2.6, 0, -2.6]. Camera nhìn sang [1.2, ...] -> Kho nằm trọn vẹn ở nửa bên PHẢI!
+    // Zone 2 is at [+2.7, 0, -1.75]; HUD is on LEFT -> frame Right side
     cam: {
-      pos: [1.2, 4.0, 1.4] as [number, number, number],
-      target: [1.2, 0.8, -2.6] as [number, number, number],
+      pos: [2.15, 2.45, 1.55] as [number, number, number],
+      target: [2.15, 0.35, -1.75] as [number, number, number],
     },
   },
   {
     id: 3,
-    nodeCode: 'SOL-01',
-    tag: 'GIẢI PHÁP 01 · ĐỊNH TUYẾN THÔNG MINH',
-    title: 'Smart Routing: Tối Ưu Kho Gần Nhất',
-    subtitle: 'Khoảng cách Haversine < 50ms · Tự động tách Sub-Orders',
-    description:
-      'orca quét tọa độ người nhận và tồn kho 4 Hub trong dưới 50ms. Tự động chọn kho gần nhất còn hàng. Nếu đơn gồm nhiều sản phẩm ở các kho khác nhau, hệ thống tự động tách Sub-Orders và chia tiền COD chuẩn xác 0đ sai lệch.',
-    nodeBadge: '⚡ TỐI ƯU HÓA ĐỊNH TUYẾN',
-    accentColor: '#A855F7', // Distinct Cyber Violet
-    align: 'left' as const, // Thẻ chữ bên TRÁI
+    nodeCode: '03',
+    stepLabel: '03 · Định tuyến & Đóng gói',
+    tag: 'BƯỚC 03 · TRONG KHO ĐIỀU PHỐI',
+    title: 'Chọn Kho Gần Nhất & Đóng Gói',
+    desc: 'Tự động phân bổ đơn về kho gần người mua nhất, lấy hàng nhanh theo đợt và đóng gói, cân đo chuẩn quy cách.',
+    accentColor: '#3b82f6',
+    align: 'left' as const,
     stats: [
-      { value: '< 50ms', label: 'Tốc độ định tuyến' },
-      { value: '-40%', label: 'Thời gian xử lý' },
-      { value: '0đ', label: 'Sai lệch tiền COD' },
+      { value: '-40%', label: 'Thời gian giao' },
+      { value: 'Tối ưu', label: 'Chọn kho gần' },
+      { value: '100%', label: 'Quét mã đúng' },
     ],
-    hudPills: [
-      { icon: '⚡', text: 'Tự động định vị kho xuất hàng tối ưu nhất theo tọa độ thực tế' },
-      { icon: '🔀', text: 'Tự động tách đơn & phân bổ tiền thu hộ COD chuẩn xác tuyệt đối' },
-    ],
-    cta: 'Xem chi tiết Smart Routing',
+    cta: 'Xem chi tiết',
     ctaLink: '#features',
-    // Node ở [2.6, 0, 2.6]. Camera nhìn sang [1.2, ...] -> Kho nằm trọn vẹn ở nửa bên PHẢI!
+    // Zone 3 is at [+2.7, 0, +1.75]; HUD is on LEFT -> frame Right side
     cam: {
-      pos: [1.2, 4.0, 6.6] as [number, number, number],
-      target: [1.2, 0.8, 2.6] as [number, number, number],
+      pos: [2.15, 2.35, 5.15] as [number, number, number],
+      target: [2.15, 0.25, 1.75] as [number, number, number],
     },
   },
   {
     id: 4,
-    nodeCode: 'SOL-02',
-    tag: 'GIẢI PHÁP 02 · ĐẤU GIÁ CƯỚC 3PL',
-    title: 'Rate Shopping: Đấu Giá Cước Thời Gian Thực',
-    subtitle: 'Tích hợp sẵn GHN, GHTK, Viettel Post, Ninja Van',
-    description:
-      'Không còn chọn hãng vận chuyển bằng cảm tính. Rule Engine so sánh bảng cước của 4+ đơn vị vận chuyển theo từng gram trọng lượng và địa chỉ người nhận. Tự động chọn hãng rẻ nhất, giao nhanh nhất trong 15ms.',
-    nodeBadge: '💰 TIẾT KIỆM 15% – 28% CƯỚC PHÍ',
-    accentColor: '#00B4FF',
-    align: 'right' as const, // Thẻ chữ bên PHẢI
+    nodeCode: '04',
+    stepLabel: '04 · Đối soát tại cửa xuất',
+    tag: 'BƯỚC 04 · TRONG KHO XUẤT HÀNG',
+    title: 'Đối Soát & Bàn Giao Cửa Xuất',
+    desc: 'So sánh bảng cước GHN, GHTK để chọn phương án tiết kiệm nhất và ký biên bản bàn giao kiện hàng tại cửa xuất.',
+    accentColor: '#10b981',
+    align: 'right' as const,
     stats: [
-      { value: '-25%', label: 'Chi phí cước' },
-      { value: '4+ 3PL', label: 'Hãng vận chuyển' },
-      { value: '< 200ms', label: 'Tạo mã vận đơn' },
+      { value: 'Tiết kiệm', label: 'Tối ưu cước' },
+      { value: 'Minh bạch', label: 'Đối soát COD' },
+      { value: '48 Giờ', label: 'Kiểm hàng hoàn' },
     ],
-    hudPills: [
-      { icon: '💰', text: 'Tiết kiệm trung bình 3.000đ – 8.000đ trên mỗi đơn hàng' },
-      { icon: '🔗', text: 'Tự động đẩy API lấy mã vận đơn trực tiếp sang GHTK, GHN, Viettel Post' },
-    ],
-    cta: 'Xem cấu hình Rule Engine',
-    ctaLink: '#features',
-    // Node ở [-2.6, 0, 2.6]. Camera nhìn sang [-1.2, ...] -> Kho nằm trọn vẹn ở nửa bên TRÁI!
+    cta: 'Xem bảng giá',
+    ctaLink: '#pricing',
+    // Zone 4 is at [-0.6, 0, +1.75]; HUD is on RIGHT -> frame Left side
     cam: {
-      pos: [-1.2, 4.0, 6.6] as [number, number, number],
-      target: [-1.2, 0.8, 2.6] as [number, number, number],
+      pos: [-0.1, 2.35, 5.15] as [number, number, number],
+      target: [-0.1, 0.25, 1.75] as [number, number, number],
     },
   },
   {
     id: 5,
-    nodeCode: 'CORE',
-    tag: 'TRỌNG TÂM · TRUNG TÂM ĐIỀU PHỐI',
-    title: 'orca: Lõi Điều Phối Hợp Nhất Toàn Diện',
-    subtitle: 'Stream Processing · 100% Phát hiện Lệch cước & Gian lận',
-    description:
-      'Toàn bộ dữ liệu mạng lưới đổ về Lõi Điều Phối orca. Đối soát 1.000.000 dòng file Excel từ các hãng vận chuyển hoàn tất trong 30 giây thay vì 3 ngày kế toán thức trắng. Bắt chính xác 100% lệch cân nặng và tiền COD.',
-    nodeBadge: '⚡ orca ORCHESTRATION ENGINE',
-    accentColor: '#00E599',
-    align: 'left' as const, // Thẻ chữ bên TRÁI
+    nodeCode: 'XUẤT KHO',
+    stepLabel: '05 · Đội xe 3PL rời kho',
+    tag: 'HOÀN TẤT · ĐỘI XE 3PL KHỞI HÀNH',
+    title: 'Xe Vận Chuyển 3PL Rời Kho Giao Hàng',
+    desc: 'Nhà kho khép lại quy trình, đội xe đối tác 3PL nối đuôi nhau rời cổng kho để giao đơn hàng đến tận tay người mua.',
+    accentColor: '#10b981',
+    align: 'right' as const,
     stats: [
-      { value: '99.99%', label: 'Độ chính xác' },
-      { value: '30s', label: 'Thời gian đối soát' },
-      { value: '1M+ Dòng', label: 'Xử lý dữ liệu' },
+      { value: '99.4%', label: 'Giao đúng hẹn' },
+      { value: 'GHN/GHTK', label: 'Khởi hành ngay' },
+      { value: 'Tự động', label: 'Báo cáo COD' },
     ],
-    hudPills: [
-      { icon: '🎯', text: 'Tự động phát hiện chênh lệch trọng lượng thực tế và cước khống' },
-      { icon: '📊', text: 'Báo cáo doanh thu, chi phí logistics và tiền COD về tài khoản tức thì' },
-    ],
-    cta: 'Bắt đầu sử dụng orca',
-    ctaLink: ADMIN_LOGIN_URL,
-    // Center Core ở [0, 0, 0]. Camera nhìn sang [-1.4, ...] -> Lõi nằm trọn vẹn ở nửa bên PHẢI!
+    cta: 'Đăng ký hợp tác ngay',
+    ctaLink: ADMIN_REGISTER_URL,
+    // Finale: 3/4 Left-Front Isometric Exterior View watching the 3PL Trucks drive directly out of the visible Outbound Dock Doors!
     cam: {
-      pos: [-1.4, 3.8, 4.8] as [number, number, number],
-      target: [-1.4, 0.85, 0] as [number, number, number],
+      pos: [-5.4, 4.6, 8.0] as [number, number, number],
+      target: [-1.2, 0.4, 0.6] as [number, number, number],
     },
   },
 ] as const;
 
-export default function LandingStories({
-  canvasRef,
-}: {
-  canvasRef: RefObject<LandingCanvasHandle | null>;
-}) {
+export default function LandingStories({ theme = 'light' }: { theme?: 'light' | 'dark' }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<LandingCanvasHandle>(null);
   const [activeIdx, setActiveIdx] = useState<number>(0);
+  const [inView, setInView] = useState<boolean>(false);
   const activeIdxRef = useRef<number>(0);
-  // Use ref + direct DOM mutation instead of React state to avoid re-render on every scroll tick
   const progressBarRef = useRef<HTMLDivElement>(null);
-  const currentAccentRef = useRef<string>(SPATIAL_STOPS[0].accentColor);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      threshold: 0,
+      rootMargin: '250px 0px 250px 0px',
+    });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   useEffect(() => {
     const totalStops = SPATIAL_STOPS.length;
@@ -205,19 +170,14 @@ export default function LandingStories({
         scrub: 0.1,
         onUpdate: (self) => {
           const p = self.progress;
-
-          // Determine current spatial stop index
           const rawIdx = p * totalStops;
           const stopIdx = Math.min(Math.floor(rawIdx), totalStops - 1);
 
           if (activeIdxRef.current !== stopIdx) {
             activeIdxRef.current = stopIdx;
             setActiveIdx(stopIdx);
-            // Update accent ref for progress bar color sync
-            currentAccentRef.current = SPATIAL_STOPS[stopIdx].accentColor;
           }
 
-          // Direct DOM mutation — zero React re-render cost
           if (progressBarRef.current) {
             const accent = SPATIAL_STOPS[stopIdx].accentColor;
             progressBarRef.current.style.width = `${p * 100}%`;
@@ -225,12 +185,14 @@ export default function LandingStories({
             progressBarRef.current.style.boxShadow = `0 0 12px ${accent}`;
           }
 
-          // Smooth 3D Camera Drone Flight
           if (canvasRef.current) {
+            canvasRef.current.setScrollProgress(p);
+
             const cur = SPATIAL_STOPS[stopIdx];
             const next = SPATIAL_STOPS[Math.min(stopIdx + 1, totalStops - 1)];
-            const t = rawIdx - stopIdx;
-
+            const rawT = rawIdx - stopIdx;
+            const easeWindow = rawT < 0.8 ? 0 : (rawT - 0.8) / 0.2;
+            const t = easeWindow * easeWindow * (3 - 2 * easeWindow);
             const lerp = (a: number, b: number) => a + (b - a) * t;
 
             canvasRef.current.setCameraPos(
@@ -251,234 +213,209 @@ export default function LandingStories({
     }, containerRef);
 
     return () => ctx.revert();
-  }, [canvasRef]);
+  }, []);
 
   const currentStop = SPATIAL_STOPS[activeIdx];
 
   const handleJumpToStop = (idx: number) => {
     if (!containerRef.current) return;
+    const stop = SPATIAL_STOPS[idx] ?? SPATIAL_STOPS[0];
+    activeIdxRef.current = idx;
+    setActiveIdx(idx);
+    const targetProgress = (idx + 0.2) / SPATIAL_STOPS.length;
+    if (canvasRef.current) {
+      canvasRef.current.setScrollProgress(targetProgress);
+      canvasRef.current.setCameraPos(stop.cam.pos[0], stop.cam.pos[1], stop.cam.pos[2]);
+      canvasRef.current.setCameraTarget(stop.cam.target[0], stop.cam.target[1], stop.cam.target[2]);
+      canvasRef.current.setAccentColor(stop.accentColor);
+      canvasRef.current.setSceneIndex(idx);
+    }
     const totalH = containerRef.current.scrollHeight - window.innerHeight;
-    const targetY = containerRef.current.offsetTop + (idx / SPATIAL_STOPS.length) * totalH + 10;
+    const targetY = containerRef.current.offsetTop + targetProgress * totalH;
     window.scrollTo({ top: targetY, behavior: 'smooth' });
   };
 
   return (
-    <div
-      id="story-container"
+    <section
+      id="workflow"
+      aria-label="Hành trình đơn hàng 3D tại Trung tâm Kho ORCA"
       ref={containerRef}
-      className="relative w-full pointer-events-none"
-      style={{ height: `${SPATIAL_STOPS.length * 85}vh` }}
+      className="relative w-full border-t border-b border-[var(--sc-border-default)]"
+      style={{
+        height: `${SPATIAL_STOPS.length * 85}vh`,
+        background: 'radial-gradient(ellipse 80% 70% at 55% 45%, #0b1d32 0%, #050b14 100%)',
+      }}
     >
-      {/* ── Sticky Fullscreen Viewport ───────────────────────────────────── */}
-      <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden pointer-events-none">
-        {/* ── STOP 0: Clean 3D Hero View with Floating Action Guide ───────── */}
+      {/* Sticky Fullscreen 3D Viewport */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        <div
+          className="absolute inset-0"
+          style={{
+            contain: 'strict',
+            visibility: inView ? 'visible' : 'hidden',
+            pointerEvents: inView ? 'auto' : 'none',
+          }}
+        >
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                'radial-gradient(ellipse 55% 50% at 58% 48%, rgba(20,184,166,0.14) 0%, transparent 72%)',
+            }}
+          />
+          <LandingCanvas
+            ref={canvasRef}
+            onSelectNode={handleJumpToStop}
+            paused={!inView}
+            theme={theme}
+          />
+        </div>
+
+        {/* STOP 0: Minimalist Prompt at Bottom */}
         {activeIdx === 0 && (
-          <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 relative z-20 pointer-events-none flex flex-col items-center justify-end pb-8 sm:pb-10 h-full">
-            <div className="flex flex-col items-center gap-2.5 text-center animate-fadeIn pointer-events-auto">
-              <div
-                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[11px] font-mono font-bold text-emerald-400 border border-emerald-500/30"
-                style={{
-                  background: 'rgba(2,44,28,0.9)',
-                  boxShadow: '0 0 25px rgba(0,229,153,0.2)',
-                }}
-              >
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-                <span>HỆ THỐNG ĐIỀU PHỐI LOGISTICS ĐA KHO THÔNG MINH</span>
-              </div>
-
-              <h1
-                className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-100 to-slate-400 tracking-tight"
-                style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-              >
-                Khám Phá Mạng Lưới orca
-              </h1>
-
-              <p className="text-[11px] sm:text-xs text-slate-300 font-mono flex items-center gap-2">
-                <span>🖱️</span>
-                <span>
-                  Lăn chuột hoặc Click trực tiếp vào 4 điểm nút & Lõi trung tâm để khám phá
-                </span>
-              </p>
-
-              {/* Bouncing scroll prompt */}
-              <button
-                type="button"
-                onClick={() => handleJumpToStop(1)}
-                className="mt-1 flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-white border border-white/15 cursor-pointer transition-colors"
-                style={{ background: 'rgba(255,255,255,0.06)' }}
-              >
-                <span>Bắt đầu tham quan</span>
-                <span>↓</span>
-              </button>
-            </div>
+          <div className="pointer-events-none relative z-20 mx-auto flex h-full max-w-[1380px] flex-col items-center justify-end px-4 pb-8 text-center">
+            <button
+              type="button"
+              onClick={() => handleJumpToStop(1)}
+              className="pointer-events-auto inline-flex items-center gap-2 rounded-full border border-teal-400/35 bg-[#071322]/85 px-5 py-2 text-xs font-semibold text-teal-300 shadow-lg backdrop-blur-md transition-all hover:border-teal-400 hover:bg-teal-400 hover:text-slate-950 active:scale-95 cursor-pointer"
+            >
+              <span>Cuộn để đưa xe hàng vào kho</span>
+              <span>↓</span>
+            </button>
           </div>
         )}
 
-        {/* ── STOPS 1-5: AR Spatial Inspector HUD (Alternating Left / Right) ── */}
+        {/* STOPS 1-5: Compact Story HUD Card */}
         {activeIdx > 0 && (
           <div
-            className={`w-full max-w-[1440px] mx-auto px-4 sm:px-6 md:px-10 lg:px-12 xl:px-16 relative z-20 pointer-events-none flex ${currentStop.align === 'right' ? 'justify-end' : 'justify-start'
-              }`}
+            className={`pointer-events-none relative z-20 mx-auto flex h-full max-w-[1380px] items-center px-4 sm:px-6 lg:px-10 ${
+              currentStop.align === 'right' ? 'justify-end' : 'justify-start'
+            }`}
           >
-            <div className="w-full sm:max-w-[430px] lg:max-w-[460px] pt-16 sm:pt-14 md:pt-16 pointer-events-auto">
+            <div className="pointer-events-auto w-full max-w-[330px] pt-8">
               <div
                 key={currentStop.id}
-                className="flex flex-col gap-3 sm:gap-3.5 p-4 sm:p-5 sm:p-6 rounded-2xl border transition-[border-color,box-shadow] duration-300 animate-fadeIn max-h-[78vh] overflow-y-auto"
+                className="flex flex-col gap-2.5 rounded-2xl border p-4 sm:p-5 backdrop-blur-xl animate-[fadeIn_0.2s_ease-out]"
                 style={{
-                  background: 'rgba(5, 11, 20, 0.92)',
-                  borderColor: `${currentStop.accentColor}35`,
-                  boxShadow: `0 0 30px ${currentStop.accentColor}12, 0 16px 40px rgba(0,0,0,0.6)`,
+                  background: 'rgba(6, 14, 24, 0.9)',
+                  borderColor: `${currentStop.accentColor}45`,
+                  boxShadow: '0 16px 36px rgba(0,0,0,0.55)',
                 }}
               >
-                {/* Header: Node Code + Chapter Tag */}
-                <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-2.5">
-                  <div className="flex items-center gap-2">
-                    <span
-                      className="w-2 h-2 rounded-full animate-pulse"
-                      style={{ background: currentStop.accentColor }}
-                    />
-                    <span
-                      className="text-[10.5px] font-mono font-bold tracking-[0.2em] uppercase"
-                      style={{ color: currentStop.accentColor }}
-                    >
-                      {currentStop.tag}
-                    </span>
-                  </div>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-slate-300 bg-white/10 border border-white/10">
-                    {currentStop.nodeCode}
+                <div className="flex items-center justify-between gap-2">
+                  <span
+                    className="text-[10.5px] font-bold uppercase tracking-wider"
+                    style={{ color: currentStop.accentColor }}
+                  >
+                    {currentStop.tag}
                   </span>
+                  <button
+                    type="button"
+                    onClick={() => handleJumpToStop(0)}
+                    className="rounded bg-white/10 px-2 py-0.5 text-[10px] font-medium text-slate-300 hover:bg-white/20 hover:text-white cursor-pointer"
+                  >
+                    Mở đầu
+                  </button>
                 </div>
 
-                {/* Title */}
-                <h2
-                  className="text-xl sm:text-[1.8rem] lg:text-[1.95rem] font-bold text-white leading-[1.18] tracking-tight"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
+                <h3
+                  className="text-lg font-bold leading-snug text-white sm:text-xl"
+                  style={{ fontFamily: 'var(--sc-font-display)' }}
                 >
                   {currentStop.title}
-                </h2>
+                </h3>
 
-                {/* Subtitle Accent */}
-                <div
-                  className="text-xs sm:text-[13px] font-semibold tracking-wide font-mono"
-                  style={{ color: currentStop.accentColor }}
-                >
-                  {currentStop.subtitle}
-                </div>
+                <p className="text-xs leading-relaxed text-slate-300">{currentStop.desc}</p>
 
-                {/* Description Paragraph */}
-                <p
-                  className="text-xs sm:text-[13px] leading-relaxed text-slate-300 font-normal"
-                  style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}
-                >
-                  {currentStop.description}
-                </p>
-
-                {/* Tactical HUD Pills */}
-                <div className="flex flex-col gap-2 pt-0.5">
-                  {currentStop.hudPills.map((pill) => (
-                    <div
-                      key={pill.text}
-                      className="flex items-start gap-2.5 px-3 py-2 rounded-lg border"
-                      style={{
-                        background: 'rgba(255, 255, 255, 0.03)',
-                        borderColor: 'rgba(255, 255, 255, 0.08)',
-                      }}
-                    >
-                      <span className="text-sm shrink-0">{pill.icon}</span>
-                      <span className="text-[11.5px] sm:text-xs text-slate-300 leading-snug">
-                        {pill.text}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Stats Row */}
-                <div className="flex items-center justify-between pt-2 border-t border-white/10">
+                <div className="grid grid-cols-3 gap-1.5 border-t border-white/10 pt-2.5">
                   {currentStop.stats.map((s) => (
-                    <div key={s.label} className="text-center">
-                      <div
-                        className="text-lg sm:text-xl font-bold font-mono tracking-tight"
-                        style={{ color: currentStop.accentColor }}
-                      >
+                    <div key={s.label} className="rounded-lg bg-white/[0.04] p-1.5 text-center">
+                      <div className="text-xs font-bold" style={{ color: currentStop.accentColor }}>
                         {s.value}
                       </div>
-                      <div className="text-[9px] sm:text-[9.5px] text-slate-400 uppercase tracking-wider font-mono mt-0.5">
-                        {s.label}
-                      </div>
+                      <div className="mt-0.5 text-[9.5px] text-slate-400">{s.label}</div>
                     </div>
                   ))}
                 </div>
 
-                {/* Action Button */}
-                <div className="pt-0.5">
+                <div className="flex items-center justify-between gap-2 pt-1">
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={() => handleJumpToStop(Math.max(0, activeIdx - 1))}
+                      className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1 text-xs font-medium text-slate-200 hover:bg-white/10 cursor-pointer"
+                    >
+                      ←
+                    </button>
+                    {activeIdx < SPATIAL_STOPS.length - 1 && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleJumpToStop(Math.min(SPATIAL_STOPS.length - 1, activeIdx + 1))
+                        }
+                        className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1 text-xs font-medium text-slate-200 hover:bg-white/10 cursor-pointer"
+                      >
+                        →
+                      </button>
+                    )}
+                  </div>
+
                   <a
                     href={currentStop.ctaLink}
-                    className="group flex items-center justify-center gap-2.5 w-full py-2.5 rounded-xl font-bold text-xs tracking-wider uppercase transition-opacity duration-200 active:scale-[0.98]"
-                    style={{
-                      background: currentStop.accentColor,
-                      color: '#050B14',
-                      boxShadow: `0 0 25px ${currentStop.accentColor}55`,
-                    }}
+                    className="inline-flex items-center gap-1 rounded-lg px-3.5 py-1.5 text-xs font-bold text-slate-950 transition-opacity hover:opacity-90"
+                    style={{ background: currentStop.accentColor }}
                   >
                     <span>{currentStop.cta}</span>
-                    <span className="group-hover:translate-x-1 transition-transform">→</span>
+                    <span>→</span>
                   </a>
                 </div>
               </div>
             </div>
           </div>
         )}
+
+        {/* Minimalist Side Dot Indicator */}
+        {inView && (
+          <nav
+            aria-label="Điều hướng bước 3D"
+            className="pointer-events-auto fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-2.5 rounded-full border border-white/10 bg-[#060e18]/75 p-2 backdrop-blur-md sm:flex"
+          >
+            {SPATIAL_STOPS.map((stop, i) => {
+              const isActive = activeIdx === i;
+              return (
+                <button
+                  key={stop.id}
+                  type="button"
+                  onClick={() => handleJumpToStop(i)}
+                  className="group relative flex items-center justify-center p-1 cursor-pointer"
+                  aria-label={stop.stepLabel}
+                >
+                  <span className="pointer-events-none absolute right-7 whitespace-nowrap rounded-md border border-white/10 bg-[#060e18]/90 px-2.5 py-1 text-[10.5px] font-medium text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                    {stop.stepLabel}
+                  </span>
+                  <span
+                    className="h-2 w-2 rounded-full transition-all duration-300"
+                    style={{
+                      background: isActive ? stop.accentColor : 'rgba(255, 255, 255, 0.25)',
+                      transform: isActive ? 'scale(1.45)' : 'scale(1)',
+                      boxShadow: isActive ? `0 0 8px ${stop.accentColor}` : 'none',
+                    }}
+                  />
+                </button>
+              );
+            })}
+          </nav>
+        )}
+
+        {/* Bottom Progress Line */}
+        <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-30 h-[3px] bg-white/10">
+          <div
+            ref={progressBarRef}
+            className="h-full"
+            style={{ width: '0%', background: SPATIAL_STOPS[0].accentColor }}
+          />
+        </div>
       </div>
-
-      {/* ── Fixed Bottom/Side Neon Scroll Progress Bar (DOM-mutated, zero React cost) ── */}
-      <div
-        className="fixed bottom-0 left-0 right-0 h-[3px] z-50 pointer-events-none"
-        style={{ background: 'rgba(255, 255, 255, 0.06)' }}
-      >
-        <div
-          ref={progressBarRef}
-          className="h-full"
-          style={{
-            width: '0%',
-            background: SPATIAL_STOPS[0].accentColor,
-          }}
-        />
-      </div>
-
-      {/* ── Dot Navigation: bottom-center on mobile, right-side on sm+ ───── */}
-      <nav
-        aria-label="Spatial Tour Navigation"
-        className="fixed bottom-5 sm:bottom-auto left-1/2 sm:left-auto -translate-x-1/2 sm:translate-x-0 sm:right-6 md:right-10 sm:top-1/2 sm:-translate-y-1/2 flex flex-row sm:flex-col gap-2.5 sm:gap-3 z-50 p-2 sm:p-2.5 rounded-full backdrop-blur-md border border-white/10 pointer-events-auto"
-        style={{ background: 'rgba(5, 11, 20, 0.65)' }}
-      >
-        {SPATIAL_STOPS.map((stop, i) => {
-          const isActive = activeIdx === i;
-          return (
-            <button
-              key={stop.id}
-              type="button"
-              onClick={() => handleJumpToStop(i)}
-              className="group relative flex items-center justify-center p-1 cursor-pointer"
-              aria-label={`Jump to ${stop.nodeCode}`}
-            >
-              {/* Tooltip Label on hover — hidden on mobile, shown right on sm+ */}
-              <span className="hidden sm:block absolute right-8 px-2.5 py-1 rounded-md text-[10px] font-mono font-semibold text-white bg-[#050B14]/90 border border-white/15 opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
-                {stop.nodeCode}: {stop.tag}
-              </span>
-
-              {/* Dot indicator */}
-              <span
-                className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300"
-                style={{
-                  background: isActive ? stop.accentColor : 'rgba(255, 255, 255, 0.25)',
-                  transform: isActive ? 'scale(1.5)' : 'scale(1)',
-                  boxShadow: isActive ? `0 0 10px ${stop.accentColor}` : 'none',
-                }}
-              />
-            </button>
-          );
-        })}
-      </nav>
-    </div>
+    </section>
   );
 }

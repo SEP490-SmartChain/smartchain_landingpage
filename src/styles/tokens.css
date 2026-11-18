@@ -1,83 +1,144 @@
 /**
- * orca Design Tokens
- * Shared brand foundations plus the landing page's dark spatial theme.
+ * ORCA Design Tokens
+ * Synchronized 100% with ORCA Console (smartchain_fe/src/styles/tokens.css)
+ * Supports both Console Light Mode (default) and Console Dark Mode ([data-theme='dark']).
  */
 
 :root {
+  color-scheme: light;
+
+  /* Brand — ORCA Deep Teal & Emerald */
+  --sc-primary-lighter: #d1fae5;
+  --sc-primary-light: #99f6e4;
   --sc-primary: #0f766e;
   --sc-primary-hover: #0d645d;
+  --sc-primary-dark: #115e59;
+  --sc-primary-darker: #134e4a;
+  --sc-primary-alpha-08: rgb(15 118 110 / 8%);
+  --sc-primary-alpha-12: rgb(15 118 110 / 12%);
+  --sc-primary-alpha-20: rgb(15 118 110 / 20%);
   --sc-accent: #10b981;
   --sc-accent-light: #d1fae5;
-  --sc-accent-alpha-10: rgba(16, 185, 129, 0.1);
-  --sc-accent-alpha-20: rgba(16, 185, 129, 0.2);
+  --sc-accent-alpha-10: rgb(16 185 129 / 10%);
+  --sc-accent-alpha-20: rgb(16 185 129 / 20%);
 
+  /* Secondary */
+  --sc-secondary-lighter: #f1f5f9;
+  --sc-secondary-light: #cbd5e1;
+  --sc-secondary: #64748b;
+  --sc-secondary-dark: #475569;
+  --sc-secondary-darker: #0f172a;
+
+  /* Surfaces and neutral scale */
   --sc-bg-primary: #f8fafc;
   --sc-bg-secondary: #f1f5f9;
+  --sc-bg-surface: #ffffff;
   --sc-bg-elevated: #ffffff;
-
+  --sc-topbar-bg: rgb(255 255 255 / 90%);
+  --sc-bg-muted: #e2e8f0;
   --sc-border-light: #f1f5f9;
   --sc-border-default: #e2e8f0;
   --sc-border-strong: #cbd5e1;
-
   --sc-text-primary: #0f172a;
   --sc-text-secondary: #475569;
-  --sc-text-tertiary: #94a3b8;
-  --sc-text-disabled: #cbd5e1;
+  --sc-text-tertiary: #64748b;
+  --sc-text-disabled: #94a3b8;
 
-  --sc-success: #0f766e;
-  --sc-success-bg: #f0fdfa;
-  --sc-success-border: #99f6e4;
+  /* Status */
+  --sc-success: #10b981;
+  --sc-success-dark: #0f766e;
+  --sc-success-bg: #d1fae5;
+  --sc-success-border: #a7f3d0;
   --sc-warning: #f59e0b;
+  --sc-warning-dark: #b45309;
   --sc-warning-bg: #fef3c7;
-  --sc-warning-border: #fcd34d;
+  --sc-warning-border: #fde68a;
   --sc-error: #ef4444;
+  --sc-error-dark: #b91c1c;
   --sc-error-bg: #fee2e2;
   --sc-error-border: #fecaca;
   --sc-info: #3b82f6;
+  --sc-info-dark: #1d4ed8;
   --sc-info-bg: #dbeafe;
   --sc-info-border: #bfdbfe;
 
-  --sc-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --sc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --sc-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --sc-shadow-accent: 0 0 20px rgba(16, 185, 129, 0.15);
+  /* Typography */
+  --sc-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --sc-font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  --sc-font-mono: 'Space Grotesk', ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --sc-spacing-xs: 0.25rem;
-  --sc-spacing-sm: 0.5rem;
-  --sc-spacing-md: 1rem;
-  --sc-spacing-lg: 1.5rem;
-  --sc-spacing-xl: 2rem;
-
+  /* Shape */
   --sc-radius-sm: 0.375rem;
   --sc-radius-md: 0.5rem;
   --sc-radius-lg: 0.75rem;
   --sc-radius-xl: 1rem;
+  --sc-radius-2xl: 1.25rem;
+  --sc-radius-pill: 999px;
 
-  --sc-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --sc-font-size-xs: 0.75rem;
-  --sc-font-size-sm: 0.875rem;
-  --sc-font-size-base: 1rem;
-  --sc-font-size-lg: 1.125rem;
-  --sc-font-size-xl: 1.25rem;
-  --sc-font-size-2xl: 1.5rem;
-  --sc-font-weight-normal: 400;
-  --sc-font-weight-medium: 500;
-  --sc-font-weight-semibold: 600;
-  --sc-font-weight-bold: 700;
+  /* Elevation */
+  --sc-shadow-button: 0 1px 2px rgb(15 23 42 / 5%);
+  --sc-shadow-section: 0 1px 3px rgb(15 23 42 / 6%), 0 1px 2px rgb(15 23 42 / 4%);
+  --sc-shadow-popover: 0 12px 24px -4px rgb(15 23 42 / 10%), 0 4px 8px -2px rgb(15 23 42 / 5%);
+  --sc-shadow-focus: 0 0 0 3px rgb(15 118 110 / 20%);
 
-  --sc-dark-bg: #050b14;
-  --sc-dark-surface: rgba(5, 11, 20, 0.75);
-  --sc-dark-surface-elevated: rgba(5, 15, 28, 0.9);
-  --sc-dark-border: rgba(255, 255, 255, 0.1);
-  --sc-dark-border-subtle: rgba(255, 255, 255, 0.06);
+  /* Motion */
+  --sc-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sc-transition-fast: 140ms var(--sc-ease-standard);
+  --sc-transition-base: 220ms var(--sc-ease-standard);
+  --sc-transition-slow: 320ms var(--sc-ease-standard);
+}
 
-  --sc-neon-mint: #00e599;
-  --sc-neon-amber: #ffb800;
-  --sc-neon-crimson: #ff4444;
-  --sc-neon-violet: #a855f7;
-  --sc-neon-blue: #00b4ff;
-
-  --sc-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --sc-transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
-  --sc-transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+[data-theme='dark'] {
+  color-scheme: dark;
+  --sc-primary-lighter: #123b3a;
+  --sc-primary-light: #5eead4;
+  --sc-primary: #2dd4bf;
+  --sc-primary-hover: #5eead4;
+  --sc-primary-dark: #99f6e4;
+  --sc-primary-darker: #ccfbf1;
+  --sc-primary-alpha-08: rgb(45 212 191 / 8%);
+  --sc-primary-alpha-12: rgb(45 212 191 / 12%);
+  --sc-primary-alpha-20: rgb(45 212 191 / 20%);
+  --sc-accent: #00e599;
+  --sc-accent-light: #123b3a;
+  --sc-accent-alpha-10: rgb(0 229 153 / 10%);
+  --sc-accent-alpha-20: rgb(0 229 153 / 20%);
+  --sc-secondary-lighter: #162231;
+  --sc-secondary-light: #334155;
+  --sc-secondary: #94a3b8;
+  --sc-secondary-dark: #cbd5e1;
+  --sc-secondary-darker: #f8fafc;
+  --sc-bg-primary: #050b14;
+  --sc-bg-secondary: #0b1724;
+  --sc-bg-surface: #07111e;
+  --sc-bg-elevated: #0b1724;
+  --sc-topbar-bg: rgb(5 11 20 / 90%);
+  --sc-bg-muted: #162231;
+  --sc-border-light: rgb(255 255 255 / 6%);
+  --sc-border-default: rgb(255 255 255 / 10%);
+  --sc-border-strong: rgb(255 255 255 / 18%);
+  --sc-text-primary: #f8fafc;
+  --sc-text-secondary: #cbd5e1;
+  --sc-text-tertiary: #94a3b8;
+  --sc-text-disabled: #64748b;
+  --sc-success: #34d399;
+  --sc-success-dark: #6ee7b7;
+  --sc-success-bg: #123b32;
+  --sc-success-border: #176b57;
+  --sc-warning: #fbbf24;
+  --sc-warning-dark: #fcd34d;
+  --sc-warning-bg: #3d2e12;
+  --sc-warning-border: #6b4e16;
+  --sc-error: #f87171;
+  --sc-error-dark: #fca5a5;
+  --sc-error-bg: #401d24;
+  --sc-error-border: #6b2931;
+  --sc-info: #60a5fa;
+  --sc-info-dark: #93c5fd;
+  --sc-info-bg: #122d4d;
+  --sc-info-border: #1d4f7c;
+  --sc-shadow-button: 0 1px 2px rgb(0 0 0 / 20%);
+  --sc-shadow-section: 0 1px 2px rgb(0 0 0 / 28%);
+  --sc-shadow-popover: 0 18px 32px -10px rgb(0 0 0 / 55%), 0 5px 12px rgb(0 0 0 / 28%);
+  --sc-shadow-focus: 0 0 0 3px rgb(45 212 191 / 22%);
 }

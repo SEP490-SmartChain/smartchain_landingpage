@@ -1,50 +1,145 @@
 @import 'tailwindcss';
 @import './tokens.css';
 
-/* Import Fonts from Google Fonts: Inter, Plus Jakarta Sans, Space Grotesk */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  color: var(--sc-text-primary);
+  background: var(--sc-bg-primary);
+  font-family: var(--sc-font-sans);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  --font-mono: 'Space Grotesk', monospace;
-
-  /* Landing page tokens (dark theme) */
-  --sc-bg: #050b14;
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html {
+  min-width: 20rem;
   scroll-behavior: smooth;
+  background: var(--sc-bg-primary);
 }
 
 body {
+  min-width: 20rem;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+  background: var(--sc-bg-primary);
+  color: var(--sc-text-primary);
+  font-family: var(--sc-font-sans);
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  transition:
+    background-color var(--sc-transition-base),
+    color var(--sc-transition-base);
 }
 
-/* Additional resets beyond Tailwind preflight */
 a {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
 
 ul,
 ol {
-  list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-/* Shared animations — used across Modal, Drawer, FileViewer, Topbar */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: none;
+  box-shadow: var(--sc-shadow-focus);
+}
+
+::selection {
+  color: var(--sc-primary-darker);
+  background: var(--sc-primary-light);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: var(--sc-radius-pill);
+  background: var(--sc-border-strong);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sc-text-tertiary);
+  background-clip: content-box;
+}
+
+/* Console Shared Surface Primitives */
+.sc-surface {
+  border: 1px solid var(--sc-border-default);
+  border-radius: var(--sc-radius-xl);
+  background: var(--sc-bg-surface);
+  box-shadow: var(--sc-shadow-section);
+}
+
+.sc-surface-elevated {
+  border: 1px solid var(--sc-border-default);
+  border-radius: var(--sc-radius-2xl);
+  background: var(--sc-bg-elevated);
+  box-shadow: var(--sc-shadow-popover);
+}
+
+.sc-icon-button {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--sc-border-default);
+  border-radius: var(--sc-radius-md);
+  background: var(--sc-bg-surface);
+  color: var(--sc-text-secondary);
+  cursor: pointer;
+  transition:
+    color var(--sc-transition-fast),
+    border-color var(--sc-transition-fast),
+    background-color var(--sc-transition-fast),
+    transform var(--sc-transition-fast);
+}
+
+.sc-icon-button:hover {
+  border-color: var(--sc-primary-light);
+  background: var(--sc-primary-alpha-08);
+  color: var(--sc-primary-dark);
+  transform: translateY(-1px);
+}
+
+.sc-icon-button:active {
+  transform: scale(0.96);
+}
+
+.sc-grid-bg {
+  background-image:
+    linear-gradient(to right, var(--sc-border-light) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--sc-border-light) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -54,45 +149,24 @@ ol {
   }
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(1rem) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideLeft {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-/* Landing page — replaces Motion whileInView (no JS overhead, no React re-render) */
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

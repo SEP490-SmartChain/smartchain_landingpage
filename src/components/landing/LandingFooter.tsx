@@ -1,60 +1,70 @@
-// Footer content belongs exclusively to the public marketing site.
+import { ADMIN_LOGIN_URL, ADMIN_REGISTER_URL } from '@/config/site';
+
+import OrcaLogo from './OrcaLogo';
+
 const FOOTER_LINKS = {
-  Product: ['Smart Routing', 'Rate Shopping', 'Order Split', 'Reconciliation', 'Analytics'],
-  Integrations: ['GHN API', 'GHTK API', 'Viettel Post', 'Ninja Van', 'Webhook SDK'],
-  Resources: ['API Documentation', 'Developer Guide', 'System Status', 'Changelog'],
-  Company: ['About orca', 'Careers', 'Contact'],
+  'Dịch Vụ Cho Nhà Bán Hàng': [
+    { label: 'Lưu kho đa miền Bắc – Trung – Nam', href: '#overview' },
+    { label: 'Quản lý lô hàng & hạn sử dụng', href: '#features' },
+    { label: 'Đóng gói tiêu chuẩn & Combo', href: '#workflow' },
+    { label: 'Ký hợp đồng dịch vụ trực tuyến', href: '#pricing' },
+    { label: 'Đối soát tiền thu hộ (COD)', href: '#pricing' },
+  ],
+  'Năng Lực Vận Hành': [
+    { label: 'Kiểm đếm độc lập có video', href: '#workflow' },
+    { label: 'Tự động chọn kho gần khách nhất', href: '#workflow' },
+    { label: 'Tối ưu cước phí GHN & GHTK', href: '#features' },
+    { label: 'Kiểm định hàng hoàn trong 48 giờ', href: '#features' },
+    { label: 'Hỗ trợ thu hồi lô hàng nhanh', href: '#features' },
+  ],
+  'Cam Kết Chất Lượng': [
+    { label: 'Đồng bộ đơn hàng đa kênh', href: '#architecture' },
+    { label: 'Bảo mật dữ liệu thương hiệu', href: '#architecture' },
+    { label: 'Chính sách bồi thường rõ ràng', href: '#architecture' },
+    { label: 'Biểu phí dịch vụ minh bạch', href: '#pricing' },
+  ],
+  'Truy Cập Hệ Thống': [
+    { label: 'Đăng nhập Bảng điều khiển', href: ADMIN_LOGIN_URL },
+    { label: 'Đăng ký Doanh nghiệp mới', href: ADMIN_REGISTER_URL },
+    { label: 'Xem Bảng giá gói dịch vụ', href: '#pricing' },
+    { label: 'Tham quan Mô hình Kho 3D', href: '#workflow' },
+  ],
 } as const;
 
 export default function LandingFooter() {
   return (
-    <footer
-      className="relative border-t py-12 md:py-20 px-4 md:px-8 lg:px-16"
-      style={{
-        background: '#050B14',
-        borderColor: 'rgba(255,255,255,0.06)',
-      }}
-    >
-      <div className="max-w-[1400px] mx-auto">
-        <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-12 mb-12 md:mb-16">
-          {/* Brand block */}
-          <div className="lg:col-span-1 col-span-2">
-            <a href="/" className="flex items-center gap-2.5 mb-4">
-              <span
-                className="w-9 h-9 rounded-lg flex items-center justify-center font-black text-sm"
-                style={{ background: '#00E599', color: '#050B14' }}
-              >
-                SC
-              </span>
-              <span
-                className="font-bold text-white"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                Smart<span style={{ color: '#00E599' }}>Chain</span>
-              </span>
+    <footer className="border-t border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] py-12 sm:py-16">
+      <div className="mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
+        <div className="grid grid-cols-1 gap-10 pb-12 sm:grid-cols-2 lg:grid-cols-5">
+          {/* Brand Column */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <a href="/" className="inline-block">
+              <OrcaLogo size="md" />
             </a>
-            <p className="text-sm text-gray-500 leading-relaxed max-w-[22ch]">
-              Automated Logistics Orchestration System cho e-commerce enterprise Việt Nam.
+            <p className="mt-4 text-xs leading-relaxed text-[var(--sc-text-secondary)]">
+              Giải pháp Fulfillment &amp; Điều phối kho vận đa điểm dành cho doanh nghiệp thương mại
+              điện tử Việt Nam.
             </p>
+            <div className="mt-4 inline-flex items-center gap-1.5 rounded-full bg-[var(--sc-primary-lighter)] px-3 py-1 text-[11px] font-semibold text-[var(--sc-primary-dark)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[var(--sc-success)]" />
+              <span>Hệ thống kho vận hoạt động 24/7</span>
+            </div>
           </div>
 
-          {/* Link columns */}
+          {/* Link Columns */}
           {Object.entries(FOOTER_LINKS).map(([category, links]) => (
             <div key={category}>
-              <h4
-                className="text-sm font-semibold text-white mb-4"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--sc-text-primary)]">
                 {category}
-              </h4>
-              <ul className="space-y-2.5">
-                {links.map((link) => (
-                  <li key={link}>
+              </h3>
+              <ul className="mt-4 space-y-2.5">
+                {links.map((item) => (
+                  <li key={item.label}>
                     <a
-                      href="#"
-                      className="text-sm text-gray-500 hover:text-white transition-colors duration-200"
+                      href={item.href}
+                      className="text-xs text-[var(--sc-text-secondary)] transition-colors hover:text-[var(--sc-primary)]"
                     >
-                      {link}
+                      {item.label}
                     </a>
                   </li>
                 ))}
@@ -63,24 +73,25 @@ export default function LandingFooter() {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div
-          className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t"
-          style={{ borderColor: 'rgba(255,255,255,0.06)' }}
-        >
-          <p className="text-xs text-gray-600">
-            © 2026 orca · SEP490 SE_34 · FPT University Da Nang
-          </p>
-          <div className="flex items-center flex-wrap gap-x-6 gap-y-2 justify-center sm:justify-end">
-            {['Privacy Policy', 'Terms of Service', 'API Terms'].map((l) => (
-              <a
-                key={l}
-                href="#"
-                className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
-              >
-                {l}
-              </a>
-            ))}
+        {/* Bottom Bar */}
+        <div className="flex flex-col items-center justify-between gap-4 border-t border-[var(--sc-border-default)] pt-6 text-xs text-[var(--sc-text-tertiary)] sm:flex-row">
+          <p>© 2026 ORCA Fulfillment · Giải pháp Kho vận &amp; Điều phối Đa điểm</p>
+          <div className="flex flex-wrap items-center gap-6">
+            <a
+              href={ADMIN_LOGIN_URL}
+              className="hover:text-[var(--sc-text-primary)] transition-colors"
+            >
+              Chính sách bảo mật
+            </a>
+            <a
+              href={ADMIN_LOGIN_URL}
+              className="hover:text-[var(--sc-text-primary)] transition-colors"
+            >
+              Điều khoản dịch vụ
+            </a>
+            <a href="#pricing" className="hover:text-[var(--sc-text-primary)] transition-colors">
+              Biểu phí dịch vụ kho
+            </a>
           </div>
         </div>
       </div>
