@@ -1,207 +1,282 @@
+import { useState } from 'react';
+
+const SHOP_FAQ_ITEMS = [
+  {
+    id: 'expiry-policy',
+    question: 'Hàng có hạn dùng được xuất thế nào?',
+    answer: 'ORCA lọc các lô còn đủ hạn để giao, rồi ưu tiên lô hết hạn sớm hơn.',
+  },
+  {
+    id: 'return-policy',
+    question: 'Nếu khách trả hàng thì sao?',
+    answer:
+      'Khi kho kiểm xong kiện hoàn, bạn có thể xem ảnh của hàng hoàn trên tài khoản và quyết định cách xử lý.',
+  },
+] as const;
+
 export default function LandingFeatures() {
+  const [openIds, setOpenIds] = useState<Record<string, boolean>>({});
+
+  const toggleQuestion = (id: string) => {
+    setOpenIds((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
   return (
     <section
       id="features"
       aria-labelledby="features-heading"
-      className="relative py-20 sm:py-24 bg-[var(--sc-bg-primary)]"
+      className="relative scroll-mt-20 overflow-x-clip bg-[var(--sc-bg-primary)] py-20 sm:py-24"
     >
-      <div className="mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
-        {/* Clean Section Header */}
-        <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-3.5 py-1 text-xs font-semibold text-[var(--sc-primary)]">
-            <span>GIÁ TRỊ MANG LẠI CHO DOANH NGHIỆP</span>
-          </div>
+      {/* Preserve external anchor links formerly pointing to removed sections */}
+      <span
+        id="portals"
+        className="pointer-events-none absolute top-0 scroll-mt-20"
+        aria-hidden="true"
+      />
+      <span
+        id="architecture"
+        className="pointer-events-none absolute top-0 scroll-mt-20"
+        aria-hidden="true"
+      />
 
+      <div className="mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
+        <div className="max-w-2xl">
           <h2
             id="features-heading"
-            className="mt-3 text-3xl font-extrabold tracking-tight text-[var(--sc-text-primary)] sm:text-4xl"
+            className="text-3xl font-extrabold tracking-tight text-[var(--sc-text-primary)] sm:text-4xl"
             style={{ fontFamily: 'var(--sc-font-display)' }}
           >
-            Kiểm soát chặt chẽ hàng hóa,{' '}
-            <span className="text-[var(--sc-primary)]">tối ưu từng đồng chi phí vận hành.</span>
+            Giao việc kho, vẫn nắm rõ từng đơn
           </h2>
-
-          <p className="mt-2.5 text-sm leading-relaxed text-[var(--sc-text-secondary)] sm:text-base">
-            Loại bỏ hoàn toàn nỗi lo thất thoát hàng tồn, giao nhầm hàng cận hạn hay chênh lệch tiền
-            thu hộ (COD) cuối tháng.
-          </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="mt-10 grid grid-cols-1 gap-5 lg:grid-cols-3">
-          {/* Cell 1 (2 Cols): Expiry & Lot Control */}
-          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7 lg:col-span-2">
-            <div>
-              <span className="rounded-full bg-[var(--sc-primary-lighter)] px-3 py-1 text-xs font-bold text-[var(--sc-primary-dark)]">
-                QUẢN LÝ LÔ HÀNG &amp; HẠN SỬ DỤNG
-              </span>
-
-              <h3
-                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)] sm:text-2xl"
-                style={{ fontFamily: 'var(--sc-font-display)' }}
-              >
-                Tự động ưu tiên xuất theo hạn dùng &amp; Hỗ trợ thu hồi nhanh
-              </h3>
-
-              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
-                Mỗi lô hàng nhập kho đều được theo dõi hạn sử dụng và vị trí kệ cụ thể. Hệ thống tự
-                động xuất các lô có hạn dùng gần nhất trước. Khi cần kiểm tra chất lượng đột xuất,
-                ORCA khoanh vùng lô hàng ngay lập tức và chuyển đơn sang lô thay thế để không làm
-                gián đoạn việc kinh doanh.
-              </p>
-            </div>
-
-            <div className="mt-5 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-4">
-              <div className="flex items-center justify-between border-b border-[var(--sc-border-default)] pb-2.5">
-                <span className="text-xs font-semibold text-[var(--sc-text-primary)]">
-                  Khoanh vùng &amp; Chuyển đổi lô hàng tự động
-                </span>
-                <span className="rounded bg-[var(--sc-bg-surface)] px-2 py-0.5 text-xs font-bold text-[var(--sc-primary)]">
-                  Lô tháng 10/2026
-                </span>
-              </div>
-
-              <div className="mt-3 grid grid-cols-3 gap-2.5 text-center">
-                <div className="rounded-lg bg-[var(--sc-bg-surface)] p-2.5">
-                  <div className="text-base font-bold text-[var(--sc-text-primary)]">100%</div>
-                  <div className="text-[11px] text-[var(--sc-text-secondary)]">
-                    Truy xuất nguồn gốc
-                  </div>
-                </div>
-                <div className="rounded-lg bg-[var(--sc-bg-surface)] p-2.5">
-                  <div className="text-base font-bold text-[var(--sc-primary)]">Tự động</div>
-                  <div className="text-[11px] text-[var(--sc-text-secondary)]">
-                    Đổi sang lô đạt chuẩn
-                  </div>
-                </div>
-                <div className="rounded-lg bg-[var(--sc-bg-surface)] p-2.5">
-                  <div className="text-base font-bold text-[var(--sc-success-dark)]">0%</div>
-                  <div className="text-[11px] text-[var(--sc-text-secondary)]">
-                    Rủi ro giao hàng quá hạn
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-
-          {/* Cell 2: Smart Routing & Carrier Selection */}
+        {/* 3 steps reading left-to-right on desktop, stacked vertically with each step's own card on mobile */}
+        <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-stretch">
+          {/* Step 1: Inbound Receipt */}
           <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
             <div>
-              <span className="rounded-full bg-[var(--sc-info-bg)] px-3 py-1 text-xs font-bold text-[var(--sc-info-dark)]">
-                TỐI ƯU GIAO VẬN
+              <span className="inline-flex rounded-md bg-[var(--sc-primary-alpha-12)] px-2.5 py-1 text-xs font-bold text-[var(--sc-primary)]">
+                Bước 1
               </span>
-
               <h3
-                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)]"
+                className="mt-3 text-xl font-bold text-[var(--sc-text-primary)]"
                 style={{ fontFamily: 'var(--sc-font-display)' }}
               >
-                Chọn Kho Gần Nhất &amp; So Sánh Cước Phí
+                Gửi hàng, biết kho thực nhận bao nhiêu
               </h3>
-
-              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
-                Tự động phân bổ đơn về kho gần người nhận nhất và chọn đối tác vận chuyển (GHN,
-                GHTK...) có mức cước tối ưu nhất.
+              <p className="mt-2.5 text-base leading-relaxed text-[var(--sc-text-secondary)]">
+                Bạn báo trước lô hàng. Khi ORCA kiểm đếm xong, bạn xem số đã gửi, số thực nhận và
+                phần chênh lệch ngay trên phiếu nhập.
               </p>
             </div>
 
-            <div className="mt-5 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-4 text-xs">
-              <div className="font-semibold text-[var(--sc-text-primary)]">
-                Xuất từ: Trung tâm Kho TP.HCM
+            <div
+              role="group"
+              aria-label="Phiếu nhập minh họa"
+              className="mt-6 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-secondary)] p-4"
+            >
+              <div className="flex items-center justify-between gap-2 border-b border-[var(--sc-border-default)] pb-2.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--sc-text-secondary)]">
+                  Phiếu nhập minh họa
+                </span>
+                <span className="font-mono text-xs font-semibold text-[var(--sc-text-tertiary)]">
+                  #PN-2048
+                </span>
               </div>
-              <div className="mt-1 text-[var(--sc-text-secondary)]">
-                Đơn vị giao: <strong>GHN Tiêu chuẩn</strong> ·{' '}
-                <strong className="tabular-nums text-[var(--sc-primary)]">
-                  Tiết kiệm 22% cước
-                </strong>
+
+              <div className="mt-3 text-sm font-semibold text-[var(--sc-text-primary)]">
+                Cà phê hạt rang mộc 500g
               </div>
+
+              <dl className="mt-3 grid grid-cols-3 gap-2 text-center">
+                <div className="rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-2 py-2.5">
+                  <dt className="text-xs font-medium text-[var(--sc-text-secondary)]">Báo gửi</dt>
+                  <dd className="mt-1 text-lg font-extrabold tabular-nums text-[var(--sc-text-primary)]">
+                    100
+                  </dd>
+                </div>
+                <div className="rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-2 py-2.5">
+                  <dt className="text-xs font-medium text-[var(--sc-text-secondary)]">Thực nhận</dt>
+                  <dd className="mt-1 text-lg font-extrabold tabular-nums text-[var(--sc-primary)]">
+                    98
+                  </dd>
+                </div>
+                <div className="rounded-lg border border-[var(--sc-warning-border)] bg-[var(--sc-warning-bg)] px-2 py-2.5">
+                  <dt className="text-xs font-semibold text-[var(--sc-warning-dark)]">Thiếu</dt>
+                  <dd className="mt-1 text-lg font-extrabold tabular-nums text-[var(--sc-warning-dark)]">
+                    2
+                  </dd>
+                </div>
+              </dl>
             </div>
           </article>
 
-          {/* Cell 3: 48h Return QC */}
+          {/* Step 2: Order Pick, Pack & Carrier Handover */}
           <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
             <div>
-              <span className="rounded-full bg-[var(--sc-success-bg)] px-3 py-1 text-xs font-bold text-[var(--sc-success-dark)]">
-                QUẢN LÝ HÀNG HOÀN
+              <span className="inline-flex rounded-md bg-[var(--sc-primary-alpha-12)] px-2.5 py-1 text-xs font-bold text-[var(--sc-primary)]">
+                Bước 2
               </span>
-
               <h3
-                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)]"
+                className="mt-3 text-xl font-bold text-[var(--sc-text-primary)]"
                 style={{ fontFamily: 'var(--sc-font-display)' }}
               >
-                Kiểm Định Hàng Hoàn Trong 48 Giờ
+                Có đơn, ORCA soạn và đóng gói
               </h3>
-
-              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
-                Hàng hoàn về được kiểm tra ngoại quan kèm hình ảnh thực tế trong 48 giờ. Hàng nguyên
-                vẹn được nhập lại kệ bán ngay.
+              <p className="mt-2.5 text-base leading-relaxed text-[var(--sc-text-secondary)]">
+                Bạn nhập đơn hoặc tải tệp Excel. ORCA lấy hàng, đóng gói và bàn giao cho hãng vận
+                chuyển. Bạn tra mã vận đơn để theo dõi từng kiện.
               </p>
             </div>
 
-            <div className="mt-5 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-4 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="rounded bg-[var(--sc-info-bg)] px-2 py-0.5 font-semibold text-[var(--sc-info-dark)]">
-                  Đã chụp ảnh đối chứng
+            <div
+              role="group"
+              aria-label="Kiện hàng minh họa"
+              className="mt-6 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-secondary)] p-4"
+            >
+              <div className="flex items-center justify-between gap-2 border-b border-[var(--sc-border-default)] pb-2.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--sc-text-secondary)]">
+                  Kiện hàng minh họa
                 </span>
-                <span className="text-[var(--sc-text-secondary)]">Cam kết 48h</span>
+                <span className="font-mono text-xs font-semibold text-[var(--sc-text-tertiary)]">
+                  Đơn #DH-1042
+                </span>
               </div>
-              <div className="mt-2 text-[var(--sc-text-secondary)]">
-                Chủ hàng chủ động chọn nhập lại kho hoặc thanh lý
+
+              <div className="mt-3 flex items-baseline justify-between gap-2">
+                <span className="text-xs font-medium text-[var(--sc-text-secondary)]">
+                  Mã vận đơn
+                </span>
+                <span className="font-mono text-sm font-bold tracking-wide text-[var(--sc-text-primary)]">
+                  VD84920163
+                </span>
+              </div>
+
+              <div className="mt-3 rounded-lg border border-[var(--sc-success-border)] bg-[var(--sc-success-bg)] px-3.5 py-3">
+                <div className="flex items-center gap-2">
+                  <span
+                    className="h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--sc-success)]"
+                    aria-hidden="true"
+                  />
+                  <span className="text-sm font-bold text-[var(--sc-success-dark)]">
+                    Đã bàn giao hãng vận chuyển
+                  </span>
+                </div>
+                <div className="mt-1 pl-4 text-xs font-medium text-[var(--sc-success-dark)]">
+                  Kiện 01/01 · Đã quét xuất kho
+                </div>
               </div>
             </div>
           </article>
 
-          {/* Cell 4 (2 Cols): Transparent Billing & COD */}
-          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7 lg:col-span-2">
+          {/* Step 3: Weekly COD Reconciliation */}
+          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
             <div>
-              <span className="rounded-full bg-[var(--sc-primary-lighter)] px-3 py-1 text-xs font-bold text-[var(--sc-primary-dark)]">
-                MINH BẠCH TÀI CHÍNH &amp; DÒNG TIỀN
+              <span className="inline-flex rounded-md bg-[var(--sc-primary-alpha-12)] px-2.5 py-1 text-xs font-bold text-[var(--sc-primary)]">
+                Bước 3
               </span>
-
               <h3
-                className="mt-3.5 text-xl font-bold text-[var(--sc-text-primary)] sm:text-2xl"
+                className="mt-3 text-xl font-bold text-[var(--sc-text-primary)]"
                 style={{ fontFamily: 'var(--sc-font-display)' }}
               >
-                Tính Phí Lưu Kho Theo Thể Tích Thực Tế &amp; Đối Soát COD Rõ Ràng
+                Đối chiếu tiền thu hộ theo từng đơn
               </h3>
-
-              <p className="mt-2 text-sm leading-relaxed text-[var(--sc-text-secondary)]">
-                Dung tích lưu kho được ghi nhận tự động mỗi ngày theo lượng hàng thực tế đang nằm
-                tại kho. Bảng kê cuối kỳ tách bạch rõ ràng giữa Phí thuê bao, Phí xử lý đơn hàng,
-                Tiền cọc và Tiền thu hộ (COD).
+              <p className="mt-2.5 text-base leading-relaxed text-[var(--sc-text-secondary)]">
+                Mở bảng kê tuần để xem tiền thu hộ, cước và phí. Nếu một dòng chưa khớp, bạn có thể
+                báo lại ngay trên dòng đó.
               </p>
             </div>
 
-            <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {[
-                {
-                  tag: 'Trả theo thực tế',
-                  title: 'Tính phí m³/ngày minh bạch',
-                  desc: 'Dùng bao nhiêu không gian kệ tính bấy nhiêu, gộp định mức miễn phí trên toàn mạng lưới.',
-                },
-                {
-                  tag: 'Rõ ràng từng khoản',
-                  title: 'Sổ tiền & Công nợ tách biệt',
-                  desc: 'Tiền cọc hợp đồng, phí dịch vụ và tiền thu hộ COD không bao giờ bị trộn lẫn.',
-                },
-                {
-                  tag: 'Bảo vệ quyền lợi',
-                  title: 'Cam kết bồi thường rõ ràng',
-                  desc: 'Mọi khiếu nại hư hỏng hoặc thất lạc đều có video/hình ảnh tại kho làm căn cứ bồi hoàn.',
-                },
-              ].map((item) => (
-                <div
-                  key={item.tag}
-                  className="rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] p-3.5"
+            <div
+              role="group"
+              aria-label="Bảng kê tuần minh họa"
+              className="mt-6 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-secondary)] p-4"
+            >
+              <div className="flex items-center justify-between gap-2 border-b border-[var(--sc-border-default)] pb-2.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-[var(--sc-text-secondary)]">
+                  Bảng kê tuần minh họa
+                </span>
+                <span className="rounded-full border border-[var(--sc-success-border)] bg-[var(--sc-success-bg)] px-2 py-0.5 text-[11px] font-semibold text-[var(--sc-success-dark)]">
+                  Đã chi trả kỳ trước
+                </span>
+              </div>
+
+              <div className="mt-3 rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] p-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <span className="font-mono text-xs font-bold text-[var(--sc-text-primary)]">
+                    Đơn #DH-1048
+                  </span>
+                  <span className="rounded-full border border-[var(--sc-info-border)] bg-[var(--sc-info-bg)] px-2 py-0.5 text-[11px] font-semibold text-[var(--sc-info-dark)]">
+                    Đang đối soát
+                  </span>
+                </div>
+
+                <dl className="mt-2.5 grid grid-cols-3 gap-1.5 text-xs">
+                  <div>
+                    <dt className="text-[var(--sc-text-tertiary)]">Thu hộ</dt>
+                    <dd className="mt-0.5 font-semibold tabular-nums text-[var(--sc-text-primary)]">
+                      450.000 đ
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="text-[var(--sc-text-tertiary)]">Cước &amp; phí</dt>
+                    <dd className="mt-0.5 font-semibold tabular-nums text-[var(--sc-text-secondary)]">
+                      -32.000 đ
+                    </dd>
+                  </div>
+                  <div className="text-right">
+                    <dt className="text-[var(--sc-text-tertiary)]">Thực nhận</dt>
+                    <dd className="mt-0.5 font-bold tabular-nums text-[var(--sc-primary)]">
+                      418.000 đ
+                    </dd>
+                  </div>
+                </dl>
+
+                <div className="mt-2.5 flex items-center justify-between border-t border-[var(--sc-border-default)] pt-2 text-xs">
+                  <span className="text-[var(--sc-text-tertiary)]">Chưa chi trả</span>
+                  <span className="rounded border border-[var(--sc-warning-border)] bg-[var(--sc-warning-bg)] px-2 py-0.5 font-semibold text-[var(--sc-warning-dark)]">
+                    Báo sai dòng này
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        {/* 2 closed-by-default expandable questions */}
+        <div className="mt-10 max-w-3xl space-y-3">
+          {SHOP_FAQ_ITEMS.map((item) => {
+            const isOpen = Boolean(openIds[item.id]);
+            const panelId = `faq-panel-${item.id}`;
+            return (
+              <div key={item.id} className="sc-surface overflow-hidden">
+                <button
+                  type="button"
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  onClick={() => toggleQuestion(item.id)}
+                  className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-[var(--sc-text-primary)] transition-colors hover:bg-[var(--sc-bg-secondary)]"
                 >
-                  <div className="text-[11px] font-bold text-[var(--sc-primary)]">{item.tag}</div>
-                  <div className="mt-1 text-sm font-semibold text-[var(--sc-text-primary)]">
-                    {item.title}
-                  </div>
-                  <p className="mt-1 text-xs text-[var(--sc-text-secondary)]">{item.desc}</p>
+                  <span>{item.question}</span>
+                  <span
+                    aria-hidden="true"
+                    className={`shrink-0 text-lg leading-none text-[var(--sc-primary)] transition-transform duration-200 ${
+                      isOpen ? 'rotate-45' : ''
+                    }`}
+                  >
+                    +
+                  </span>
+                </button>
+                <div
+                  id={panelId}
+                  hidden={!isOpen}
+                  className="border-t border-[var(--sc-border-default)] px-5 py-4 text-base leading-relaxed text-[var(--sc-text-secondary)]"
+                >
+                  {item.answer}
                 </div>
-              ))}
-            </div>
-          </article>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
