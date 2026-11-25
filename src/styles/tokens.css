@@ -14,6 +14,7 @@
   --sc-primary-hover: #0d645d;
   --sc-primary-dark: #115e59;
   --sc-primary-darker: #134e4a;
+  --sc-on-primary: #ffffff;
   --sc-primary-alpha-08: rgb(15 118 110 / 8%);
   --sc-primary-alpha-12: rgb(15 118 110 / 12%);
   --sc-primary-alpha-20: rgb(15 118 110 / 20%);
@@ -96,6 +97,7 @@
   --sc-primary-hover: #5eead4;
   --sc-primary-dark: #99f6e4;
   --sc-primary-darker: #ccfbf1;
+  --sc-on-primary: #041311;
   --sc-primary-alpha-08: rgb(45 212 191 / 8%);
   --sc-primary-alpha-12: rgb(45 212 191 / 12%);
   --sc-primary-alpha-20: rgb(45 212 191 / 20%);

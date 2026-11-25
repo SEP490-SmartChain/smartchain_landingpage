@@ -1,74 +1,13 @@
-import { useState } from 'react';
-
-import { ADMIN_LOGIN_URL, ADMIN_REGISTER_URL } from '@/config/site';
-
-import OrcaLogo from './OrcaLogo';
-
-type PreviewTab = 'dashboard' | 'inventory' | 'contract';
-
-const WAREHOUSE_HUBS = [
-  {
-    code: 'Kho Miền Bắc',
-    name: 'Trung tâm Kho Hà Nội',
-    lots: '142 lô hàng · 1,280 vị trí kệ',
-    sla: '99.5% giao đúng hẹn',
-    badge: 'Đang hoạt động',
-  },
-  {
-    code: 'Kho Miền Trung',
-    name: 'Trung tâm Kho Đà Nẵng',
-    lots: '86 lô hàng · 740 vị trí kệ',
-    sla: '99.7% giao đúng hẹn',
-    badge: 'Đang hoạt động',
-  },
-  {
-    code: 'Kho Miền Nam',
-    name: 'Trung tâm Kho TP.HCM',
-    lots: '218 lô hàng · 1,950 vị trí kệ',
-    sla: '99.2% giao đúng hẹn',
-    badge: 'Đang hoạt động',
-  },
-] as const;
-
-const LIVE_LOTS = [
-  {
-    sku: 'Cà phê Rang Xay 250g',
-    lot: 'Lô tháng 10/2026',
-    bin: 'Kho Hà Nội · Kệ A-02',
-    expiry: '15/06/2027',
-    available: '382 sản phẩm',
-    status: 'Sẵn sàng xuất kho',
-  },
-  {
-    sku: 'Trà Oolong Cao Cấp 500g',
-    lot: 'Lô tháng 09/2026',
-    bin: 'Kho Đà Nẵng · Kệ B-01',
-    expiry: '20/04/2027',
-    available: '170 sản phẩm',
-    status: 'Ưu tiên xuất trước',
-  },
-  {
-    sku: 'Mật Ong Hoa Rừng 1 Lít',
-    lot: 'Lô tháng 11/2026',
-    bin: 'Kho TP.HCM · Kệ C-04',
-    expiry: '01/12/2027',
-    available: '548 sản phẩm',
-    status: 'Sẵn sàng xuất kho',
-  },
-] as const;
-
 export default function LandingHero() {
-  const [activeTab, setActiveTab] = useState<PreviewTab>('dashboard');
-
   return (
     <section
       id="overview"
       aria-labelledby="hero-heading"
-      className="relative overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-24 sc-grid-bg"
+      className="relative scroll-mt-20 overflow-x-clip pt-24 pb-16 sm:pt-32 sm:pb-24 sc-grid-bg"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[480px]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[420px]"
         style={{
           background:
             'radial-gradient(ellipse 60% 45% at 50% 0%, var(--sc-primary-alpha-12) 0%, transparent 75%)',
@@ -76,225 +15,306 @@ export default function LandingHero() {
       />
 
       <div className="relative mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
-        {/* Clean Business Hero Copy */}
-        <div className="mx-auto max-w-3xl text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-3.5 py-1 text-xs font-medium text-[var(--sc-text-secondary)] shadow-[var(--sc-shadow-button)]">
-            <span className="h-2 w-2 rounded-full bg-[var(--sc-success)]" />
-            <span className="font-semibold text-[var(--sc-primary)]">ORCA FULFILLMENT</span>
-            <span>·</span>
-            <span>Giải pháp kho vận &amp; hoàn tất đơn hàng toàn diện</span>
-          </div>
-
-          <h1
-            id="hero-heading"
-            className="text-balance text-3xl font-extrabold tracking-[-0.03em] text-[var(--sc-text-primary)] sm:text-5xl lg:text-[52px] lg:leading-[1.12]"
-            style={{ fontFamily: 'var(--sc-font-display)' }}
-          >
-            Tập trung phát triển kinh doanh,{' '}
-            <span className="text-[var(--sc-primary)]">mọi khâu kho vận đã có ORCA.</span>
-          </h1>
-
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-[var(--sc-text-secondary)] sm:text-lg">
-            Lưu kho đa miền Bắc – Trung – Nam, quản lý tồn kho theo hạn sử dụng, đóng gói tiêu
-            chuẩn, tối ưu phí giao hàng và đối soát tiền thu hộ (COD) minh bạch trên một nền tảng
-            duy nhất.
-          </p>
-
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <a
-              href={ADMIN_REGISTER_URL}
-              className="inline-flex items-center gap-2 rounded-xl bg-[var(--sc-primary)] px-6 py-3 text-sm font-semibold shadow-[0_8px_20px_rgb(15_118_110/25%)] transition-all hover:bg-[var(--sc-primary-hover)] active:scale-[0.98]"
-              style={{ color: 'var(--sc-bg-surface)' }}
+        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Left on desktop, first on mobile: Value proposition & actions */}
+          <div className="lg:col-span-6">
+            <h1
+              id="hero-heading"
+              className="text-balance text-3xl font-extrabold tracking-[-0.03em] text-[var(--sc-text-primary)] sm:text-5xl lg:text-[50px] lg:leading-[1.12]"
+              style={{ fontFamily: 'var(--sc-font-display)' }}
             >
-              <span>Đăng ký Tài khoản Doanh nghiệp</span>
-              <span aria-hidden="true">→</span>
-            </a>
+              Bạn chốt đơn. <span className="text-[var(--sc-primary)]">ORCA lo việc kho.</span>
+            </h1>
 
-            <a
-              href={ADMIN_LOGIN_URL}
-              className="inline-flex items-center gap-2 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-6 py-3 text-sm font-semibold text-[var(--sc-text-primary)] shadow-[var(--sc-shadow-button)] transition-colors hover:border-[var(--sc-border-strong)] hover:bg-[var(--sc-bg-secondary)]"
-            >
-              <span>Đăng nhập Hệ thống</span>
-            </a>
-          </div>
-        </div>
+            <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--sc-text-secondary)] sm:text-lg">
+              ORCA nhận hàng, lưu kho, đóng gói và bàn giao cho hãng vận chuyển. Bạn xem được hàng
+              còn trong kho, kiện đã giao và tiền thu hộ theo từng đơn.
+            </p>
 
-        {/* Interactive Console Mockup Frame */}
-        <div className="mt-12">
-          <div className="sc-surface-elevated overflow-hidden border border-[var(--sc-border-strong)]">
-            {/* Console Topbar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-4 py-3 sm:px-6">
-              <div className="flex items-center gap-3">
-                <OrcaLogo size="sm" />
-                <span className="hidden h-4 w-px bg-[var(--sc-border-default)] sm:inline-block" />
-                <span className="hidden text-xs font-medium text-[var(--sc-text-secondary)] sm:inline">
-                  Bảng điều khiển dành cho Doanh nghiệp
-                </span>
-              </div>
-
-              <div
-                role="tablist"
-                aria-label="Chế độ xem trước hệ thống"
-                className="flex items-center gap-1 rounded-lg bg-[var(--sc-bg-secondary)] p-1"
+            <div className="mt-8 flex flex-wrap items-center gap-3.5">
+              <a
+                href="#pricing"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--sc-primary)] px-6 py-3.5 text-base font-semibold text-[var(--sc-on-primary)] shadow-[0_8px_20px_rgb(15_118_110/22%)] transition-all hover:bg-[var(--sc-primary-hover)] active:scale-[0.98]"
               >
-                {[
-                  { id: 'dashboard', label: 'Mạng lưới kho' },
-                  { id: 'inventory', label: 'Tồn kho & Hạn dùng' },
-                  { id: 'contract', label: 'Hợp đồng & Chi phí' },
-                ].map((tab) => {
-                  const isActive = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      role="tab"
-                      aria-selected={isActive}
-                      onClick={() => setActiveTab(tab.id as PreviewTab)}
-                      className={`whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-semibold transition-all cursor-pointer ${
-                        isActive
-                          ? 'bg-[var(--sc-bg-surface)] text-[var(--sc-primary)] shadow-[var(--sc-shadow-button)]'
-                          : 'text-[var(--sc-text-secondary)] hover:text-[var(--sc-text-primary)]'
-                      }`}
+                <span>Xem các gói dịch vụ</span>
+                <span aria-hidden="true">→</span>
+              </a>
+
+              <a
+                href="#workflow"
+                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-surface)] px-5 py-3.5 text-base font-semibold text-[var(--sc-text-primary)] shadow-[var(--sc-shadow-button)] transition-colors hover:bg-[var(--sc-bg-secondary)]"
+              >
+                <span>Xem quy trình kho 3D</span>
+                <span aria-hidden="true">↓</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Right on desktop, second on mobile: Close-up packing illustration */}
+          <div className="lg:col-span-6">
+            <figure className="sc-surface-elevated overflow-hidden p-4 sm:p-6">
+              <div className="overflow-hidden rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)]">
+                <svg
+                  viewBox="0 0 600 410"
+                  role="img"
+                  aria-labelledby="packing-illustration-title"
+                  className="block h-auto w-full"
+                >
+                  <title id="packing-illustration-title">
+                    Minh họa cận cảnh hai bàn tay đang đóng gói một đơn hàng và dán nhãn vận đơn
+                  </title>
+                  <defs>
+                    <linearGradient
+                      id="benchSurface"
+                      x1="0"
+                      y1="0"
+                      x2="600"
+                      y2="410"
+                      gradientUnits="userSpaceOnUse"
                     >
-                      {tab.label}
-                    </button>
-                  );
-                })}
+                      <stop offset="0%" stopColor="#0f293a" />
+                      <stop offset="100%" stopColor="#091826" />
+                    </linearGradient>
+                    <linearGradient
+                      id="boxBody"
+                      x1="170"
+                      y1="120"
+                      x2="430"
+                      y2="330"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0%" stopColor="#e2b47d" />
+                      <stop offset="100%" stopColor="#c59057" />
+                    </linearGradient>
+                    <linearGradient
+                      id="boxSide"
+                      x1="170"
+                      y1="220"
+                      x2="430"
+                      y2="345"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0%" stopColor="#b88249" />
+                      <stop offset="100%" stopColor="#9c6a36" />
+                    </linearGradient>
+                    <linearGradient
+                      id="boxFlapLeft"
+                      x1="135"
+                      y1="115"
+                      x2="295"
+                      y2="235"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0%" stopColor="#ecc391" />
+                      <stop offset="100%" stopColor="#d29f66" />
+                    </linearGradient>
+                    <linearGradient
+                      id="boxFlapRight"
+                      x1="300"
+                      y1="115"
+                      x2="465"
+                      y2="235"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0%" stopColor="#e6bb87" />
+                      <stop offset="100%" stopColor="#ca955c" />
+                    </linearGradient>
+                    <linearGradient id="sleeveTeal" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#0f766e" />
+                      <stop offset="100%" stopColor="#115e59" />
+                    </linearGradient>
+                    <linearGradient id="handSkin" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stopColor="#f5cba7" />
+                      <stop offset="100%" stopColor="#e0ac82" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Packing station mat */}
+                  <rect width="600" height="410" fill="url(#benchSurface)" />
+                  <g stroke="#2dd4bf" strokeOpacity="0.1" strokeWidth="1">
+                    <path d="M40 50H560M40 110H560M40 170H560M40 230H560M40 290H560M40 350H560" />
+                    <path d="M80 30V380M160 30V380M240 30V380M320 30V380M400 30V380M480 30V380M540 30V380" />
+                  </g>
+                  <rect
+                    x="28"
+                    y="24"
+                    width="544"
+                    height="362"
+                    rx="14"
+                    fill="none"
+                    stroke="#2dd4bf"
+                    strokeOpacity="0.22"
+                    strokeDasharray="6 6"
+                  />
+
+                  {/* Soft shadow beneath carton */}
+                  <ellipse cx="305" cy="322" rx="165" ry="34" fill="#020810" fillOpacity="0.55" />
+
+                  {/* Tape dispenser & scanner on packing station */}
+                  <g transform="translate(468, 72)">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="76"
+                      height="46"
+                      rx="10"
+                      fill="#132f44"
+                      stroke="#2dd4bf"
+                      strokeOpacity="0.35"
+                    />
+                    <circle
+                      cx="26"
+                      cy="23"
+                      r="13"
+                      fill="#091826"
+                      stroke="#5eead4"
+                      strokeWidth="4"
+                      strokeOpacity="0.7"
+                    />
+                    <rect
+                      x="46"
+                      y="15"
+                      width="20"
+                      height="16"
+                      rx="3"
+                      fill="#2dd4bf"
+                      fillOpacity="0.25"
+                    />
+                  </g>
+
+                  {/* Shipping carton base & front wall */}
+                  <polygon points="168,175 300,126 434,175 300,228" fill="#8b5c2e" />
+                  {/* Inner protective cushioning & neatly packed items */}
+                  <rect
+                    x="228"
+                    y="150"
+                    width="74"
+                    height="50"
+                    rx="6"
+                    transform="rotate(-14 228 150)"
+                    fill="#d1fae5"
+                    stroke="#0f766e"
+                    strokeWidth="1.5"
+                  />
+                  <rect
+                    x="306"
+                    y="146"
+                    width="66"
+                    height="46"
+                    rx="6"
+                    transform="rotate(12 306 146)"
+                    fill="#ccfbf1"
+                    stroke="#0f766e"
+                    strokeWidth="1.5"
+                  />
+
+                  {/* Carton left & right visible walls */}
+                  <polygon points="168,175 300,228 300,326 168,270" fill="url(#boxBody)" />
+                  <polygon points="434,175 300,228 300,326 434,270" fill="url(#boxSide)" />
+
+                  {/* Folded top flaps closing over the order */}
+                  <polygon
+                    points="168,175 300,228 286,184 156,136"
+                    fill="url(#boxFlapLeft)"
+                    stroke="#9c6a36"
+                    strokeWidth="1"
+                  />
+                  <polygon
+                    points="434,175 300,228 314,184 446,136"
+                    fill="url(#boxFlapRight)"
+                    stroke="#8b5c2e"
+                    strokeWidth="1"
+                  />
+
+                  {/* Center ORCA sealing tape strip */}
+                  <polygon
+                    points="222,150 378,208 364,220 208,162"
+                    fill="#0f766e"
+                    fillOpacity="0.92"
+                  />
+                  <line
+                    x1="218"
+                    y1="156"
+                    x2="370"
+                    y2="214"
+                    stroke="#99f6e4"
+                    strokeWidth="1.5"
+                    strokeDasharray="6 4"
+                  />
+
+                  {/* Shipping label on front-left carton face */}
+                  <g transform="matrix(0.93, 0.37, 0, 1, 198, 214)">
+                    <rect x="0" y="0" width="76" height="54" rx="5" fill="#ffffff" />
+                    <rect x="6" y="6" width="28" height="7" rx="2" fill="#0f766e" />
+                    <rect x="6" y="18" width="54" height="4" rx="1.5" fill="#94a3b8" />
+                    <rect x="6" y="25" width="42" height="4" rx="1.5" fill="#cbd5e1" />
+                    {/* Barcode bars */}
+                    <g fill="#0f172a" transform="translate(6, 34)">
+                      <rect x="0" y="0" width="3" height="13" />
+                      <rect x="5" y="0" width="1.5" height="13" />
+                      <rect x="9" y="0" width="4" height="13" />
+                      <rect x="15" y="0" width="2" height="13" />
+                      <rect x="19" y="0" width="3.5" height="13" />
+                      <rect x="25" y="0" width="1.5" height="13" />
+                      <rect x="29" y="0" width="4" height="13" />
+                      <rect x="36" y="0" width="2" height="13" />
+                      <rect x="40" y="0" width="3" height="13" />
+                      <rect x="46" y="0" width="1.5" height="13" />
+                      <rect x="50" y="0" width="4" height="13" />
+                      <rect x="57" y="0" width="2.5" height="13" />
+                    </g>
+                  </g>
+
+                  {/* Left hand steadying carton flap */}
+                  <g>
+                    <path d="M42 92 L138 134 L118 176 L26 138 Z" fill="url(#sleeveTeal)" />
+                    <path
+                      d="M132 132 C158 140, 188 152, 198 166 C204 174, 196 184, 184 182 L154 174 C160 183, 166 194, 158 201 C150 207, 136 198, 124 186 L114 174 Z"
+                      fill="url(#handSkin)"
+                    />
+                  </g>
+
+                  {/* Right hand smoothing sealing tape onto carton */}
+                  <g>
+                    <path d="M566 106 L464 152 L484 194 L582 152 Z" fill="url(#sleeveTeal)" />
+                    <path
+                      d="M470 150 C442 158, 404 174, 386 190 C378 198, 384 208, 396 206 L428 196 C422 206, 418 216, 427 222 C436 227, 452 214, 466 200 L486 192 Z"
+                      fill="url(#handSkin)"
+                    />
+                  </g>
+
+                  {/* Subtle status pill inside illustration corner */}
+                  <g transform="translate(46, 336)">
+                    <rect
+                      x="0"
+                      y="0"
+                      width="196"
+                      height="32"
+                      rx="16"
+                      fill="#071322"
+                      fillOpacity="0.88"
+                      stroke="#2dd4bf"
+                      strokeOpacity="0.4"
+                    />
+                    <circle cx="18" cy="16" r="5" fill="#10b981" />
+                    <text
+                      x="32"
+                      y="20"
+                      fill="#e2e8f0"
+                      fontSize="12"
+                      fontWeight="600"
+                      fontFamily="Inter, system-ui, sans-serif"
+                    >
+                      Đóng gói &amp; dán mã vận đơn
+                    </text>
+                  </g>
+                </svg>
               </div>
 
-              <span className="hidden items-center gap-1.5 rounded-full bg-[var(--sc-primary-lighter)] px-3 py-1 text-xs font-semibold text-[var(--sc-primary-dark)] lg:inline-flex">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--sc-primary)]" />
-                Chủ Doanh Nghiệp
-              </span>
-            </div>
-
-            {/* Console Workspace Content */}
-            <div className="bg-[var(--sc-bg-primary)] p-4 sm:p-6">
-              {/* 4 KPI Cards */}
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
-                {[
-                  { label: 'Đơn hàng trong tháng', value: '1,248 đơn', badge: 'Gói Tiêu Chuẩn' },
-                  { label: 'Hàng tồn sẵn sàng bán', value: '14,820 sp', badge: '3 kho toàn quốc' },
-                  {
-                    label: 'Dung tích đang lưu kho',
-                    value: '42.65 m³',
-                    badge: 'Cập nhật mỗi ngày',
-                  },
-                  { label: 'Tỷ lệ bàn giao đúng hẹn', value: '99.4%', badge: 'Cam kết dịch vụ' },
-                ].map((kpi) => (
-                  <div key={kpi.label} className="sc-surface p-3.5 sm:p-4">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-xs font-medium text-[var(--sc-text-secondary)]">
-                        {kpi.label}
-                      </span>
-                      <span className="rounded-full bg-[var(--sc-primary-lighter)] px-2 py-0.5 text-[10px] font-semibold text-[var(--sc-primary-dark)]">
-                        {kpi.badge}
-                      </span>
-                    </div>
-                    <div className="mt-2 text-lg font-bold tabular-nums text-[var(--sc-text-primary)] sm:text-2xl">
-                      {kpi.value}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {activeTab === 'dashboard' && (
-                <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
-                  {WAREHOUSE_HUBS.map((hub) => (
-                    <div key={hub.code} className="sc-surface p-4">
-                      <div className="flex items-center justify-between">
-                        <span className="rounded-md bg-[var(--sc-primary-alpha-08)] px-2.5 py-1 text-xs font-bold text-[var(--sc-primary)]">
-                          {hub.code}
-                        </span>
-                        <span className="rounded-full border border-[var(--sc-success-border)] bg-[var(--sc-success-bg)] px-2.5 py-0.5 text-[11px] font-semibold text-[var(--sc-success-dark)]">
-                          {hub.badge}
-                        </span>
-                      </div>
-                      <div className="mt-3 text-sm font-bold text-[var(--sc-text-primary)]">
-                        {hub.name}
-                      </div>
-                      <div className="mt-1 flex items-center justify-between text-xs text-[var(--sc-text-secondary)]">
-                        <span>{hub.lots}</span>
-                        <span className="font-semibold text-[var(--sc-primary)]">{hub.sla}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {activeTab === 'inventory' && (
-                <div className="sc-surface mt-4 overflow-x-auto p-4">
-                  <table className="w-full min-w-[560px] text-left text-xs">
-                    <thead>
-                      <tr className="border-b border-[var(--sc-border-default)] text-[var(--sc-text-tertiary)]">
-                        <th className="pb-2.5 font-medium">Sản phẩm</th>
-                        <th className="pb-2.5 font-medium">Lô nhập hàng</th>
-                        <th className="pb-2.5 font-medium">Vị trí lưu trữ</th>
-                        <th className="pb-2.5 font-medium">Hạn sử dụng</th>
-                        <th className="pb-2.5 text-right font-medium">Tồn khả dụng</th>
-                        <th className="pb-2.5 text-right font-medium">Trạng thái xuất</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-[var(--sc-border-default)]">
-                      {LIVE_LOTS.map((row) => (
-                        <tr key={row.sku} className="text-[var(--sc-text-primary)]">
-                          <td className="py-2.5 font-semibold">{row.sku}</td>
-                          <td className="py-2.5 text-[var(--sc-primary)]">{row.lot}</td>
-                          <td className="py-2.5">{row.bin}</td>
-                          <td className="py-2.5 tabular-nums">{row.expiry}</td>
-                          <td className="py-2.5 text-right font-bold tabular-nums text-[var(--sc-primary)]">
-                            {row.available}
-                          </td>
-                          <td className="py-2.5 text-right">
-                            <span className="rounded-full border border-[var(--sc-success-border)] bg-[var(--sc-success-bg)] px-2.5 py-0.5 text-[11px] font-semibold text-[var(--sc-success-dark)]">
-                              {row.status}
-                            </span>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-
-              {activeTab === 'contract' && (
-                <div className="sc-surface mt-4 grid grid-cols-1 gap-3 p-4 sm:grid-cols-3">
-                  <div className="rounded-xl bg-[var(--sc-bg-secondary)] p-3.5">
-                    <div className="text-xs text-[var(--sc-text-secondary)]">
-                      Gói dịch vụ đang dùng
-                    </div>
-                    <div className="mt-1 text-lg font-bold tabular-nums text-[var(--sc-text-primary)]">
-                      12.000.000 VND / tháng
-                    </div>
-                    <div className="mt-0.5 text-[11px] text-[var(--sc-text-tertiary)]">
-                      Gói Tiêu Chuẩn · 3 kho · 1.500 đơn/tháng
-                    </div>
-                  </div>
-                  <div className="rounded-xl bg-[var(--sc-bg-secondary)] p-3.5">
-                    <div className="text-xs text-[var(--sc-text-secondary)]">
-                      Tiền cọc &amp; Hạn mức công nợ
-                    </div>
-                    <div className="mt-1 text-lg font-bold tabular-nums text-[var(--sc-text-primary)]">
-                      Cọc 3M · Hạn mức 5M
-                    </div>
-                    <div className="mt-0.5 text-[11px] text-[var(--sc-text-tertiary)]">
-                      Quản lý độc lập, đối soát rõ ràng cuối kỳ
-                    </div>
-                  </div>
-                  <div className="rounded-xl bg-[var(--sc-bg-secondary)] p-3.5">
-                    <div className="text-xs text-[var(--sc-text-secondary)]">
-                      Trạng thái hợp đồng
-                    </div>
-                    <div className="mt-1 text-lg font-bold text-[var(--sc-primary)]">
-                      Đã ký điện tử hợp lệ
-                    </div>
-                    <div className="mt-0.5 text-[11px] text-[var(--sc-text-tertiary)]">
-                      Lưu trữ trực tuyến, tra cứu bất cứ lúc nào
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+              <figcaption className="mt-3 text-center text-xs font-medium text-[var(--sc-text-tertiary)] sm:text-sm">
+                Minh họa quy trình đóng gói
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>
