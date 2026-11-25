@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react';
 
-import { AnimatePresence, motion } from 'motion/react';
+import { ArrowUpRight, Moon, Sun } from '@phosphor-icons/react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from 'motion/react';
 
 import { ADMIN_LOGIN_URL, ADMIN_REGISTER_URL } from '@/config/site';
 
-import OrcaLogo from './OrcaLogo';
-
 const NAV_LINKS = [
   { label: 'Quy trình 3D', href: '#workflow' },
+  { label: 'Đối chứng', href: '#features' },
   { label: 'Gói dịch vụ', href: '#pricing' },
 ] as const;
 
@@ -18,20 +24,20 @@ interface LandingNavProps {
 
 export default function LandingNav({ theme, onToggleTheme }: LandingNavProps) {
   const [scrolled, setScrolled] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  useMotionValueEvent(scrollY, 'change', (latest) => {
+    const next = latest > 36;
+    setScrolled((prev) => (prev === next ? prev : next));
+  });
 
   useEffect(() => {
     if (!menuOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setMenuOpen(false);
-      }
+      if (e.key === 'Escape') setMenuOpen(false);
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
@@ -39,119 +45,105 @@ export default function LandingNav({ theme, onToggleTheme }: LandingNavProps) {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 border-b border-[var(--sc-border-default)] bg-[var(--sc-topbar-bg)] backdrop-blur-xl transition-colors duration-200">
+      <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6">
         <div
-          className={`mx-auto flex max-w-[1380px] items-center justify-between gap-4 px-4 sm:px-6 lg:px-10 transition-[height] duration-200 ${
-            scrolled ? 'h-16' : 'h-[68px]'
+          className={`pointer-events-auto sc-luxury-nav flex w-full items-center justify-between gap-4 rounded-full transition-all duration-500 ${
+            scrolled ? 'h-13 max-w-[960px] px-4' : 'h-15 max-w-[1220px] px-5 sm:px-6'
           }`}
         >
-          <a href="/" className="group flex shrink-0 items-center gap-2.5">
-            <OrcaLogo size="sm" />
+          {/* Minimalist Luxury Wordmark (Devialet / Polestar Poise) */}
+          <a
+            href="/"
+            className="flex items-center gap-2.5 text-sm font-semibold tracking-[0.26em] text-[var(--sc-text-primary)] uppercase"
+          >
+            <span aria-hidden="true" className="h-2 w-2 rounded-full bg-[var(--sc-champagne)]" />
+            <span>ORCA</span>
           </a>
 
-          <nav aria-label="Điều hướng chính" className="hidden items-center gap-1 md:flex">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="whitespace-nowrap rounded-lg px-3.5 py-2 text-sm font-medium text-[var(--sc-text-secondary)] transition-colors hover:bg-[var(--sc-bg-secondary)] hover:text-[var(--sc-text-primary)]"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav
+            aria-label="Điều hướng chính"
+            onMouseLeave={() => setHovered(null)}
+            className="hidden items-center gap-1 md:flex"
+          >
+            {NAV_LINKS.map((link) => {
+              const active = hovered === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onMouseEnter={() => setHovered(link.href)}
+                  className="relative whitespace-nowrap rounded-full px-4 py-1.5 text-[13.5px] font-normal text-[var(--sc-text-secondary)] transition-colors duration-200 hover:text-[var(--sc-text-primary)]"
+                >
+                  {active && !reduceMotion && (
+                    <motion.span
+                      layoutId="orca-champagne-nav"
+                      transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+                      className="absolute inset-0 -z-10 rounded-full bg-[var(--sc-champagne-soft)]"
+                    />
+                  )}
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2">
+          <div className="flex items-center gap-2.5">
             <button
               type="button"
               onClick={onToggleTheme}
-              className="sc-icon-button shrink-0"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-[var(--sc-border-default)] text-[var(--sc-text-secondary)] transition-colors hover:border-[var(--sc-champagne)] hover:text-[var(--sc-text-primary)]"
               aria-label={
-                theme === 'dark' ? 'Chuyển sang giao diện sáng' : 'Chuyển sang giao diện tối'
+                theme === 'dark' ? 'Chuyển sang giao diện Sáng' : 'Chuyển sang giao diện Tối'
               }
-              title={theme === 'dark' ? 'Giao diện Sáng' : 'Giao diện Tối'}
+              title={theme === 'dark' ? 'Chế độ Sáng' : 'Chế độ Tối'}
             >
               {theme === 'dark' ? (
-                <svg
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                </svg>
+                <Sun size={15} weight="regular" aria-hidden="true" />
               ) : (
-                <svg
-                  viewBox="0 0 24 24"
-                  width="17"
-                  height="17"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-                </svg>
+                <Moon size={15} weight="regular" aria-hidden="true" />
               )}
             </button>
 
             <a
               href={ADMIN_LOGIN_URL}
-              className="hidden whitespace-nowrap items-center justify-center rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-3.5 py-2 text-sm font-medium text-[var(--sc-text-primary)] shadow-[var(--sc-shadow-button)] transition-colors hover:border-[var(--sc-border-strong)] hover:bg-[var(--sc-bg-secondary)] sm:inline-flex"
+              className="hidden whitespace-nowrap px-3 py-1.5 text-[13.5px] font-normal text-[var(--sc-text-secondary)] transition-colors hover:text-[var(--sc-text-primary)] sm:inline-flex"
             >
               Đăng nhập
             </a>
 
             <a
               href={ADMIN_REGISTER_URL}
-              className="inline-flex whitespace-nowrap items-center gap-1.5 rounded-lg bg-[var(--sc-primary)] px-3.5 py-2 text-sm font-semibold text-[var(--sc-on-primary)] shadow-[0_4px_12px_rgb(15_118_110/22%)] transition-all hover:bg-[var(--sc-primary-hover)] active:scale-[0.98]"
+              className="sc-btn-platinum group whitespace-nowrap py-1.5 pl-4 pr-1.5 text-[13px]"
             >
               <span>Tạo tài khoản</span>
+              <span className="sc-btn-orb !h-6 !w-6 group-hover:translate-x-0.5 group-hover:-translate-y-[1px]">
+                <ArrowUpRight size={13} weight="bold" aria-hidden="true" />
+              </span>
             </a>
 
             <button
               type="button"
-              className="sc-icon-button md:!hidden"
+              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-[var(--sc-border-default)] text-[var(--sc-text-primary)] md:hidden"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={menuOpen ? 'Đóng điều hướng' : 'Mở điều hướng'}
               aria-expanded={menuOpen}
-              aria-controls="mobile-nav-drawer"
+              aria-controls="mobile-luxury-drawer"
             >
-              {menuOpen ? (
-                <svg
-                  viewBox="0 0 24 24"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <path d="M18 6 6 18M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg
-                  viewBox="0 0 24 24"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.75"
-                  strokeLinecap="round"
-                  aria-hidden="true"
-                >
-                  <path d="M4 7h16M4 12h16M4 17h16" />
-                </svg>
-              )}
+              <span
+                className="relative flex h-3 w-3.5 flex-col items-center justify-center"
+                aria-hidden="true"
+              >
+                <span
+                  className={`absolute h-[1px] w-3.5 bg-current transition-transform duration-300 ${
+                    menuOpen ? 'translate-y-0 rotate-45' : '-translate-y-1'
+                  }`}
+                />
+                <span
+                  className={`absolute h-[1px] w-3.5 bg-current transition-transform duration-300 ${
+                    menuOpen ? 'translate-y-0 -rotate-45' : 'translate-y-1'
+                  }`}
+                />
+              </span>
             </button>
           </div>
         </div>
@@ -160,40 +152,36 @@ export default function LandingNav({ theme, onToggleTheme }: LandingNavProps) {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            id="mobile-nav-drawer"
+            id="mobile-luxury-drawer"
             key="mobile-nav"
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            transition={{ duration: 0.2 }}
-            className="fixed inset-x-0 top-16 z-40 border-b border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] p-5 shadow-[var(--sc-shadow-popover)] md:hidden"
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-x-4 top-22 z-40 mx-auto max-w-md md:hidden"
           >
-            <nav aria-label="Điều hướng di động" className="mx-auto flex max-w-lg flex-col gap-1">
+            <nav aria-label="Điều hướng di động" className="sc-luxury-card flex flex-col gap-1 p-5">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="flex items-center justify-between rounded-lg px-3.5 py-2.5 text-base font-medium text-[var(--sc-text-primary)] hover:bg-[var(--sc-bg-secondary)]"
+                  className="flex items-center justify-between rounded-xl px-3.5 py-3 text-base font-medium text-[var(--sc-text-primary)] transition-colors hover:bg-[var(--sc-bg-recessed)]"
                 >
                   <span>{link.label}</span>
-                  <span className="text-xs text-[var(--sc-text-tertiary)]" aria-hidden="true">
-                    →
-                  </span>
+                  <ArrowUpRight
+                    size={15}
+                    className="text-[var(--sc-champagne)]"
+                    aria-hidden="true"
+                  />
                 </a>
               ))}
 
               <div className="mt-3 grid grid-cols-2 gap-2.5 border-t border-[var(--sc-border-default)] pt-4">
-                <a
-                  href={ADMIN_LOGIN_URL}
-                  className="flex items-center justify-center rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)] py-2.5 text-sm font-medium text-[var(--sc-text-primary)] transition-colors hover:border-[var(--sc-border-strong)] hover:bg-[var(--sc-bg-muted)]"
-                >
+                <a href={ADMIN_LOGIN_URL} className="sc-btn-whisper py-2.5 text-sm">
                   Đăng nhập
                 </a>
-                <a
-                  href={ADMIN_REGISTER_URL}
-                  className="flex items-center justify-center rounded-lg bg-[var(--sc-primary)] py-2.5 text-sm font-semibold text-[var(--sc-on-primary)] transition-colors hover:bg-[var(--sc-primary-hover)]"
-                >
+                <a href={ADMIN_REGISTER_URL} className="sc-btn-platinum py-2.5 text-sm">
                   Tạo tài khoản
                 </a>
               </div>

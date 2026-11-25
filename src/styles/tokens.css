@@ -1,146 +1,115 @@
 /**
- * ORCA Design Tokens
- * Synchronized 100% with ORCA Console (smartchain_fe/src/styles/tokens.css)
- * Supports both Console Light Mode (default) and Console Dark Mode ([data-theme='dark']).
+ * ORCA — Quiet Tech Luxury System ("Obsidian Velvet & Champagne Titanium")
+ * Synthesized from Mercury.com, Devialet, Bang & Olufsen, and Polestar.
+ * Luxury through chromatic restraint, metallic specular hairlines, and nuanced medium-weight typography.
  */
 
 :root {
   color-scheme: light;
 
-  /* Brand — ORCA Deep Teal & Emerald */
-  --sc-primary-lighter: #d1fae5;
-  --sc-primary-light: #99f6e4;
-  --sc-primary: #0f766e;
-  --sc-primary-hover: #0d645d;
-  --sc-primary-dark: #115e59;
-  --sc-primary-darker: #134e4a;
-  --sc-on-primary: #ffffff;
-  --sc-primary-alpha-08: rgb(15 118 110 / 8%);
-  --sc-primary-alpha-12: rgb(15 118 110 / 12%);
-  --sc-primary-alpha-20: rgb(15 118 110 / 20%);
-  --sc-accent: #10b981;
-  --sc-accent-light: #d1fae5;
-  --sc-accent-alpha-10: rgb(16 185 129 / 10%);
-  --sc-accent-alpha-20: rgb(16 185 129 / 20%);
-
-  /* Secondary */
-  --sc-secondary-lighter: #f1f5f9;
-  --sc-secondary-light: #cbd5e1;
-  --sc-secondary: #64748b;
-  --sc-secondary-dark: #475569;
-  --sc-secondary-darker: #0f172a;
-
-  /* Surfaces and neutral scale */
-  --sc-bg-primary: #f8fafc;
-  --sc-bg-secondary: #f1f5f9;
+  /* Cloud Dancer / Studio Cashmere Light Mode */
+  --sc-bg-primary: #f6f5f2;
+  --sc-bg-secondary: #eeece6;
+  --sc-bg-recessed: #e5e2da;
   --sc-bg-surface: #ffffff;
   --sc-bg-elevated: #ffffff;
-  --sc-topbar-bg: rgb(255 255 255 / 90%);
-  --sc-bg-muted: #e2e8f0;
-  --sc-border-light: #f1f5f9;
-  --sc-border-default: #e2e8f0;
-  --sc-border-strong: #cbd5e1;
-  --sc-text-primary: #0f172a;
-  --sc-text-secondary: #475569;
-  --sc-text-tertiary: #64748b;
-  --sc-text-disabled: #94a3b8;
+  --sc-glass-surface: rgb(255 255 255 / 86%);
+  --sc-topbar-bg: rgb(246 245 242 / 84%);
+  --sc-grid-hairline: rgb(20 21 25 / 5%);
 
-  /* Status */
-  --sc-success: #10b981;
-  --sc-success-dark: #0f766e;
-  --sc-success-bg: #d1fae5;
-  --sc-success-border: #a7f3d0;
-  --sc-warning: #f59e0b;
-  --sc-warning-dark: #b45309;
-  --sc-warning-bg: #fef3c7;
-  --sc-warning-border: #fde68a;
-  --sc-error: #ef4444;
-  --sc-error-dark: #b91c1c;
-  --sc-error-bg: #fee2e2;
-  --sc-error-border: #fecaca;
-  --sc-info: #3b82f6;
-  --sc-info-dark: #1d4ed8;
-  --sc-info-bg: #dbeafe;
-  --sc-info-border: #bfdbfe;
+  /* Metallic Champagne-Bronze & Anthracite Accents */
+  --sc-champagne: #8c6f43;
+  --sc-champagne-soft: rgb(140 111 67 / 18%);
+  --sc-champagne-gleam: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(140 111 67 / 38%) 50%,
+    transparent 100%
+  );
 
-  /* Typography */
-  --sc-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-  --sc-font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
-  --sc-font-mono: 'Space Grotesk', ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Primary Button: Deep Anthracite Metal (15.8:1 contrast with #F6F5F2) */
+  --sc-btn-bg: #141519;
+  --sc-btn-hover: #262830;
+  --sc-btn-text: #f6f5f2;
+  --sc-btn-capsule: rgb(246 245 242 / 14%);
 
-  /* Shape */
-  --sc-radius-sm: 0.375rem;
-  --sc-radius-md: 0.5rem;
-  --sc-radius-lg: 0.75rem;
-  --sc-radius-xl: 1rem;
-  --sc-radius-2xl: 1.25rem;
-  --sc-radius-pill: 999px;
+  /* Whisper Metallic Borders */
+  --sc-border-light: rgb(20 21 25 / 6%);
+  --sc-border-default: rgb(20 21 25 / 10%);
+  --sc-border-strong: rgb(20 21 25 / 18%);
 
-  /* Elevation */
-  --sc-shadow-button: 0 1px 2px rgb(15 23 42 / 5%);
-  --sc-shadow-section: 0 1px 3px rgb(15 23 42 / 6%), 0 1px 2px rgb(15 23 42 / 4%);
-  --sc-shadow-popover: 0 12px 24px -4px rgb(15 23 42 / 10%), 0 4px 8px -2px rgb(15 23 42 / 5%);
-  --sc-shadow-focus: 0 0 0 3px rgb(15 118 110 / 20%);
+  /* Nuanced Editorial Ink */
+  --sc-text-primary: #141519;
+  --sc-text-secondary: #525660;
+  --sc-text-tertiary: #787d88;
 
-  /* Motion */
-  --sc-ease-standard: cubic-bezier(0.2, 0, 0, 1);
-  --sc-transition-fast: 140ms var(--sc-ease-standard);
-  --sc-transition-base: 220ms var(--sc-ease-standard);
-  --sc-transition-slow: 320ms var(--sc-ease-standard);
+  /* Restrained Functional Statuses */
+  --sc-status-ok: #127858;
+  --sc-status-ok-bg: rgb(18 120 88 / 10%);
+  --sc-status-warn: #9c5718;
+  --sc-status-warn-bg: rgb(156 87 24 / 10%);
+  --sc-status-info: #2c5282;
+  --sc-status-info-bg: rgb(44 82 130 / 10%);
+
+  /* Bespoke-Feel Sans + Editorial Italic + Precision Mono */
+  --sc-font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sc-font-serif: 'Cormorant Garamond', Georgia, serif;
+  --sc-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --sc-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --sc-shadow-card: 0 24px 60px -20px rgb(20 21 25 / 9%), 0 2px 6px rgb(20 21 25 / 4%);
+  --sc-shadow-focus: 0 0 0 2px var(--sc-bg-primary), 0 0 0 4px var(--sc-champagne);
+  --sc-ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
+  --sc-transition-fast: 200ms var(--sc-ease-luxury);
+  --sc-transition-base: 340ms var(--sc-ease-luxury);
 }
 
+/* Default Experience: Obsidian Velvet & Anodized Champagne Titanium (Mercury / Devialet Standard) */
 [data-theme='dark'] {
   color-scheme: dark;
-  --sc-primary-lighter: #123b3a;
-  --sc-primary-light: #5eead4;
-  --sc-primary: #2dd4bf;
-  --sc-primary-hover: #5eead4;
-  --sc-primary-dark: #99f6e4;
-  --sc-primary-darker: #ccfbf1;
-  --sc-on-primary: #041311;
-  --sc-primary-alpha-08: rgb(45 212 191 / 8%);
-  --sc-primary-alpha-12: rgb(45 212 191 / 12%);
-  --sc-primary-alpha-20: rgb(45 212 191 / 20%);
-  --sc-accent: #00e599;
-  --sc-accent-light: #123b3a;
-  --sc-accent-alpha-10: rgb(0 229 153 / 10%);
-  --sc-accent-alpha-20: rgb(0 229 153 / 20%);
-  --sc-secondary-lighter: #162231;
-  --sc-secondary-light: #334155;
-  --sc-secondary: #94a3b8;
-  --sc-secondary-dark: #cbd5e1;
-  --sc-secondary-darker: #f8fafc;
-  --sc-bg-primary: #050b14;
-  --sc-bg-secondary: #0b1724;
-  --sc-bg-surface: #07111e;
-  --sc-bg-elevated: #0b1724;
-  --sc-topbar-bg: rgb(5 11 20 / 90%);
-  --sc-bg-muted: #162231;
-  --sc-border-light: rgb(255 255 255 / 6%);
-  --sc-border-default: rgb(255 255 255 / 10%);
-  --sc-border-strong: rgb(255 255 255 / 18%);
-  --sc-text-primary: #f8fafc;
-  --sc-text-secondary: #cbd5e1;
-  --sc-text-tertiary: #94a3b8;
-  --sc-text-disabled: #64748b;
-  --sc-success: #34d399;
-  --sc-success-dark: #6ee7b7;
-  --sc-success-bg: #123b32;
-  --sc-success-border: #176b57;
-  --sc-warning: #fbbf24;
-  --sc-warning-dark: #fcd34d;
-  --sc-warning-bg: #3d2e12;
-  --sc-warning-border: #6b4e16;
-  --sc-error: #f87171;
-  --sc-error-dark: #fca5a5;
-  --sc-error-bg: #401d24;
-  --sc-error-border: #6b2931;
-  --sc-info: #60a5fa;
-  --sc-info-dark: #93c5fd;
-  --sc-info-bg: #122d4d;
-  --sc-info-border: #1d4f7c;
-  --sc-shadow-button: 0 1px 2px rgb(0 0 0 / 20%);
-  --sc-shadow-section: 0 1px 2px rgb(0 0 0 / 28%);
-  --sc-shadow-popover: 0 18px 32px -10px rgb(0 0 0 / 55%), 0 5px 12px rgb(0 0 0 / 28%);
-  --sc-shadow-focus: 0 0 0 3px rgb(45 212 191 / 22%);
+
+  --sc-bg-primary: #0b0c10;
+  --sc-bg-secondary: #101218;
+  --sc-bg-recessed: #151821;
+  --sc-bg-surface: #14161f;
+  --sc-bg-elevated: #1a1d28;
+  --sc-glass-surface: rgb(22 25 35 / 84%);
+  --sc-topbar-bg: rgb(14 16 22 / 80%);
+  --sc-grid-hairline: rgb(255 255 255 / 4.5%);
+
+  /* Anodized Champagne Gold / Natural Titanium Sheen */
+  --sc-champagne: #d8c098;
+  --sc-champagne-soft: rgb(216 192 152 / 18%);
+  --sc-champagne-gleam: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(216 192 152 / 48%) 50%,
+    transparent 100%
+  );
+
+  /* Primary Button: Brushed Platinum-Alabaster Pill (14.6:1 contrast with #0B0C10) */
+  --sc-btn-bg: #f0ece3;
+  --sc-btn-hover: #ffffff;
+  --sc-btn-text: #0b0c10;
+  --sc-btn-capsule: rgb(11 12 16 / 10%);
+
+  /* Semi-Transparent Specular Hairlines */
+  --sc-border-light: rgb(255 255 255 / 5%);
+  --sc-border-default: rgb(255 255 255 / 9%);
+  --sc-border-strong: rgb(255 255 255 / 16%);
+
+  /* OLED-Calibrated Alabaster & Vapor Silver (Zero harsh #FFFFFF glare) */
+  --sc-text-primary: #f2efe9;
+  --sc-text-secondary: #9ca1ae;
+  --sc-text-tertiary: #6f7584;
+
+  --sc-status-ok: #5eead4;
+  --sc-status-ok-bg: rgb(94 234 212 / 10%);
+  --sc-status-warn: #e5b567;
+  --sc-status-warn-bg: rgb(229 181 103 / 12%);
+  --sc-status-info: #93c5fd;
+  --sc-status-info-bg: rgb(147 197 253 / 10%);
+
+  --sc-shadow-card: 0 32px 72px -20px rgb(0 0 0 / 72%), inset 0 1px 0 rgb(255 255 255 / 7%);
+  --sc-shadow-focus: 0 0 0 2px var(--sc-bg-primary), 0 0 0 4px var(--sc-champagne);
 }

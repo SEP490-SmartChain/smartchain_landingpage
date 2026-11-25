@@ -1,321 +1,319 @@
+import { type MouseEvent } from 'react';
+
+import { ArrowUpRight, CheckCircle, Cube } from '@phosphor-icons/react';
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from 'motion/react';
+
 export default function LandingHero() {
+  const reduceMotion = useReducedMotion();
+
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const smoothX = useSpring(pointerX, { stiffness: 120, damping: 24 });
+  const smoothY = useSpring(pointerY, { stiffness: 120, damping: 24 });
+
+  const stageX = useTransform(smoothX, [-0.5, 0.5], [-6, 6]);
+  const stageY = useTransform(smoothY, [-0.5, 0.5], [-5, 5]);
+  const badgeFastX = useTransform(smoothX, [-0.5, 0.5], [12, -12]);
+  const badgeFastY = useTransform(smoothY, [-0.5, 0.5], [9, -9]);
+  const badgeSlowX = useTransform(smoothX, [-0.5, 0.5], [-10, 10]);
+  const badgeSlowY = useTransform(smoothY, [-0.5, 0.5], [7, -7]);
+
+  const handleMouseMove = (e: MouseEvent<HTMLElement>) => {
+    if (reduceMotion) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    pointerX.set((e.clientX - rect.left) / rect.width - 0.5);
+    pointerY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    pointerX.set(0);
+    pointerY.set(0);
+  };
+
   return (
     <section
       id="overview"
       aria-labelledby="hero-heading"
-      className="relative scroll-mt-20 overflow-x-clip pt-24 pb-16 sm:pt-32 sm:pb-24 sc-grid-bg"
+      className="relative scroll-mt-20 overflow-x-clip pt-32 pb-20 sm:pt-40 sm:pb-28"
     >
+      {/* Subtle Studio Champagne Glow */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[420px]"
+        className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-[560px] max-w-[1280px]"
         style={{
           background:
-            'radial-gradient(ellipse 60% 45% at 50% 0%, var(--sc-primary-alpha-12) 0%, transparent 75%)',
+            'radial-gradient(ellipse 60% 48% at 65% 22%, var(--sc-champagne-soft) 0%, transparent 72%)',
         }}
       />
 
-      <div className="relative mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Left on desktop, first on mobile: Value proposition & actions */}
-          <div className="lg:col-span-6">
+      <div className="relative mx-auto max-w-[1220px] px-4 sm:px-8">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          {/* ── LEFT: Pure Minimalist Editorial Copy ── */}
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-6"
+          >
             <h1
               id="hero-heading"
-              className="text-balance text-3xl font-extrabold tracking-[-0.03em] text-[var(--sc-text-primary)] sm:text-5xl lg:text-[50px] lg:leading-[1.12]"
-              style={{ fontFamily: 'var(--sc-font-display)' }}
+              className="text-balance font-medium tracking-[-0.035em] text-[var(--sc-text-primary)]"
+              style={{
+                fontFamily: 'var(--sc-font-display)',
+                fontSize: 'clamp(2.65rem, 5vw, 4.5rem)',
+                lineHeight: 1.06,
+              }}
             >
-              Bạn chốt đơn. <span className="text-[var(--sc-primary)]">ORCA lo việc kho.</span>
+              Bạn chốt đơn.{' '}
+              <span
+                className="block italic font-medium text-[var(--sc-champagne)]"
+                style={{ fontFamily: 'var(--sc-font-serif)', fontSize: '1.08em' }}
+              >
+                ORCA lo việc kho.
+              </span>
             </h1>
 
-            <p className="mt-5 max-w-xl text-base leading-relaxed text-[var(--sc-text-secondary)] sm:text-lg">
+            <p className="mt-6 max-w-[44ch] text-base font-normal leading-[1.75] text-[var(--sc-text-secondary)] sm:text-[17.5px]">
               ORCA nhận hàng, lưu kho, đóng gói và bàn giao cho hãng vận chuyển. Bạn xem được hàng
               còn trong kho, kiện đã giao và tiền thu hộ theo từng đơn.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3.5">
-              <a
-                href="#pricing"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--sc-primary)] px-6 py-3.5 text-base font-semibold text-[var(--sc-on-primary)] shadow-[0_8px_20px_rgb(15_118_110/22%)] transition-all hover:bg-[var(--sc-primary-hover)] active:scale-[0.98]"
-              >
+            <div className="mt-9 flex flex-wrap items-center gap-3.5">
+              <a href="#pricing" className="sc-btn-platinum group py-2.5 pl-6 pr-2.5 text-[15px]">
                 <span>Xem các gói dịch vụ</span>
-                <span aria-hidden="true">→</span>
+                <span className="sc-btn-orb group-hover:translate-x-0.5 group-hover:-translate-y-[1px]">
+                  <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+                </span>
               </a>
 
-              <a
-                href="#workflow"
-                className="inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-surface)] px-5 py-3.5 text-base font-semibold text-[var(--sc-text-primary)] shadow-[var(--sc-shadow-button)] transition-colors hover:bg-[var(--sc-bg-secondary)]"
-              >
+              <a href="#workflow" className="sc-btn-whisper group px-6 py-3 text-[15px]">
+                <Cube
+                  size={17}
+                  weight="regular"
+                  className="text-[var(--sc-champagne)] transition-transform duration-300 group-hover:scale-110"
+                  aria-hidden="true"
+                />
                 <span>Xem quy trình kho 3D</span>
-                <span aria-hidden="true">↓</span>
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right on desktop, second on mobile: Close-up packing illustration */}
-          <div className="lg:col-span-6">
-            <figure className="sc-surface-elevated overflow-hidden p-4 sm:p-6">
-              <div className="overflow-hidden rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-secondary)]">
+          {/* ── RIGHT: Clean Sculptural Isometric Parcel & 3 Floating Micro-Badges ── */}
+          <motion.figure
+            initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: reduceMotion ? 0 : 0.1, ease: [0.22, 1, 0.36, 1] }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className="relative m-0 lg:col-span-6"
+          >
+            <div className="relative mx-auto max-w-[520px] py-6">
+              {/* Soft Architectural Ring Behind Sculpture */}
+              <div
+                aria-hidden="true"
+                className="sc-atelier-grid pointer-events-none absolute inset-4 rounded-full opacity-90"
+                style={{
+                  maskImage: 'radial-gradient(circle at 50% 50%, black 28%, transparent 72%)',
+                  WebkitMaskImage: 'radial-gradient(circle at 50% 50%, black 28%, transparent 72%)',
+                }}
+              />
+
+              {/* Floating Pill 1: Real-time Stock */}
+              <motion.div
+                style={reduceMotion ? undefined : { x: badgeFastX, y: badgeFastY }}
+                className="sc-spatial-card absolute top-2 right-2 z-20 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium text-[var(--sc-text-primary)] sm:right-0"
+              >
+                <CheckCircle
+                  size={15}
+                  weight="fill"
+                  className="text-[var(--sc-status-ok)]"
+                  aria-hidden="true"
+                />
+                <span>Tồn kho: 248 đv</span>
+              </motion.div>
+
+              {/* Floating Pill 2: Waybill Tracking */}
+              <motion.div
+                style={reduceMotion ? undefined : { x: badgeSlowX, y: badgeSlowY }}
+                className="sc-spatial-card absolute bottom-14 left-0 z-20 inline-flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-medium text-[var(--sc-text-primary)]"
+              >
+                <span
+                  className="h-2 w-2 rounded-full bg-[var(--sc-champagne)]"
+                  aria-hidden="true"
+                />
+                <span style={{ fontFamily: 'var(--sc-font-mono)' }}>MVĐ · VD84920163</span>
+              </motion.div>
+
+              {/* Floating Pill 3: Net COD */}
+              <motion.div
+                style={reduceMotion ? undefined : { x: badgeFastX, y: badgeSlowY }}
+                className="sc-spatial-card absolute right-2 bottom-4 z-20 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold text-[var(--sc-champagne)] sm:right-4"
+              >
+                <span style={{ fontFamily: 'var(--sc-font-mono)' }}>COD +652.000 đ</span>
+              </motion.div>
+
+              {/* Centerpiece Isometric Luxury Sculpture (Adapts Naturally to Light & Dark) */}
+              <motion.div
+                style={reduceMotion ? undefined : { x: stageX, y: stageY }}
+                className="relative z-10"
+              >
                 <svg
-                  viewBox="0 0 600 410"
+                  viewBox="0 0 480 360"
                   role="img"
-                  aria-labelledby="packing-illustration-title"
-                  className="block h-auto w-full"
+                  aria-labelledby="orca-sculpture-title"
+                  className="block h-auto w-full drop-shadow-[0_28px_40px_rgba(0,0,0,0.16)]"
                 >
-                  <title id="packing-illustration-title">
-                    Minh họa cận cảnh hai bàn tay đang đóng gói một đơn hàng và dán nhãn vận đơn
+                  <title id="orca-sculpture-title">
+                    Minh họa kiện hàng đóng gói niêm phong trên bàn cân kiểm định ORCA
                   </title>
                   <defs>
                     <linearGradient
-                      id="benchSurface"
-                      x1="0"
-                      y1="0"
-                      x2="600"
-                      y2="410"
+                      id="plinthSurface"
+                      x1="90"
+                      y1="175"
+                      x2="390"
+                      y2="305"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#0f293a" />
-                      <stop offset="100%" stopColor="#091826" />
+                      <stop offset="0%" stopColor="#262936" />
+                      <stop offset="100%" stopColor="#14161f" />
                     </linearGradient>
                     <linearGradient
-                      id="boxBody"
-                      x1="170"
+                      id="boxTopLux"
+                      x1="130"
+                      y1="68"
+                      x2="350"
+                      y2="168"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop offset="0%" stopColor="#faf7f0" />
+                      <stop offset="100%" stopColor="#e3dac9" />
+                    </linearGradient>
+                    <linearGradient
+                      id="boxLeftLux"
+                      x1="128"
                       y1="120"
-                      x2="430"
-                      y2="330"
+                      x2="240"
+                      y2="256"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#e2b47d" />
-                      <stop offset="100%" stopColor="#c59057" />
+                      <stop offset="0%" stopColor="#ded4c1" />
+                      <stop offset="100%" stopColor="#b5a790" />
                     </linearGradient>
                     <linearGradient
-                      id="boxSide"
-                      x1="170"
-                      y1="220"
-                      x2="430"
-                      y2="345"
+                      id="boxRightLux"
+                      x1="240"
+                      y1="120"
+                      x2="352"
+                      y2="256"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#b88249" />
-                      <stop offset="100%" stopColor="#9c6a36" />
+                      <stop offset="0%" stopColor="#c7bba6" />
+                      <stop offset="100%" stopColor="#918470" />
                     </linearGradient>
                     <linearGradient
-                      id="boxFlapLeft"
-                      x1="135"
-                      y1="115"
-                      x2="295"
-                      y2="235"
+                      id="goldRibbonLux"
+                      x1="176"
+                      y1="92"
+                      x2="306"
+                      y2="150"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#ecc391" />
-                      <stop offset="100%" stopColor="#d29f66" />
+                      <stop offset="0%" stopColor="#f8e8c8" />
+                      <stop offset="50%" stopColor="#dfbe88" />
+                      <stop offset="100%" stopColor="#a6824b" />
                     </linearGradient>
                     <linearGradient
-                      id="boxFlapRight"
-                      x1="300"
-                      y1="115"
-                      x2="465"
-                      y2="235"
+                      id="laserCurtain"
+                      x1="240"
+                      y1="44"
+                      x2="240"
+                      y2="168"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#e6bb87" />
-                      <stop offset="100%" stopColor="#ca955c" />
-                    </linearGradient>
-                    <linearGradient id="sleeveTeal" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#0f766e" />
-                      <stop offset="100%" stopColor="#115e59" />
-                    </linearGradient>
-                    <linearGradient id="handSkin" x1="0" y1="0" x2="1" y2="1">
-                      <stop offset="0%" stopColor="#f5cba7" />
-                      <stop offset="100%" stopColor="#e0ac82" />
+                      <stop offset="0%" stopColor="#dfbe88" stopOpacity="0" />
+                      <stop offset="100%" stopColor="#dfbe88" stopOpacity="0.22" />
                     </linearGradient>
                   </defs>
 
-                  {/* Packing station mat */}
-                  <rect width="600" height="410" fill="url(#benchSurface)" />
-                  <g stroke="#2dd4bf" strokeOpacity="0.1" strokeWidth="1">
-                    <path d="M40 50H560M40 110H560M40 170H560M40 230H560M40 290H560M40 350H560" />
-                    <path d="M80 30V380M160 30V380M240 30V380M320 30V380M400 30V380M480 30V380M540 30V380" />
-                  </g>
-                  <rect
-                    x="28"
-                    y="24"
-                    width="544"
-                    height="362"
-                    rx="14"
+                  {/* Sculpted Brushed-Obsidian Weighing Plinth */}
+                  <polygon points="240,164 426,234 240,304 54,234" fill="url(#plinthSurface)" />
+                  <polygon points="54,234 240,304 240,316 54,246" fill="#101219" />
+                  <polygon points="426,234 240,304 240,316 426,246" fill="#1c1f2b" />
+                  <polygon
+                    points="240,164 426,234 240,304 54,234"
                     fill="none"
-                    stroke="#2dd4bf"
+                    stroke="#dfbe88"
+                    strokeOpacity="0.55"
+                    strokeWidth="1.2"
+                  />
+                  <polygon
+                    points="240,180 392,236 240,290 88,236"
+                    fill="none"
+                    stroke="#dfbe88"
                     strokeOpacity="0.22"
-                    strokeDasharray="6 6"
+                    strokeDasharray="4 5"
                   />
 
-                  {/* Soft shadow beneath carton */}
-                  <ellipse cx="305" cy="322" rx="165" ry="34" fill="#020810" fillOpacity="0.55" />
-
-                  {/* Tape dispenser & scanner on packing station */}
-                  <g transform="translate(468, 72)">
-                    <rect
-                      x="0"
-                      y="0"
-                      width="76"
-                      height="46"
-                      rx="10"
-                      fill="#132f44"
-                      stroke="#2dd4bf"
-                      strokeOpacity="0.35"
-                    />
-                    <circle
-                      cx="26"
-                      cy="23"
-                      r="13"
-                      fill="#091826"
-                      stroke="#5eead4"
-                      strokeWidth="4"
-                      strokeOpacity="0.7"
-                    />
-                    <rect
-                      x="46"
-                      y="15"
-                      width="20"
-                      height="16"
-                      rx="3"
-                      fill="#2dd4bf"
-                      fillOpacity="0.25"
-                    />
-                  </g>
-
-                  {/* Shipping carton base & front wall */}
-                  <polygon points="168,175 300,126 434,175 300,228" fill="#8b5c2e" />
-                  {/* Inner protective cushioning & neatly packed items */}
-                  <rect
-                    x="228"
-                    y="150"
-                    width="74"
-                    height="50"
-                    rx="6"
-                    transform="rotate(-14 228 150)"
-                    fill="#d1fae5"
-                    stroke="#0f766e"
-                    strokeWidth="1.5"
-                  />
-                  <rect
-                    x="306"
-                    y="146"
-                    width="66"
-                    height="46"
-                    rx="6"
-                    transform="rotate(12 306 146)"
-                    fill="#ccfbf1"
-                    stroke="#0f766e"
-                    strokeWidth="1.5"
+                  {/* Precision Matte Alabaster-Kraft Parcel */}
+                  <polygon points="132,120 240,166 240,254 132,206" fill="url(#boxLeftLux)" />
+                  <polygon points="348,120 240,166 240,254 348,206" fill="url(#boxRightLux)" />
+                  <polygon points="240,74 348,120 240,166 132,120" fill="url(#boxTopLux)" />
+                  <polyline
+                    points="132,120 240,166 348,120"
+                    fill="none"
+                    stroke="#ffffff"
+                    strokeOpacity="0.85"
+                    strokeWidth="1.3"
                   />
 
-                  {/* Carton left & right visible walls */}
-                  <polygon points="168,175 300,228 300,326 168,270" fill="url(#boxBody)" />
-                  <polygon points="434,175 300,228 300,326 434,270" fill="url(#boxSide)" />
+                  {/* Anodized Champagne-Gold Security Seal */}
+                  <polygon points="178,100 198,92 306,138 286,146" fill="url(#goldRibbonLux)" />
+                  <polygon points="286,146 306,138 306,182 286,190" fill="#b38e56" />
 
-                  {/* Folded top flaps closing over the order */}
-                  <polygon
-                    points="168,175 300,228 286,184 156,136"
-                    fill="url(#boxFlapLeft)"
-                    stroke="#9c6a36"
-                    strokeWidth="1"
-                  />
-                  <polygon
-                    points="434,175 300,228 314,184 446,136"
-                    fill="url(#boxFlapRight)"
-                    stroke="#8b5c2e"
-                    strokeWidth="1"
-                  />
-
-                  {/* Center ORCA sealing tape strip */}
-                  <polygon
-                    points="222,150 378,208 364,220 208,162"
-                    fill="#0f766e"
-                    fillOpacity="0.92"
-                  />
-                  <line
-                    x1="218"
-                    y1="156"
-                    x2="370"
-                    y2="214"
-                    stroke="#99f6e4"
-                    strokeWidth="1.5"
-                    strokeDasharray="6 4"
-                  />
-
-                  {/* Shipping label on front-left carton face */}
-                  <g transform="matrix(0.93, 0.37, 0, 1, 198, 214)">
-                    <rect x="0" y="0" width="76" height="54" rx="5" fill="#ffffff" />
-                    <rect x="6" y="6" width="28" height="7" rx="2" fill="#0f766e" />
-                    <rect x="6" y="18" width="54" height="4" rx="1.5" fill="#94a3b8" />
-                    <rect x="6" y="25" width="42" height="4" rx="1.5" fill="#cbd5e1" />
-                    {/* Barcode bars */}
-                    <g fill="#0f172a" transform="translate(6, 34)">
-                      <rect x="0" y="0" width="3" height="13" />
-                      <rect x="5" y="0" width="1.5" height="13" />
-                      <rect x="9" y="0" width="4" height="13" />
-                      <rect x="15" y="0" width="2" height="13" />
-                      <rect x="19" y="0" width="3.5" height="13" />
-                      <rect x="25" y="0" width="1.5" height="13" />
-                      <rect x="29" y="0" width="4" height="13" />
-                      <rect x="36" y="0" width="2" height="13" />
-                      <rect x="40" y="0" width="3" height="13" />
-                      <rect x="46" y="0" width="1.5" height="13" />
-                      <rect x="50" y="0" width="4" height="13" />
-                      <rect x="57" y="0" width="2.5" height="13" />
+                  {/* Crisp Thermal Shipping Label */}
+                  <g transform="matrix(0.92, 0.39, 0, 1, 150, 148)">
+                    <rect x="0" y="0" width="68" height="46" rx="3" fill="#ffffff" />
+                    <rect x="6" y="6" width="24" height="4" rx="1" fill="#141519" />
+                    <rect x="6" y="13" width="44" height="2.5" rx="1" fill="#787d88" />
+                    <g fill="#141519" transform="translate(6, 21)">
+                      <rect x="0" y="0" width="2.2" height="16" />
+                      <rect x="4" y="0" width="1" height="16" />
+                      <rect x="7" y="0" width="3" height="16" />
+                      <rect x="12" y="0" width="1.2" height="16" />
+                      <rect x="15" y="0" width="2.4" height="16" />
+                      <rect x="19.5" y="0" width="1.1" height="16" />
+                      <rect x="22.5" y="0" width="3.5" height="16" />
+                      <rect x="28" y="0" width="1.5" height="16" />
+                      <rect x="31.5" y="0" width="2.4" height="16" />
+                      <rect x="36" y="0" width="3" height="16" />
+                      <rect x="41" y="0" width="1.2" height="16" />
+                      <rect x="44" y="0" width="2.8" height="16" />
+                      <rect x="49" y="0" width="3.5" height="16" />
                     </g>
                   </g>
 
-                  {/* Left hand steadying carton flap */}
-                  <g>
-                    <path d="M42 92 L138 134 L118 176 L26 138 Z" fill="url(#sleeveTeal)" />
-                    <path
-                      d="M132 132 C158 140, 188 152, 198 166 C204 174, 196 184, 184 182 L154 174 C160 183, 166 194, 158 201 C150 207, 136 198, 124 186 L114 174 Z"
-                      fill="url(#handSkin)"
-                    />
-                  </g>
-
-                  {/* Right hand smoothing sealing tape onto carton */}
-                  <g>
-                    <path d="M566 106 L464 152 L484 194 L582 152 Z" fill="url(#sleeveTeal)" />
-                    <path
-                      d="M470 150 C442 158, 404 174, 386 190 C378 198, 384 208, 396 206 L428 196 C422 206, 418 216, 427 222 C436 227, 452 214, 466 200 L486 192 Z"
-                      fill="url(#handSkin)"
-                    />
-                  </g>
-
-                  {/* Subtle status pill inside illustration corner */}
-                  <g transform="translate(46, 336)">
-                    <rect
-                      x="0"
-                      y="0"
-                      width="196"
-                      height="32"
-                      rx="16"
-                      fill="#071322"
-                      fillOpacity="0.88"
-                      stroke="#2dd4bf"
-                      strokeOpacity="0.4"
-                    />
-                    <circle cx="18" cy="16" r="5" fill="#10b981" />
-                    <text
-                      x="32"
-                      y="20"
-                      fill="#e2e8f0"
-                      fontSize="12"
-                      fontWeight="600"
-                      fontFamily="Inter, system-ui, sans-serif"
-                    >
-                      Đóng gói &amp; dán mã vận đơn
-                    </text>
-                  </g>
+                  {/* Optical Gold Laser Verification Plane */}
+                  <polygon points="104,120 376,120 348,62 132,62" fill="url(#laserCurtain)" />
+                  <line
+                    x1="96"
+                    y1="120"
+                    x2="384"
+                    y2="120"
+                    stroke="#dfbe88"
+                    strokeWidth="1.6"
+                    strokeDasharray="5 4"
+                  />
+                  <circle cx="96" cy="120" r="3" fill="#dfbe88" />
+                  <circle cx="384" cy="120" r="3" fill="#dfbe88" />
                 </svg>
-              </div>
+              </motion.div>
+            </div>
 
-              <figcaption className="mt-3 text-center text-xs font-medium text-[var(--sc-text-tertiary)] sm:text-sm">
-                Minh họa quy trình đóng gói
-              </figcaption>
-            </figure>
-          </div>
+            <figcaption className="mt-2 text-center text-xs text-[var(--sc-text-tertiary)]">
+              Minh họa quy trình đóng gói
+            </figcaption>
+          </motion.figure>
         </div>
       </div>
     </section>
