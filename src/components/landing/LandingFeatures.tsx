@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { CheckCircle, FlagBanner, Plus, WarningCircle } from '@phosphor-icons/react';
+
 const SHOP_FAQ_ITEMS = [
   {
     id: 'expiry-policy',
@@ -16,6 +18,7 @@ const SHOP_FAQ_ITEMS = [
 
 export default function LandingFeatures() {
   const [openIds, setOpenIds] = useState<Record<string, boolean>>({});
+  const [flaggedRow, setFlaggedRow] = useState(false);
 
   const toggleQuestion = (id: string) => {
     setOpenIds((prev) => ({ ...prev, [id]: !prev[id] }));
@@ -25,9 +28,8 @@ export default function LandingFeatures() {
     <section
       id="features"
       aria-labelledby="features-heading"
-      className="relative scroll-mt-20 overflow-x-clip bg-[var(--sc-bg-primary)] py-20 sm:py-24"
+      className="relative scroll-mt-20 bg-[var(--sc-bg-primary)] py-28 sm:py-36"
     >
-      {/* Preserve external anchor links formerly pointing to removed sections */}
       <span
         id="portals"
         className="pointer-events-none absolute top-0 scroll-mt-20"
@@ -39,238 +41,284 @@ export default function LandingFeatures() {
         aria-hidden="true"
       />
 
-      <div className="mx-auto max-w-[1380px] px-4 sm:px-6 lg:px-10">
-        <div className="max-w-2xl">
+      <div className="mx-auto max-w-[1140px] px-4 sm:px-8">
+        <div className="mx-auto max-w-2xl text-center">
           <h2
             id="features-heading"
-            className="text-3xl font-extrabold tracking-tight text-[var(--sc-text-primary)] sm:text-4xl"
-            style={{ fontFamily: 'var(--sc-font-display)' }}
+            className="text-balance font-medium tracking-[-0.03em] text-[var(--sc-text-primary)]"
+            style={{
+              fontFamily: 'var(--sc-font-display)',
+              fontSize: 'clamp(2.1rem, 4.2vw, 3.35rem)',
+              lineHeight: 1.1,
+            }}
           >
-            Giao việc kho, vẫn nắm rõ từng đơn
+            Giao việc kho,{' '}
+            <span
+              className="italic font-medium text-[var(--sc-champagne)]"
+              style={{ fontFamily: 'var(--sc-font-serif)', fontSize: '1.08em' }}
+            >
+              vẫn nắm rõ từng đơn.
+            </span>
           </h2>
         </div>
 
-        {/* 3 steps reading left-to-right on desktop, stacked vertically with each step's own card on mobile */}
-        <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-stretch">
-          {/* Step 1: Inbound Receipt */}
-          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
-            <div>
-              <span className="inline-flex rounded-md bg-[var(--sc-primary-alpha-12)] px-2.5 py-1 text-xs font-bold text-[var(--sc-primary)]">
-                Bước 1
+        {/* 3 Clean, Airy Editorial Proof Cards */}
+        <div className="mt-16 flex flex-col gap-6 sm:gap-8">
+          {/* 01 · Inbound */}
+          <article className="sc-luxury-card grid grid-cols-1 items-center gap-8 p-7 sm:p-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-5">
+              <span
+                className="text-xs tracking-[0.2em] text-[var(--sc-champagne)]"
+                style={{ fontFamily: 'var(--sc-font-mono)' }}
+              >
+                01
               </span>
               <h3
-                className="mt-3 text-xl font-bold text-[var(--sc-text-primary)]"
+                className="mt-3 text-xl font-medium tracking-[-0.02em] text-[var(--sc-text-primary)] sm:text-2xl"
                 style={{ fontFamily: 'var(--sc-font-display)' }}
               >
                 Gửi hàng, biết kho thực nhận bao nhiêu
               </h3>
-              <p className="mt-2.5 text-base leading-relaxed text-[var(--sc-text-secondary)]">
+              <p className="mt-3 text-base leading-[1.7] text-[var(--sc-text-secondary)]">
                 Bạn báo trước lô hàng. Khi ORCA kiểm đếm xong, bạn xem số đã gửi, số thực nhận và
                 phần chênh lệch ngay trên phiếu nhập.
               </p>
             </div>
 
-            <div
-              role="group"
-              aria-label="Phiếu nhập minh họa"
-              className="mt-6 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-secondary)] p-4"
-            >
-              <div className="flex items-center justify-between gap-2 border-b border-[var(--sc-border-default)] pb-2.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--sc-text-secondary)]">
-                  Phiếu nhập minh họa
-                </span>
-                <span className="font-mono text-xs font-semibold text-[var(--sc-text-tertiary)]">
-                  #PN-2048
-                </span>
-              </div>
+            <div className="lg:col-span-7">
+              <div
+                role="group"
+                aria-label="Phiếu nhập minh họa"
+                className="rounded-2xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-recessed)]/65 p-5 sm:p-6"
+              >
+                <div className="flex items-center justify-between text-xs text-[var(--sc-text-secondary)]">
+                  <span>Phiếu nhập minh họa</span>
+                  <span
+                    className="text-[var(--sc-champagne)]"
+                    style={{ fontFamily: 'var(--sc-font-mono)' }}
+                  >
+                    #PN-2048
+                  </span>
+                </div>
 
-              <div className="mt-3 text-sm font-semibold text-[var(--sc-text-primary)]">
-                Cà phê hạt rang mộc 500g
+                <dl className="mt-4 grid grid-cols-3 gap-3 text-center">
+                  <div className="rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] py-4">
+                    <dt className="text-xs text-[var(--sc-text-tertiary)]">Báo gửi</dt>
+                    <dd
+                      className="mt-1 text-2xl font-medium tabular-nums text-[var(--sc-text-primary)]"
+                      style={{ fontFamily: 'var(--sc-font-mono)' }}
+                    >
+                      100
+                    </dd>
+                  </div>
+                  <div className="rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] py-4">
+                    <dt className="text-xs text-[var(--sc-text-tertiary)]">Thực nhận</dt>
+                    <dd
+                      className="mt-1 text-2xl font-medium tabular-nums text-[var(--sc-status-ok)]"
+                      style={{ fontFamily: 'var(--sc-font-mono)' }}
+                    >
+                      98
+                    </dd>
+                  </div>
+                  <div className="rounded-xl border border-[var(--sc-champagne-soft)] bg-[var(--sc-status-warn-bg)] py-4">
+                    <dt className="text-xs font-medium text-[var(--sc-status-warn)]">Thiếu</dt>
+                    <dd
+                      className="mt-1 text-2xl font-medium tabular-nums text-[var(--sc-status-warn)]"
+                      style={{ fontFamily: 'var(--sc-font-mono)' }}
+                    >
+                      02
+                    </dd>
+                  </div>
+                </dl>
               </div>
-
-              <dl className="mt-3 grid grid-cols-3 gap-2 text-center">
-                <div className="rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-2 py-2.5">
-                  <dt className="text-xs font-medium text-[var(--sc-text-secondary)]">Báo gửi</dt>
-                  <dd className="mt-1 text-lg font-extrabold tabular-nums text-[var(--sc-text-primary)]">
-                    100
-                  </dd>
-                </div>
-                <div className="rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-2 py-2.5">
-                  <dt className="text-xs font-medium text-[var(--sc-text-secondary)]">Thực nhận</dt>
-                  <dd className="mt-1 text-lg font-extrabold tabular-nums text-[var(--sc-primary)]">
-                    98
-                  </dd>
-                </div>
-                <div className="rounded-lg border border-[var(--sc-warning-border)] bg-[var(--sc-warning-bg)] px-2 py-2.5">
-                  <dt className="text-xs font-semibold text-[var(--sc-warning-dark)]">Thiếu</dt>
-                  <dd className="mt-1 text-lg font-extrabold tabular-nums text-[var(--sc-warning-dark)]">
-                    2
-                  </dd>
-                </div>
-              </dl>
             </div>
           </article>
 
-          {/* Step 2: Order Pick, Pack & Carrier Handover */}
-          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
-            <div>
-              <span className="inline-flex rounded-md bg-[var(--sc-primary-alpha-12)] px-2.5 py-1 text-xs font-bold text-[var(--sc-primary)]">
-                Bước 2
+          {/* 02 · Handover */}
+          <article className="sc-luxury-card grid grid-cols-1 items-center gap-8 p-7 sm:p-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-5">
+              <span
+                className="text-xs tracking-[0.2em] text-[var(--sc-champagne)]"
+                style={{ fontFamily: 'var(--sc-font-mono)' }}
+              >
+                02
               </span>
               <h3
-                className="mt-3 text-xl font-bold text-[var(--sc-text-primary)]"
+                className="mt-3 text-xl font-medium tracking-[-0.02em] text-[var(--sc-text-primary)] sm:text-2xl"
                 style={{ fontFamily: 'var(--sc-font-display)' }}
               >
                 Có đơn, ORCA soạn và đóng gói
               </h3>
-              <p className="mt-2.5 text-base leading-relaxed text-[var(--sc-text-secondary)]">
+              <p className="mt-3 text-base leading-[1.7] text-[var(--sc-text-secondary)]">
                 Bạn nhập đơn hoặc tải tệp Excel. ORCA lấy hàng, đóng gói và bàn giao cho hãng vận
                 chuyển. Bạn tra mã vận đơn để theo dõi từng kiện.
               </p>
             </div>
 
-            <div
-              role="group"
-              aria-label="Kiện hàng minh họa"
-              className="mt-6 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-secondary)] p-4"
-            >
-              <div className="flex items-center justify-between gap-2 border-b border-[var(--sc-border-default)] pb-2.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--sc-text-secondary)]">
-                  Kiện hàng minh họa
-                </span>
-                <span className="font-mono text-xs font-semibold text-[var(--sc-text-tertiary)]">
-                  Đơn #DH-1042
-                </span>
-              </div>
-
-              <div className="mt-3 flex items-baseline justify-between gap-2">
-                <span className="text-xs font-medium text-[var(--sc-text-secondary)]">
-                  Mã vận đơn
-                </span>
-                <span className="font-mono text-sm font-bold tracking-wide text-[var(--sc-text-primary)]">
-                  VD84920163
-                </span>
-              </div>
-
-              <div className="mt-3 rounded-lg border border-[var(--sc-success-border)] bg-[var(--sc-success-bg)] px-3.5 py-3">
-                <div className="flex items-center gap-2">
+            <div className="lg:col-span-7">
+              <div
+                role="group"
+                aria-label="Kiện hàng minh họa"
+                className="rounded-2xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-recessed)]/65 p-5 sm:p-6"
+              >
+                <div className="flex items-center justify-between text-xs text-[var(--sc-text-secondary)]">
+                  <span>Kiện hàng #DH-1042</span>
                   <span
-                    className="h-2.5 w-2.5 shrink-0 rounded-full bg-[var(--sc-success)]"
-                    aria-hidden="true"
-                  />
-                  <span className="text-sm font-bold text-[var(--sc-success-dark)]">
-                    Đã bàn giao hãng vận chuyển
+                    className="font-medium text-[var(--sc-text-primary)]"
+                    style={{ fontFamily: 'var(--sc-font-mono)' }}
+                  >
+                    MVĐ · VD84920163
                   </span>
                 </div>
-                <div className="mt-1 pl-4 text-xs font-medium text-[var(--sc-success-dark)]">
-                  Kiện 01/01 · Đã quét xuất kho
+
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] px-5 py-4">
+                  <div className="flex items-center gap-2.5">
+                    <CheckCircle
+                      size={19}
+                      weight="fill"
+                      className="shrink-0 text-[var(--sc-status-ok)]"
+                      aria-hidden="true"
+                    />
+                    <span className="text-base font-medium text-[var(--sc-text-primary)]">
+                      Đã bàn giao hãng vận chuyển
+                    </span>
+                  </div>
+                  <span
+                    className="text-xs text-[var(--sc-text-tertiary)]"
+                    style={{ fontFamily: 'var(--sc-font-mono)' }}
+                  >
+                    01/01 kiện
+                  </span>
                 </div>
               </div>
             </div>
           </article>
 
-          {/* Step 3: Weekly COD Reconciliation */}
-          <article className="sc-surface flex flex-col justify-between p-6 sm:p-7">
-            <div>
-              <span className="inline-flex rounded-md bg-[var(--sc-primary-alpha-12)] px-2.5 py-1 text-xs font-bold text-[var(--sc-primary)]">
-                Bước 3
+          {/* 03 · COD */}
+          <article className="sc-champagne-card grid grid-cols-1 items-center gap-8 p-7 sm:p-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-5">
+              <span
+                className="text-xs tracking-[0.2em] text-[var(--sc-champagne)]"
+                style={{ fontFamily: 'var(--sc-font-mono)' }}
+              >
+                03
               </span>
               <h3
-                className="mt-3 text-xl font-bold text-[var(--sc-text-primary)]"
+                className="mt-3 text-xl font-medium tracking-[-0.02em] text-[var(--sc-text-primary)] sm:text-2xl"
                 style={{ fontFamily: 'var(--sc-font-display)' }}
               >
                 Đối chiếu tiền thu hộ theo từng đơn
               </h3>
-              <p className="mt-2.5 text-base leading-relaxed text-[var(--sc-text-secondary)]">
+              <p className="mt-3 text-base leading-[1.7] text-[var(--sc-text-secondary)]">
                 Mở bảng kê tuần để xem tiền thu hộ, cước và phí. Nếu một dòng chưa khớp, bạn có thể
                 báo lại ngay trên dòng đó.
               </p>
             </div>
 
-            <div
-              role="group"
-              aria-label="Bảng kê tuần minh họa"
-              className="mt-6 rounded-xl border border-[var(--sc-border-strong)] bg-[var(--sc-bg-secondary)] p-4"
-            >
-              <div className="flex items-center justify-between gap-2 border-b border-[var(--sc-border-default)] pb-2.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[var(--sc-text-secondary)]">
-                  Bảng kê tuần minh họa
-                </span>
-                <span className="rounded-full border border-[var(--sc-success-border)] bg-[var(--sc-success-bg)] px-2 py-0.5 text-[11px] font-semibold text-[var(--sc-success-dark)]">
-                  Đã chi trả kỳ trước
-                </span>
-              </div>
-
-              <div className="mt-3 rounded-lg border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] p-3">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-mono text-xs font-bold text-[var(--sc-text-primary)]">
-                    Đơn #DH-1048
-                  </span>
-                  <span className="rounded-full border border-[var(--sc-info-border)] bg-[var(--sc-info-bg)] px-2 py-0.5 text-[11px] font-semibold text-[var(--sc-info-dark)]">
-                    Đang đối soát
-                  </span>
+            <div className="lg:col-span-7">
+              <div
+                role="group"
+                aria-label="Bảng kê tuần minh họa"
+                className="rounded-2xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-recessed)]/75 p-5 sm:p-6"
+              >
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <span className="text-[var(--sc-text-secondary)]">Bảng kê tuần · #DH-1048</span>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-[var(--sc-status-ok-bg)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--sc-status-ok)]">
+                      Đã chi trả
+                    </span>
+                    <span className="rounded-full bg-[var(--sc-status-info-bg)] px-2.5 py-0.5 text-[11px] font-medium text-[var(--sc-status-info)]">
+                      Đang đối soát
+                    </span>
+                  </div>
                 </div>
 
-                <dl className="mt-2.5 grid grid-cols-3 gap-1.5 text-xs">
+                <dl className="mt-4 grid grid-cols-3 gap-3 rounded-xl border border-[var(--sc-border-default)] bg-[var(--sc-bg-surface)] p-4 text-xs sm:text-sm">
                   <div>
                     <dt className="text-[var(--sc-text-tertiary)]">Thu hộ</dt>
-                    <dd className="mt-0.5 font-semibold tabular-nums text-[var(--sc-text-primary)]">
+                    <dd
+                      className="mt-1 font-medium tabular-nums text-[var(--sc-text-primary)]"
+                      style={{ fontFamily: 'var(--sc-font-mono)' }}
+                    >
                       450.000 đ
                     </dd>
                   </div>
                   <div>
                     <dt className="text-[var(--sc-text-tertiary)]">Cước &amp; phí</dt>
-                    <dd className="mt-0.5 font-semibold tabular-nums text-[var(--sc-text-secondary)]">
+                    <dd
+                      className="mt-1 tabular-nums text-[var(--sc-text-secondary)]"
+                      style={{ fontFamily: 'var(--sc-font-mono)' }}
+                    >
                       -32.000 đ
                     </dd>
                   </div>
                   <div className="text-right">
                     <dt className="text-[var(--sc-text-tertiary)]">Thực nhận</dt>
-                    <dd className="mt-0.5 font-bold tabular-nums text-[var(--sc-primary)]">
+                    <dd
+                      className="mt-1 font-semibold tabular-nums text-[var(--sc-champagne)]"
+                      style={{ fontFamily: 'var(--sc-font-mono)' }}
+                    >
                       418.000 đ
                     </dd>
                   </div>
                 </dl>
 
-                <div className="mt-2.5 flex items-center justify-between border-t border-[var(--sc-border-default)] pt-2 text-xs">
-                  <span className="text-[var(--sc-text-tertiary)]">Chưa chi trả</span>
-                  <span className="rounded border border-[var(--sc-warning-border)] bg-[var(--sc-warning-bg)] px-2 py-0.5 font-semibold text-[var(--sc-warning-dark)]">
-                    Báo sai dòng này
+                <div className="mt-3.5 flex items-center justify-between gap-3 text-xs">
+                  <span className="text-[var(--sc-text-secondary)]">
+                    {flaggedRow ? 'Đã ghi nhận tra soát dòng này' : 'Đang đối soát'}
                   </span>
+
+                  <button
+                    type="button"
+                    onClick={() => setFlaggedRow((v) => !v)}
+                    className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-[var(--sc-champagne-soft)] bg-[var(--sc-bg-surface)] px-3.5 py-1.5 font-medium text-[var(--sc-champagne)] transition-colors hover:border-[var(--sc-champagne)]"
+                  >
+                    {flaggedRow ? (
+                      <>
+                        <FlagBanner size={13} weight="fill" aria-hidden="true" />
+                        <span>Đã báo kiểm tra</span>
+                      </>
+                    ) : (
+                      <>
+                        <WarningCircle size={13} weight="regular" aria-hidden="true" />
+                        <span>Báo sai dòng này</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
           </article>
         </div>
 
-        {/* 2 closed-by-default expandable questions */}
-        <div className="mt-10 max-w-3xl space-y-3">
+        {/* 2 Closed-by-Default Questions */}
+        <div className="mx-auto mt-16 max-w-3xl divide-y divide-[var(--sc-border-default)] border-t border-b border-[var(--sc-border-default)]">
           {SHOP_FAQ_ITEMS.map((item) => {
             const isOpen = Boolean(openIds[item.id]);
             const panelId = `faq-panel-${item.id}`;
             return (
-              <div key={item.id} className="sc-surface overflow-hidden">
+              <div key={item.id}>
                 <button
                   type="button"
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => toggleQuestion(item.id)}
-                  className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left text-base font-semibold text-[var(--sc-text-primary)] transition-colors hover:bg-[var(--sc-bg-secondary)]"
+                  className="group flex w-full cursor-pointer items-center justify-between gap-6 py-4.5 text-left text-base font-medium text-[var(--sc-text-primary)] transition-colors hover:text-[var(--sc-champagne)]"
                 >
                   <span>{item.question}</span>
                   <span
                     aria-hidden="true"
-                    className={`shrink-0 text-lg leading-none text-[var(--sc-primary)] transition-transform duration-200 ${
+                    className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-[var(--sc-border-default)] text-[var(--sc-champagne)] transition-transform duration-200 ${
                       isOpen ? 'rotate-45' : ''
                     }`}
                   >
-                    +
+                    <Plus size={14} weight="regular" />
                   </span>
                 </button>
                 <div
                   id={panelId}
                   hidden={!isOpen}
-                  className="border-t border-[var(--sc-border-default)] px-5 py-4 text-base leading-relaxed text-[var(--sc-text-secondary)]"
+                  className="pb-5 pr-8 text-[15.5px] leading-[1.75] text-[var(--sc-text-secondary)]"
                 >
                   {item.answer}
                 </div>
