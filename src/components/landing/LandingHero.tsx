@@ -175,8 +175,8 @@ export default function LandingHero() {
                       y2="305"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#262936" />
-                      <stop offset="100%" stopColor="#14161f" />
+                      <stop offset="0%" stopColor="#122834" />
+                      <stop offset="100%" stopColor="#09151d" />
                     </linearGradient>
                     <linearGradient
                       id="boxTopLux"
@@ -186,8 +186,8 @@ export default function LandingHero() {
                       y2="168"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#faf7f0" />
-                      <stop offset="100%" stopColor="#e3dac9" />
+                      <stop offset="0%" stopColor="#f8fafc" />
+                      <stop offset="100%" stopColor="#dce5ee" />
                     </linearGradient>
                     <linearGradient
                       id="boxLeftLux"
@@ -197,8 +197,8 @@ export default function LandingHero() {
                       y2="256"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#ded4c1" />
-                      <stop offset="100%" stopColor="#b5a790" />
+                      <stop offset="0%" stopColor="#d5e0ea" />
+                      <stop offset="100%" stopColor="#9fb0c2" />
                     </linearGradient>
                     <linearGradient
                       id="boxRightLux"
@@ -208,8 +208,8 @@ export default function LandingHero() {
                       y2="256"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#c7bba6" />
-                      <stop offset="100%" stopColor="#918470" />
+                      <stop offset="0%" stopColor="#b8c7d6" />
+                      <stop offset="100%" stopColor="#7c8ea3" />
                     </linearGradient>
                     <linearGradient
                       id="goldRibbonLux"
@@ -219,9 +219,9 @@ export default function LandingHero() {
                       y2="150"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#f8e8c8" />
-                      <stop offset="50%" stopColor="#dfbe88" />
-                      <stop offset="100%" stopColor="#a6824b" />
+                      <stop offset="0%" stopColor="#6ee7b7" />
+                      <stop offset="50%" stopColor="#10b981" />
+                      <stop offset="100%" stopColor="#0f766e" />
                     </linearGradient>
                     <linearGradient
                       id="laserCurtain"
@@ -231,31 +231,31 @@ export default function LandingHero() {
                       y2="168"
                       gradientUnits="userSpaceOnUse"
                     >
-                      <stop offset="0%" stopColor="#dfbe88" stopOpacity="0" />
-                      <stop offset="100%" stopColor="#dfbe88" stopOpacity="0.22" />
+                      <stop offset="0%" stopColor="#10b981" stopOpacity="0" />
+                      <stop offset="100%" stopColor="#10b981" stopOpacity="0.24" />
                     </linearGradient>
                   </defs>
 
                   {/* Sculpted Brushed-Obsidian Weighing Plinth */}
                   <polygon points="240,164 426,234 240,304 54,234" fill="url(#plinthSurface)" />
-                  <polygon points="54,234 240,304 240,316 54,246" fill="#101219" />
-                  <polygon points="426,234 240,304 240,316 426,246" fill="#1c1f2b" />
+                  <polygon points="54,234 240,304 240,316 54,246" fill="#071118" />
+                  <polygon points="426,234 240,304 240,316 426,246" fill="#0f212c" />
                   <polygon
                     points="240,164 426,234 240,304 54,234"
                     fill="none"
-                    stroke="#dfbe88"
-                    strokeOpacity="0.55"
+                    stroke="#10b981"
+                    strokeOpacity="0.6"
                     strokeWidth="1.2"
                   />
                   <polygon
                     points="240,180 392,236 240,290 88,236"
                     fill="none"
-                    stroke="#dfbe88"
-                    strokeOpacity="0.22"
+                    stroke="#34d399"
+                    strokeOpacity="0.28"
                     strokeDasharray="4 5"
                   />
 
-                  {/* Precision Matte Alabaster-Kraft Parcel */}
+                  {/* Precision Matte Alabaster Parcel */}
                   <polygon points="132,120 240,166 240,254 132,206" fill="url(#boxLeftLux)" />
                   <polygon points="348,120 240,166 240,254 348,206" fill="url(#boxRightLux)" />
                   <polygon points="240,74 348,120 240,166 132,120" fill="url(#boxTopLux)" />
@@ -267,16 +267,16 @@ export default function LandingHero() {
                     strokeWidth="1.3"
                   />
 
-                  {/* Anodized Champagne-Gold Security Seal */}
+                  {/* ORCA Emerald-Teal Security Seal */}
                   <polygon points="178,100 198,92 306,138 286,146" fill="url(#goldRibbonLux)" />
-                  <polygon points="286,146 306,138 306,182 286,190" fill="#b38e56" />
+                  <polygon points="286,146 306,138 306,182 286,190" fill="#0d9488" />
 
                   {/* Crisp Thermal Shipping Label */}
                   <g transform="matrix(0.92, 0.39, 0, 1, 150, 148)">
                     <rect x="0" y="0" width="68" height="46" rx="3" fill="#ffffff" />
-                    <rect x="6" y="6" width="24" height="4" rx="1" fill="#141519" />
-                    <rect x="6" y="13" width="44" height="2.5" rx="1" fill="#787d88" />
-                    <g fill="#141519" transform="translate(6, 21)">
+                    <rect x="6" y="6" width="24" height="4" rx="1" fill="#0f766e" />
+                    <rect x="6" y="13" width="44" height="2.5" rx="1" fill="#64748b" />
+                    <g fill="#0f172a" transform="translate(6, 21)">
                       <rect x="0" y="0" width="2.2" height="16" />
                       <rect x="4" y="0" width="1" height="16" />
                       <rect x="7" y="0" width="3" height="16" />
@@ -293,19 +293,19 @@ export default function LandingHero() {
                     </g>
                   </g>
 
-                  {/* Optical Gold Laser Verification Plane */}
+                  {/* Optical Emerald Laser Verification Plane */}
                   <polygon points="104,120 376,120 348,62 132,62" fill="url(#laserCurtain)" />
                   <line
                     x1="96"
                     y1="120"
                     x2="384"
                     y2="120"
-                    stroke="#dfbe88"
+                    stroke="#10b981"
                     strokeWidth="1.6"
                     strokeDasharray="5 4"
                   />
-                  <circle cx="96" cy="120" r="3" fill="#dfbe88" />
-                  <circle cx="384" cy="120" r="3" fill="#dfbe88" />
+                  <circle cx="96" cy="120" r="3" fill="#10b981" />
+                  <circle cx="384" cy="120" r="3" fill="#10b981" />
                 </svg>
               </motion.div>
             </div>

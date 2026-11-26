@@ -1,114 +1,114 @@
 /**
- * ORCA — Quiet Tech Luxury System ("Obsidian Velvet & Champagne Titanium")
- * Synthesized from Mercury.com, Devialet, Bang & Olufsen, and Polestar.
- * Luxury through chromatic restraint, metallic specular hairlines, and nuanced medium-weight typography.
+ * ORCA — Quiet Tech Luxury System ("Obsidian Velvet & Emerald Titanium")
+ * Original ORCA Deep Teal & Emerald palette (#0f766e / #10b981 / #34d399)
+ * across both Light and Dark themes.
  */
 
 :root {
   color-scheme: light;
 
-  /* Cloud Dancer / Studio Cashmere Light Mode */
-  --sc-bg-primary: #f6f5f2;
-  --sc-bg-secondary: #eeece6;
-  --sc-bg-recessed: #e5e2da;
+  /* Crisp Cool Alabaster & Slate Mist Light Mode */
+  --sc-bg-primary: #f8fafc;
+  --sc-bg-secondary: #f1f5f9;
+  --sc-bg-recessed: #e2e8f0;
   --sc-bg-surface: #ffffff;
   --sc-bg-elevated: #ffffff;
-  --sc-glass-surface: rgb(255 255 255 / 86%);
-  --sc-topbar-bg: rgb(246 245 242 / 84%);
-  --sc-grid-hairline: rgb(20 21 25 / 5%);
+  --sc-glass-surface: rgb(255 255 255 / 88%);
+  --sc-topbar-bg: rgb(248 250 252 / 86%);
+  --sc-grid-hairline: rgb(15 23 42 / 5%);
 
-  /* Metallic Champagne-Bronze & Anthracite Accents */
-  --sc-champagne: #8c6f43;
-  --sc-champagne-soft: rgb(140 111 67 / 18%);
+  /* Original ORCA Deep Teal & Emerald Accents */
+  --sc-champagne: #0f766e;
+  --sc-champagne-soft: rgb(16 185 129 / 16%);
   --sc-champagne-gleam: linear-gradient(
     90deg,
     transparent 0%,
-    rgb(140 111 67 / 38%) 50%,
+    rgb(16 185 129 / 45%) 50%,
     transparent 100%
   );
 
-  /* Primary Button: Deep Anthracite Metal (15.8:1 contrast with #F6F5F2) */
-  --sc-btn-bg: #141519;
-  --sc-btn-hover: #262830;
-  --sc-btn-text: #f6f5f2;
-  --sc-btn-capsule: rgb(246 245 242 / 14%);
+  /* Primary Button: ORCA Deep Emerald-Teal (5.47:1 contrast with #FFFFFF) */
+  --sc-btn-bg: #0f766e;
+  --sc-btn-hover: #115e59;
+  --sc-btn-text: #ffffff;
+  --sc-btn-capsule: rgb(255 255 255 / 18%);
 
-  /* Whisper Metallic Borders */
-  --sc-border-light: rgb(20 21 25 / 6%);
-  --sc-border-default: rgb(20 21 25 / 10%);
-  --sc-border-strong: rgb(20 21 25 / 18%);
+  /* Whisper Borders */
+  --sc-border-light: rgb(15 23 42 / 6%);
+  --sc-border-default: rgb(15 23 42 / 10%);
+  --sc-border-strong: rgb(15 23 42 / 18%);
 
-  /* Nuanced Editorial Ink */
-  --sc-text-primary: #141519;
-  --sc-text-secondary: #525660;
-  --sc-text-tertiary: #787d88;
+  /* Editorial Ink */
+  --sc-text-primary: #0f172a;
+  --sc-text-secondary: #475569;
+  --sc-text-tertiary: #64748b;
 
-  /* Restrained Functional Statuses */
-  --sc-status-ok: #127858;
-  --sc-status-ok-bg: rgb(18 120 88 / 10%);
-  --sc-status-warn: #9c5718;
-  --sc-status-warn-bg: rgb(156 87 24 / 10%);
-  --sc-status-info: #2c5282;
-  --sc-status-info-bg: rgb(44 82 130 / 10%);
+  /* Functional Statuses */
+  --sc-status-ok: #059669;
+  --sc-status-ok-bg: rgb(16 185 129 / 12%);
+  --sc-status-warn: #dc2626;
+  --sc-status-warn-bg: rgb(220 38 38 / 8%);
+  --sc-status-info: #0284c7;
+  --sc-status-info-bg: rgb(2 132 199 / 10%);
 
-  /* Bespoke-Feel Sans + Editorial Italic + Precision Mono */
+  /* Typography */
   --sc-font-display: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --sc-font-serif: 'Cormorant Garamond', Georgia, serif;
   --sc-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --sc-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  --sc-shadow-card: 0 24px 60px -20px rgb(20 21 25 / 9%), 0 2px 6px rgb(20 21 25 / 4%);
+  --sc-shadow-card: 0 24px 60px -20px rgb(15 23 42 / 9%), 0 2px 6px rgb(15 23 42 / 4%);
   --sc-shadow-focus: 0 0 0 2px var(--sc-bg-primary), 0 0 0 4px var(--sc-champagne);
   --sc-ease-luxury: cubic-bezier(0.22, 1, 0.36, 1);
   --sc-transition-fast: 200ms var(--sc-ease-luxury);
   --sc-transition-base: 340ms var(--sc-ease-luxury);
 }
 
-/* Default Experience: Obsidian Velvet & Anodized Champagne Titanium (Mercury / Devialet Standard) */
+/* Dark Mode: Deep Obsidian & Luminous ORCA Emerald */
 [data-theme='dark'] {
   color-scheme: dark;
 
-  --sc-bg-primary: #0b0c10;
-  --sc-bg-secondary: #101218;
-  --sc-bg-recessed: #151821;
-  --sc-bg-surface: #14161f;
-  --sc-bg-elevated: #1a1d28;
-  --sc-glass-surface: rgb(22 25 35 / 84%);
-  --sc-topbar-bg: rgb(14 16 22 / 80%);
+  --sc-bg-primary: #060d13;
+  --sc-bg-secondary: #0a141d;
+  --sc-bg-recessed: #0f1e2b;
+  --sc-bg-surface: #0c1823;
+  --sc-bg-elevated: #122332;
+  --sc-glass-surface: rgb(12 24 35 / 86%);
+  --sc-topbar-bg: rgb(8 16 24 / 82%);
   --sc-grid-hairline: rgb(255 255 255 / 4.5%);
 
-  /* Anodized Champagne Gold / Natural Titanium Sheen */
-  --sc-champagne: #d8c098;
-  --sc-champagne-soft: rgb(216 192 152 / 18%);
+  /* Luminous ORCA Emerald & Mint Sheen */
+  --sc-champagne: #34d399;
+  --sc-champagne-soft: rgb(16 185 129 / 18%);
   --sc-champagne-gleam: linear-gradient(
     90deg,
     transparent 0%,
-    rgb(216 192 152 / 48%) 50%,
+    rgb(52 211 153 / 52%) 50%,
     transparent 100%
   );
 
-  /* Primary Button: Brushed Platinum-Alabaster Pill (14.6:1 contrast with #0B0C10) */
-  --sc-btn-bg: #f0ece3;
-  --sc-btn-hover: #ffffff;
-  --sc-btn-text: #0b0c10;
-  --sc-btn-capsule: rgb(11 12 16 / 10%);
+  /* Primary Button: Luminous Emerald Pill (8.3:1 contrast with #04130E) */
+  --sc-btn-bg: #10b981;
+  --sc-btn-hover: #34d399;
+  --sc-btn-text: #04130e;
+  --sc-btn-capsule: rgb(4 19 14 / 14%);
 
-  /* Semi-Transparent Specular Hairlines */
-  --sc-border-light: rgb(255 255 255 / 5%);
-  --sc-border-default: rgb(255 255 255 / 9%);
-  --sc-border-strong: rgb(255 255 255 / 16%);
+  /* Specular Hairlines */
+  --sc-border-light: rgb(255 255 255 / 6%);
+  --sc-border-default: rgb(255 255 255 / 10%);
+  --sc-border-strong: rgb(255 255 255 / 18%);
 
-  /* OLED-Calibrated Alabaster & Vapor Silver (Zero harsh #FFFFFF glare) */
-  --sc-text-primary: #f2efe9;
-  --sc-text-secondary: #9ca1ae;
-  --sc-text-tertiary: #6f7584;
+  /* Crisp Cool Alabaster & Slate Silver */
+  --sc-text-primary: #f1f5f9;
+  --sc-text-secondary: #94a3b8;
+  --sc-text-tertiary: #64748b;
 
-  --sc-status-ok: #5eead4;
-  --sc-status-ok-bg: rgb(94 234 212 / 10%);
-  --sc-status-warn: #e5b567;
-  --sc-status-warn-bg: rgb(229 181 103 / 12%);
-  --sc-status-info: #93c5fd;
-  --sc-status-info-bg: rgb(147 197 253 / 10%);
+  --sc-status-ok: #34d399;
+  --sc-status-ok-bg: rgb(52 211 153 / 12%);
+  --sc-status-warn: #f87171;
+  --sc-status-warn-bg: rgb(248 113 113 / 12%);
+  --sc-status-info: #38bdf8;
+  --sc-status-info-bg: rgb(56 189 248 / 12%);
 
   --sc-shadow-card: 0 32px 72px -20px rgb(0 0 0 / 72%), inset 0 1px 0 rgb(255 255 255 / 7%);
   --sc-shadow-focus: 0 0 0 2px var(--sc-bg-primary), 0 0 0 4px var(--sc-champagne);
