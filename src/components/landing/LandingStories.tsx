@@ -17,8 +17,8 @@ export const SPATIAL_STOPS = [
     tag: 'MỞ ĐẦU',
     title: 'Xe Chở Hàng Tiến Vào Kho ORCA',
     desc: 'Cuộn chuột để đưa xe hàng vào cổng kho và mở ra quy trình bên trong.',
-    accentColor: '#f5b942',
-    lightAccent: '#c4841d',
+    accentColor: '#14b8a6',
+    lightAccent: '#0f766e',
     align: 'left' as const,
     stats: [],
     cta: '',
@@ -35,8 +35,8 @@ export const SPATIAL_STOPS = [
     tag: 'BƯỚC 01 · TIẾP NHẬN',
     title: 'Kiểm Đếm & Ghi Hình Độc Lập',
     desc: 'Hàng qua băng chuyền quét mã, kiểm đếm thực nhận kèm video đối chứng.',
-    accentColor: '#f5b942',
-    lightAccent: '#c4841d',
+    accentColor: '#14b8a6',
+    lightAccent: '#0f766e',
     align: 'right' as const,
     stats: [
       { value: 'Độc lập', label: 'Kiểm đếm' },
@@ -57,8 +57,8 @@ export const SPATIAL_STOPS = [
     tag: 'BƯỚC 02 · LƯU KỆ',
     title: 'Kệ Cao Tầng & Ưu Tiên Hạn Dùng',
     desc: 'Định danh từng ô kệ và tự động ưu tiên xuất lô hết hạn sớm trước.',
-    accentColor: '#fb923c',
-    lightAccent: '#c2590c',
+    accentColor: '#34d399',
+    lightAccent: '#059669',
     align: 'left' as const,
     stats: [
       { value: 'Chuẩn lô', label: 'Tách kệ' },
@@ -79,8 +79,8 @@ export const SPATIAL_STOPS = [
     tag: 'BƯỚC 03 · ĐÓNG GÓI',
     title: 'Điều Phối Đa Kho & Đóng Kiện',
     desc: 'Chọn kho phù hợp, lấy hàng theo đợt và cân đo, niêm phong chuẩn quy cách.',
-    accentColor: '#38bdf8',
-    lightAccent: '#0369a1',
+    accentColor: '#2dd4bf',
+    lightAccent: '#0d9488',
     align: 'left' as const,
     stats: [
       { value: 'Đa kho', label: 'Điều phối' },
@@ -101,7 +101,7 @@ export const SPATIAL_STOPS = [
     tag: 'BƯỚC 04 · CỬA XUẤT',
     title: 'Đối Soát & Bàn Giao Hãng Vận Chuyển',
     desc: 'Tách bạch cước theo từng kiện và ký biên bản bàn giao trực tiếp tại cửa xuất.',
-    accentColor: '#34d399',
+    accentColor: '#10b981',
     lightAccent: '#047857',
     align: 'right' as const,
     stats: [
@@ -123,8 +123,8 @@ export const SPATIAL_STOPS = [
     tag: 'HOÀN TẤT · XUẤT BẾN',
     title: 'Đội Xe 3PL Rời Kho Giao Hàng',
     desc: 'Đội xe đối tác rời cổng kho giao kiện tận tay người mua và cập nhật mã vận đơn.',
-    accentColor: '#f5b942',
-    lightAccent: '#c4841d',
+    accentColor: '#10b981',
+    lightAccent: '#0f766e',
     align: 'right' as const,
     stats: [
       { value: '3PL', label: 'Bàn giao' },
@@ -261,10 +261,10 @@ export default function LandingStories({ theme = 'dark' }: { theme?: 'light' | '
       className="relative w-full border-t border-b border-[var(--sc-border-strong)]"
       style={{
         height: `${SPATIAL_STOPS.length * 85}vh`,
-        // High-Contrast Showroom Spotlight Stage: Crisp Sunlit Gallery in Light, Luminous Studio Stage in Dark
+        // High-Contrast Showroom Spotlight Stage in ORCA Emerald-Teal
         background: isLight
-          ? 'radial-gradient(ellipse 68% 58% at 54% 48%, #ffffff 0%, #e7e1d4 62%, #d8d0c0 100%)'
-          : 'radial-gradient(ellipse 66% 58% at 54% 48%, #20273b 0%, #10131d 58%, #08090e 100%)',
+          ? 'radial-gradient(ellipse 68% 58% at 54% 48%, #ffffff 0%, #e4f2ef 62%, #d1e6e1 100%)'
+          : 'radial-gradient(ellipse 66% 58% at 54% 48%, #0d262b 0%, #08151d 58%, #050b10 100%)',
       }}
     >
       {/* Sticky Fullscreen 3D Viewport */}
@@ -277,13 +277,13 @@ export default function LandingStories({ theme = 'dark' }: { theme?: 'light' | '
             pointerEvents: inView ? 'auto' : 'none',
           }}
         >
-          {/* Focused Gold-Emerald Studio Key Halo Behind 3D Model */}
+          {/* Focused Emerald-Teal Studio Key Halo Behind 3D Model */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background: isLight
-                ? 'radial-gradient(ellipse 52% 46% at 56% 48%, rgba(245, 185, 66, 0.22) 0%, rgba(16, 185, 129, 0.08) 45%, transparent 72%)'
-                : 'radial-gradient(ellipse 52% 46% at 56% 48%, rgba(245, 185, 66, 0.2) 0%, rgba(52, 211, 153, 0.1) 45%, transparent 72%)',
+                ? 'radial-gradient(ellipse 52% 46% at 56% 48%, rgba(16, 185, 129, 0.2) 0%, rgba(15, 118, 110, 0.08) 45%, transparent 72%)'
+                : 'radial-gradient(ellipse 52% 46% at 56% 48%, rgba(20, 184, 166, 0.22) 0%, rgba(16, 185, 129, 0.1) 45%, transparent 72%)',
             }}
           />
           <LandingCanvas

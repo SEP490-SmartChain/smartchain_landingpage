@@ -24,32 +24,32 @@ export const NODES_DATA = [
     stopIdx: 1,
     shortLabel: '01 · Nhập kho & Kiểm đếm',
     pos: [-0.6, 0, -1.75] as [number, number, number],
-    accent: '#f5b942',
-    lightAccent: '#d99016',
+    accent: '#14b8a6',
+    lightAccent: '#0f766e',
   },
   {
     id: 1,
     stopIdx: 2,
     shortLabel: '02 · Kệ lưu trữ cao tầng',
     pos: [2.7, 0, -1.75] as [number, number, number],
-    accent: '#fb923c',
-    lightAccent: '#ea580c',
+    accent: '#34d399',
+    lightAccent: '#059669',
   },
   {
     id: 2,
     stopIdx: 3,
     shortLabel: '03 · Định tuyến & Đóng gói',
     pos: [2.7, 0, 1.75] as [number, number, number],
-    accent: '#38bdf8',
-    lightAccent: '#0284c7',
+    accent: '#2dd4bf',
+    lightAccent: '#0d9488',
   },
   {
     id: 3,
     stopIdx: 4,
     shortLabel: '04 · Đối soát tại cửa xuất',
     pos: [-0.6, 0, 1.75] as [number, number, number],
-    accent: '#34d399',
-    lightAccent: '#10b981',
+    accent: '#10b981',
+    lightAccent: '#047857',
   },
 ] as const;
 
@@ -126,17 +126,17 @@ function StaffCharacter3D({
       </RoundedBox>
       <mesh position={[0, 0.2, 0.042]}>
         <boxGeometry args={[0.125, 0.02, 0.005]} />
-        <meshStandardMaterial color="#fef08a" emissive="#f5b942" emissiveIntensity={0.8} />
+        <meshStandardMaterial color="#a7f3d0" emissive="#34d399" emissiveIntensity={0.8} />
       </mesh>
 
       <mesh position={[0, 0.35, 0]} castShadow>
         <sphereGeometry args={[0.052, 14, 14]} />
-        <meshStandardMaterial color="#fde68a" roughness={0.5} />
+        <meshStandardMaterial color="#f1d7b6" roughness={0.5} />
       </mesh>
 
       <mesh position={[0, 0.38, 0]} castShadow>
         <sphereGeometry args={[0.056, 14, 10, 0, Math.PI * 2, 0, Math.PI / 1.8]} />
-        <meshStandardMaterial color="#f5b942" roughness={0.28} metalness={0.25} />
+        <meshStandardMaterial color="#10b981" roughness={0.28} metalness={0.2} />
       </mesh>
 
       <group ref={armRef} position={[0.085, 0.27, 0]} rotation={[-0.55, 0, 0]}>
@@ -147,7 +147,7 @@ function StaffCharacter3D({
         {holdingScanner && (
           <group position={[0, -0.1, 0.06]}>
             <RoundedBox args={[0.07, 0.015, 0.09]} radius={0.005}>
-              <meshStandardMaterial color="#fef08a" emissive="#f5b942" emissiveIntensity={1.6} />
+              <meshStandardMaterial color="#6ee7b7" emissive="#10b981" emissiveIntensity={1.6} />
             </RoundedBox>
           </group>
         )}
@@ -156,11 +156,11 @@ function StaffCharacter3D({
   );
 }
 
-// ── High-Contrast Luxury Logistics Truck ─────────────────────────────────────
+// ── High-Contrast ORCA Emerald-Teal Logistics Truck ──────────────────────────
 function LogisticsTruckMesh({
   rotationY = 0,
-  trailerColor = '#d99016',
-  stripeColor = '#fde68a',
+  trailerColor = '#0d9488',
+  stripeColor = '#5eead4',
   cabColor = '#ffffff',
   scale = 0.8,
 }: {
@@ -173,7 +173,7 @@ function LogisticsTruckMesh({
   return (
     <group rotation={[0, rotationY, 0]} scale={scale}>
       <RoundedBox args={[1.45, 0.08, 0.56]} radius={0.02} position={[0, 0.14, 0]}>
-        <meshStandardMaterial color="#11131a" metalness={0.55} roughness={0.45} />
+        <meshStandardMaterial color="#111827" metalness={0.55} roughness={0.45} />
       </RoundedBox>
 
       <RoundedBox
@@ -212,13 +212,13 @@ function LogisticsTruckMesh({
       </RoundedBox>
 
       <RoundedBox args={[0.03, 0.18, 0.44]} radius={0.01} position={[0.665, 0.43, 0]}>
-        <meshStandardMaterial color="#1e293b" emissive="#38bdf8" emissiveIntensity={0.5} />
+        <meshStandardMaterial color="#0f766e" emissive="#2dd4bf" emissiveIntensity={0.55} />
       </RoundedBox>
 
       {[-0.18, 0.18].map((hz) => (
         <mesh key={hz} position={[0.675, 0.24, hz]}>
           <boxGeometry args={[0.02, 0.05, 0.09]} />
-          <meshStandardMaterial color="#ffffff" emissive="#fef08a" emissiveIntensity={3} />
+          <meshStandardMaterial color="#ffffff" emissive="#ccfbf1" emissiveIntensity={2.8} />
         </mesh>
       ))}
 
@@ -233,11 +233,11 @@ function LogisticsTruckMesh({
         <group key={`${wx}-${wz}`} position={[wx, wy, wz]} rotation={[Math.PI / 2, 0, 0]}>
           <mesh>
             <cylinderGeometry args={[0.11, 0.11, 0.08, 18]} />
-            <meshStandardMaterial color="#090b10" roughness={0.85} />
+            <meshStandardMaterial color="#090d14" roughness={0.85} />
           </mesh>
           <mesh position={[0, 0.042, 0]}>
             <cylinderGeometry args={[0.055, 0.055, 0.01, 14]} />
-            <meshStandardMaterial color="#f5b942" metalness={0.85} roughness={0.2} />
+            <meshStandardMaterial color="#cbd5e1" metalness={0.85} roughness={0.2} />
           </mesh>
         </group>
       ))}
@@ -276,18 +276,18 @@ function ScrollDrivenTruckFleet({ scrollRef }: { scrollRef: React.MutableRefObje
 
   return (
     <group position={[0, 0.02, 0]}>
-      {/* Inbound ORCA Signature Burnished-Gold Cargo Truck */}
+      {/* Inbound ORCA Signature Deep-Teal Cargo Truck */}
       <group ref={inboundTruckRef} position={[-5.2, 0, -1.75]}>
         <LogisticsTruckMesh
           rotationY={0}
-          trailerColor="#c98718"
-          stripeColor="#fef08a"
+          trailerColor="#0d9488"
+          stripeColor="#5eead4"
           cabColor="#ffffff"
           scale={0.78}
         />
       </group>
 
-      {/* Outbound 3PL Truck #1 (Vivid Jewel Emerald) */}
+      {/* Outbound 3PL Truck #1 (ORCA Emerald) */}
       <group ref={outboundTruck1Ref} position={[-2.5, 0, 1.35]}>
         <LogisticsTruckMesh
           rotationY={Math.PI}
@@ -298,12 +298,12 @@ function ScrollDrivenTruckFleet({ scrollRef }: { scrollRef: React.MutableRefObje
         />
       </group>
 
-      {/* Outbound 3PL Truck #2 (Royal Sapphire) */}
+      {/* Outbound 3PL Truck #2 (Deep Jade-Cyan) */}
       <group ref={outboundTruck2Ref} position={[-2.5, 0, 2.25]}>
         <LogisticsTruckMesh
           rotationY={Math.PI}
-          trailerColor="#1d4ed8"
-          stripeColor="#93c5fd"
+          trailerColor="#0f766e"
+          stripeColor="#99f6e4"
           cabColor="#ffffff"
           scale={0.76}
         />
@@ -312,7 +312,7 @@ function ScrollDrivenTruckFleet({ scrollRef }: { scrollRef: React.MutableRefObje
   );
 }
 
-// ── HIGH-CONTRAST SHOWROOM 3D FULFILLMENT CENTER ─────────────────────────────
+// ── HIGH-CONTRAST ORCA EMERALD-TEAL 3D FULFILLMENT CENTER ────────────────────
 function EncompassingWarehouseShell({
   scrollRef,
   isLight,
@@ -358,9 +358,8 @@ function EncompassingWarehouseShell({
     }
   });
 
-  // High-Contrast Obsidian Asphalt & Floor Slab in BOTH Modes so the Maquette Pops Off the Background!
-  const apronColor = isLight ? '#181c26' : '#131722';
-  const indoorFloorColor = isLight ? '#141822' : '#161b28';
+  const apronColor = isLight ? '#0f172a' : '#0b131e';
+  const indoorFloorColor = isLight ? '#0b1b29' : '#0d1a26';
 
   return (
     <group>
@@ -368,10 +367,10 @@ function EncompassingWarehouseShell({
       <group position={[-4.3, -0.04, 0]}>
         <RoundedBox args={[4.8, 0.1, 6.2]} radius={0.03} position={[0, -0.05, 0]} receiveShadow>
           <meshStandardMaterial color={apronColor} roughness={0.8} />
-          <Edges color="#f5b942" lineWidth={1.3} />
+          <Edges color="#14b8a6" lineWidth={1.3} />
         </RoundedBox>
 
-        {/* Crisp Gold & Emerald Dock Guide Markings */}
+        {/* Crisp Emerald & Mint Dock Guide Markings */}
         {[-2.15, -1.35].map((gz) => (
           <Line
             key={gz}
@@ -379,7 +378,7 @@ function EncompassingWarehouseShell({
               [0.6, 0.01, gz],
               [2.35, 0.01, gz],
             ]}
-            color="#f5b942"
+            color="#2dd4bf"
             lineWidth={2.0}
           />
         ))}
@@ -401,7 +400,7 @@ function EncompassingWarehouseShell({
             [-2.2, 0.01, -1.75],
             [0.4, 0.01, -1.75],
           ]}
-          color="#f5b942"
+          color="#2dd4bf"
           lineWidth={2.0}
           dashed
           dashScale={2.5}
@@ -421,16 +420,16 @@ function EncompassingWarehouseShell({
             [-2.3, 0.01, 0],
             [2.3, 0.01, 0],
           ]}
-          color="#64748b"
+          color="#475569"
           lineWidth={1.2}
         />
       </group>
 
-      {/* 2. Indoor Warehouse Obsidian Floor with Gold Precision Grid */}
+      {/* 2. Indoor Warehouse Floor with ORCA Teal-Emerald Precision Grid */}
       <group position={[1.4, -0.03, 0]}>
         <RoundedBox args={[6.6, 0.12, 6.2]} radius={0.04} position={[0, -0.06, 0]} receiveShadow>
           <meshStandardMaterial color={indoorFloorColor} roughness={0.68} metalness={0.18} />
-          <Edges color="#f5b942" lineWidth={1.8} />
+          <Edges color="#14b8a6" lineWidth={1.8} />
         </RoundedBox>
 
         <Grid
@@ -438,18 +437,18 @@ function EncompassingWarehouseShell({
           args={[6.4, 6.0]}
           cellSize={0.55}
           cellThickness={0.6}
-          cellColor="#2a3144"
+          cellColor="#132f42"
           sectionSize={2.2}
           sectionThickness={1.2}
-          sectionColor="#c9933b"
+          sectionColor="#0d9488"
           fadeDistance={14}
           fadeStrength={1.2}
         />
       </group>
 
-      {/* ── B. GLEAMING PEARL-WHITE BUILDING + OBSIDIAN & GOLD CROWN ── */}
+      {/* ── B. GLEAMING PEARL-WHITE BUILDING + SIGNATURE ORCA TEAL-EMERALD CROWN ── */}
       <group ref={roofAndWallsRef}>
-        {/* Gleaming Pearl-White Architectural Facade */}
+        {/* Gleaming Crisp Alabaster-Silver Architectural Facade */}
         <RoundedBox
           args={[6.56, 1.52, 6.16]}
           radius={0.04}
@@ -458,41 +457,41 @@ function EncompassingWarehouseShell({
           castShadow
           receiveShadow
         >
-          <meshStandardMaterial color="#f8f7f4" roughness={0.32} metalness={0.1} />
-          <Edges color="#94a3b8" lineWidth={1.1} />
+          <meshStandardMaterial color="#f1f5f9" roughness={0.34} metalness={0.1} />
+          <Edges color="#64748b" lineWidth={1.1} />
         </RoundedBox>
 
         {/* Deep Obsidian Plinth */}
         <mesh position={[1.4, 0.1, 0]}>
           <boxGeometry args={[6.6, 0.2, 6.2]} />
-          <meshStandardMaterial color="#11131a" roughness={0.55} />
+          <meshStandardMaterial color="#0f172a" roughness={0.55} />
         </mesh>
 
-        {/* Signature ORCA Obsidian & Burnished-Gold Crown Fascia */}
+        {/* Signature ORCA Deep Teal Crown Fascia */}
         <RoundedBox args={[6.72, 0.22, 6.32]} radius={0.03} position={[1.4, 1.48, 0]} castShadow>
-          <meshStandardMaterial color="#151822" roughness={0.28} metalness={0.35} />
-          <Edges color="#f5b942" lineWidth={1.7} />
+          <meshStandardMaterial color="#0f766e" roughness={0.28} metalness={0.25} />
+          <Edges color="#5eead4" lineWidth={1.6} />
         </RoundedBox>
 
-        {/* Glowing Gold LED Trim Line Under Crown */}
+        {/* Glowing Mint-Emerald LED Trim Line Under Crown */}
         <mesh position={[1.4, 1.35, 0]}>
           <boxGeometry args={[6.62, 0.035, 6.22]} />
-          <meshStandardMaterial color="#fde68a" emissive="#f5b942" emissiveIntensity={2.6} />
+          <meshStandardMaterial color="#5eead4" emissive="#14b8a6" emissiveIntensity={2.5} />
         </mesh>
 
-        {/* 2-Story Illuminated Executive Glass Office */}
+        {/* 2-Story Illuminated Emerald-Tinted Glass Office */}
         <group position={[0.6, 0.72, 3.09]}>
           <RoundedBox args={[2.8, 1.15, 0.08]} radius={0.02}>
-            <meshStandardMaterial color="#11131a" metalness={0.6} roughness={0.2} />
-            <Edges color="#f5b942" />
+            <meshStandardMaterial color="#0f172a" metalness={0.6} roughness={0.2} />
+            <Edges color="#2dd4bf" />
           </RoundedBox>
           {[-0.26, 0.26].map((wy) => (
             <mesh key={wy} position={[0, wy, 0.045]}>
               <planeGeometry args={[2.56, 0.42]} />
               <meshStandardMaterial
-                color="#fef3c7"
-                emissive="#f59e0b"
-                emissiveIntensity={0.95}
+                color="#5eead4"
+                emissive="#0d9488"
+                emissiveIntensity={0.9}
                 roughness={0.12}
               />
             </mesh>
@@ -500,71 +499,71 @@ function EncompassingWarehouseShell({
           {[-0.85, 0, 0.85].map((mx) => (
             <mesh key={mx} position={[mx, 0, 0.05]}>
               <boxGeometry args={[0.04, 1.12, 0.02]} />
-              <meshStandardMaterial color="#181b24" />
+              <meshStandardMaterial color="#1e293b" />
             </mesh>
           ))}
         </group>
 
-        {/* Vertical Obsidian Steel Columns */}
+        {/* Vertical Charcoal Steel Columns */}
         {[2.4, 3.5, 4.6].map((cx) => (
           <mesh key={cx} position={[cx, 0.74, 3.09]}>
             <boxGeometry args={[0.08, 1.25, 0.04]} />
-            <meshStandardMaterial color="#1e222f" metalness={0.55} />
+            <meshStandardMaterial color="#334155" metalness={0.55} />
           </mesh>
         ))}
 
-        {/* Cantilevered Obsidian & Gold Dock Canopy */}
+        {/* Cantilevered ORCA Teal Dock Canopy */}
         <RoundedBox args={[0.75, 0.08, 5.8]} radius={0.02} position={[-2.22, 1.18, 0]} castShadow>
-          <meshStandardMaterial color="#151822" roughness={0.28} metalness={0.35} />
-          <Edges color="#f5b942" lineWidth={1.5} />
+          <meshStandardMaterial color="#0f766e" roughness={0.28} metalness={0.25} />
+          <Edges color="#5eead4" lineWidth={1.5} />
         </RoundedBox>
         <mesh position={[-2.2, 1.13, 0]}>
           <boxGeometry args={[0.5, 0.02, 5.5]} />
-          <meshStandardMaterial color="#fef08a" emissive="#f5b942" emissiveIntensity={2.2} />
+          <meshStandardMaterial color="#a7f3d0" emissive="#34d399" emissiveIntensity={2.0} />
         </mesh>
 
         {/* DOCK 01: Inbound Loading Bay */}
         <group position={[-1.89, 0, -1.75]}>
           <mesh position={[-0.02, 0.56, 0]}>
             <boxGeometry args={[0.06, 1.05, 0.96]} />
-            <meshStandardMaterial color="#0f1118" />
+            <meshStandardMaterial color="#0f172a" />
           </mesh>
           <mesh ref={inboundDoorRef} position={[-0.04, 0.56, 0]}>
             <boxGeometry args={[0.04, 0.96, 0.82]} />
-            <meshStandardMaterial color="#2a2f3f" metalness={0.5} roughness={0.4} />
-            <Edges color="#cbd5e1" />
+            <meshStandardMaterial color="#334155" metalness={0.5} roughness={0.4} />
+            <Edges color="#94a3b8" />
           </mesh>
           {[-0.44, 0.44].map((bz) => (
             <mesh key={bz} position={[-0.06, 0.16, bz]}>
               <boxGeometry args={[0.06, 0.22, 0.06]} />
-              <meshStandardMaterial color="#f5b942" />
+              <meshStandardMaterial color="#10b981" />
             </mesh>
           ))}
           <mesh position={[-0.05, 1.28, 0]}>
             <boxGeometry args={[0.04, 0.06, 0.32]} />
-            <meshStandardMaterial color="#f5b942" emissive="#f5b942" emissiveIntensity={2.8} />
+            <meshStandardMaterial color="#14b8a6" emissive="#14b8a6" emissiveIntensity={2.8} />
           </mesh>
         </group>
 
         {/* DOCK 02 & DOCK 03: Outbound 3PL Loading Bays */}
         {[
           { z: 1.35, ref: outboundDoor1Ref, color: '#10b981' },
-          { z: 2.25, ref: outboundDoor2Ref, color: '#38bdf8' },
+          { z: 2.25, ref: outboundDoor2Ref, color: '#2dd4bf' },
         ].map((bay) => (
           <group key={bay.z} position={[-1.89, 0, bay.z]}>
             <mesh position={[-0.02, 0.56, 0]}>
               <boxGeometry args={[0.06, 1.05, 0.78]} />
-              <meshStandardMaterial color="#0f1118" />
+              <meshStandardMaterial color="#0f172a" />
             </mesh>
             <mesh ref={bay.ref} position={[-0.04, 0.56, 0]}>
               <boxGeometry args={[0.04, 0.96, 0.66]} />
-              <meshStandardMaterial color="#2a2f3f" metalness={0.5} roughness={0.4} />
-              <Edges color="#cbd5e1" />
+              <meshStandardMaterial color="#334155" metalness={0.5} roughness={0.4} />
+              <Edges color="#94a3b8" />
             </mesh>
             {[-0.36, 0.36].map((bz) => (
               <mesh key={bz} position={[-0.06, 0.16, bz]}>
                 <boxGeometry args={[0.06, 0.22, 0.06]} />
-                <meshStandardMaterial color="#f5b942" />
+                <meshStandardMaterial color="#10b981" />
               </mesh>
             ))}
             <mesh position={[-0.05, 1.28, 0]}>
@@ -578,19 +577,19 @@ function EncompassingWarehouseShell({
           </group>
         ))}
 
-        {/* Sloped Dark-Titanium Architectural Gable Roof */}
+        {/* Sloped Architectural Gable Roof */}
         <group position={[1.4, 1.58, 0]}>
           <group position={[0, 0.2, -1.52]} rotation={[0.14, 0, 0]}>
             <RoundedBox args={[6.64, 0.06, 3.12]} radius={0.02} castShadow>
-              <meshStandardMaterial color="#202431" roughness={0.42} metalness={0.35} />
+              <meshStandardMaterial color="#334155" roughness={0.45} metalness={0.32} />
               <Edges color="#64748b" lineWidth={1.0} />
             </RoundedBox>
             <mesh position={[0, 0.035, 0]}>
               <boxGeometry args={[5.6, 0.01, 0.65]} />
               <meshStandardMaterial
-                color="#fde68a"
-                emissive="#d99016"
-                emissiveIntensity={0.65}
+                color="#2dd4bf"
+                emissive="#0d9488"
+                emissiveIntensity={0.55}
                 roughness={0.15}
                 metalness={0.55}
               />
@@ -599,15 +598,15 @@ function EncompassingWarehouseShell({
 
           <group position={[0, 0.2, 1.52]} rotation={[-0.14, 0, 0]}>
             <RoundedBox args={[6.64, 0.06, 3.12]} radius={0.02} castShadow>
-              <meshStandardMaterial color="#292e3e" roughness={0.42} metalness={0.35} />
+              <meshStandardMaterial color="#475569" roughness={0.45} metalness={0.32} />
               <Edges color="#64748b" lineWidth={1.0} />
             </RoundedBox>
             <mesh position={[0, 0.035, 0]}>
               <boxGeometry args={[5.6, 0.01, 0.65]} />
               <meshStandardMaterial
-                color="#fde68a"
-                emissive="#d99016"
-                emissiveIntensity={0.65}
+                color="#2dd4bf"
+                emissive="#0d9488"
+                emissiveIntensity={0.55}
                 roughness={0.15}
                 metalness={0.55}
               />
@@ -615,8 +614,8 @@ function EncompassingWarehouseShell({
           </group>
 
           <RoundedBox args={[6.68, 0.07, 0.26]} radius={0.02} position={[0, 0.42, 0]}>
-            <meshStandardMaterial color="#151822" roughness={0.28} />
-            <Edges color="#f5b942" />
+            <meshStandardMaterial color="#0f766e" roughness={0.28} />
+            <Edges color="#5eead4" />
           </RoundedBox>
         </group>
 
@@ -624,10 +623,10 @@ function EncompassingWarehouseShell({
         {showExteriorBadge && (
           <Html position={[1.4, 2.35, 0]} center className="pointer-events-none select-none">
             <div
-              className="flex items-center gap-2 rounded-full border border-[#f5b942]/60 bg-[#10131c]/95 px-4 py-1.5 text-[11px] font-semibold tracking-[0.14em] text-white whitespace-nowrap shadow-2xl backdrop-blur-md"
+              className="flex items-center gap-2 rounded-full border border-[#34d399]/60 bg-[#07131c]/95 px-4 py-1.5 text-[11px] font-semibold tracking-[0.14em] text-white whitespace-nowrap shadow-2xl backdrop-blur-md"
               style={{ fontFamily: 'var(--sc-font-mono)' }}
             >
-              <span className="h-2 w-2 rounded-full bg-[#f5b942] animate-pulse" />
+              <span className="h-2 w-2 rounded-full bg-[#34d399] animate-pulse" />
               <span>TRUNG TÂM KHO VẬN ORCA</span>
             </div>
           </Html>
@@ -661,7 +660,7 @@ function Forklift3D({
   return (
     <group ref={ref} position={position} rotation={[0, rotationY, 0]}>
       <RoundedBox args={[0.34, 0.18, 0.24]} radius={0.03} position={[0, 0.12, 0]} castShadow>
-        <meshStandardMaterial color="#f59e0b" roughness={0.3} />
+        <meshStandardMaterial color="#0d9488" roughness={0.3} />
       </RoundedBox>
       <RoundedBox args={[0.24, 0.22, 0.22]} radius={0.02} position={[-0.02, 0.3, 0]}>
         <meshStandardMaterial color="#0f172a" wireframe />
@@ -672,7 +671,7 @@ function Forklift3D({
       </mesh>
       <RoundedBox args={[0.22, 0.18, 0.22]} radius={0.02} position={[0.31, 0.2, 0]} castShadow>
         <meshStandardMaterial color="#10b981" roughness={0.35} />
-        <Edges color="#ffffff" />
+        <Edges color="#a7f3d0" />
       </RoundedBox>
     </group>
   );
@@ -704,7 +703,7 @@ function StagePlatform({
         receiveShadow
       >
         <meshStandardMaterial
-          color={highlighted ? '#242c40' : '#1b2030'}
+          color={highlighted ? '#11333b' : '#0c222b'}
           roughness={0.55}
           metalness={0.18}
         />
@@ -755,7 +754,7 @@ function Stage01Receiving({ accent }: { accent: string }) {
           position={[cx, 0.26, 0]}
           castShadow
         >
-          <meshStandardMaterial color={i === 1 ? '#10b981' : '#f5b942'} roughness={0.35} />
+          <meshStandardMaterial color={i === 1 ? '#34d399' : '#0d9488'} roughness={0.35} />
           <Edges color="#ffffff" lineWidth={0.7} />
         </RoundedBox>
       ))}
@@ -770,7 +769,7 @@ function Stage01Receiving({ accent }: { accent: string }) {
       <StaffCharacter3D
         position={[0.35, 0, 0.44]}
         rotationY={-Math.PI / 1.25}
-        vestColor="#d99016"
+        vestColor="#0d9488"
         holdingScanner
         animated
       />
@@ -782,8 +781,8 @@ function Stage01Receiving({ accent }: { accent: string }) {
           <meshStandardMaterial color="#475569" />
         </RoundedBox>
         <RoundedBox args={[0.34, 0.22, 0.34]} radius={0.02} position={[0, 0.16, 0]} castShadow>
-          <meshStandardMaterial color="#f5b942" roughness={0.35} />
-          <Edges color="#ffffff" />
+          <meshStandardMaterial color="#14b8a6" roughness={0.35} />
+          <Edges color="#a7f3d0" />
         </RoundedBox>
       </group>
     </group>
@@ -823,8 +822,8 @@ function Stage02StorageRacks({ accent }: { accent: string }) {
                 const boxColor = isPriority
                   ? accent
                   : (rIdx + bIdx) % 2 === 0
-                    ? '#10b981'
-                    : '#3b82f6';
+                    ? '#0d9488'
+                    : '#0f766e';
                 return (
                   <RoundedBox
                     key={ly}
@@ -839,7 +838,7 @@ function Stage02StorageRacks({ accent }: { accent: string }) {
                       emissiveIntensity={isPriority ? 0.4 : 0}
                       roughness={0.32}
                     />
-                    <Edges color={isPriority ? '#fef08a' : '#ffffff'} lineWidth={0.85} />
+                    <Edges color={isPriority ? '#a7f3d0' : '#99f6e4'} lineWidth={0.85} />
                   </RoundedBox>
                 );
               })}
@@ -852,7 +851,7 @@ function Stage02StorageRacks({ accent }: { accent: string }) {
       <StaffCharacter3D
         position={[-1.12, 0, 0.76]}
         rotationY={0.4}
-        vestColor="#f59e0b"
+        vestColor="#059669"
         holdingScanner
         animated
       />
@@ -901,7 +900,7 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
 
         <mesh position={[0, 0.19, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <circleGeometry args={[0.44, 32]} />
-          <meshBasicMaterial color="#f5b942" transparent opacity={0.22} />
+          <meshBasicMaterial color="#14b8a6" transparent opacity={0.22} />
         </mesh>
 
         <mesh ref={ringRef} position={[0, 0.2, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -912,8 +911,8 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
         <mesh ref={holoGlobeRef} position={[0, 0.46, 0]}>
           <icosahedronGeometry args={[0.22, 1]} />
           <meshStandardMaterial
-            color="#f5b942"
-            emissive="#f5b942"
+            color="#34d399"
+            emissive="#10b981"
             emissiveIntensity={2.2}
             wireframe
             transparent
@@ -935,7 +934,7 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
           <Line
             key={idx === 0 ? 'north-central' : 'central-south'}
             points={pts}
-            color="#f5b942"
+            color="#2dd4bf"
             lineWidth={2.2}
           />
         ))}
@@ -943,7 +942,7 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
         <StaffCharacter3D
           position={[-0.42, 0, 0.46]}
           rotationY={Math.PI * 0.75}
-          vestColor="#2563eb"
+          vestColor="#0d9488"
           holdingScanner
           animated
         />
@@ -957,7 +956,7 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
 
         <RoundedBox args={[0.2, 0.42, 0.5]} radius={0.02} position={[0, 0.33, -0.44]}>
           <meshStandardMaterial color="#0f172a" roughness={0.3} />
-          <Edges color="#f5b942" lineWidth={1.5} />
+          <Edges color="#2dd4bf" lineWidth={1.5} />
         </RoundedBox>
 
         {[-0.52, 0, 0.52].map((bx, i) => (
@@ -968,7 +967,7 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
             position={[bx, 0.26, -0.44]}
             castShadow
           >
-            <meshStandardMaterial color={i === 1 ? '#10b981' : '#f5b942'} roughness={0.32} />
+            <meshStandardMaterial color={i === 1 ? '#34d399' : '#0d9488'} roughness={0.32} />
             <Edges color="#ffffff" lineWidth={0.8} />
           </RoundedBox>
         ))}
@@ -977,7 +976,7 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
           <group key={sx} position={[sx, 0, 0.22]}>
             <RoundedBox args={[0.54, 0.24, 0.36]} radius={0.02} position={[0, 0.12, 0]} castShadow>
               <meshStandardMaterial color="#334155" roughness={0.4} />
-              <Edges color="#cbd5e1" />
+              <Edges color="#99f6e4" />
             </RoundedBox>
             <mesh position={[-0.1, 0.25, 0]}>
               <boxGeometry args={[0.22, 0.02, 0.22]} />
@@ -989,16 +988,16 @@ function Stage03RoutingAndPacking({ accent }: { accent: string }) {
               position={[-0.1, 0.33, 0]}
               castShadow
             >
-              <meshStandardMaterial color="#d97706" roughness={0.42} />
-              <Edges color="#fef08a" />
+              <meshStandardMaterial color="#10b981" roughness={0.42} />
+              <Edges color="#d1fae5" />
             </RoundedBox>
             <RoundedBox args={[0.16, 0.13, 0.02]} radius={0.01} position={[0.14, 0.31, -0.11]}>
-              <meshStandardMaterial color="#fef08a" emissive="#d99016" emissiveIntensity={1.4} />
+              <meshStandardMaterial color="#5eead4" emissive="#0d9488" emissiveIntensity={1.4} />
             </RoundedBox>
             <StaffCharacter3D
               position={[0, 0, 0.36]}
               rotationY={Math.PI}
-              vestColor={idx === 0 ? '#10b981' : '#2563eb'}
+              vestColor={idx === 0 ? '#10b981' : '#0f766e'}
               animated
             />
           </group>
@@ -1016,7 +1015,7 @@ function Stage04HandoverInside({ accent }: { accent: string }) {
         <group key={lz} position={[0.2, 0, lz]}>
           <RoundedBox args={[0.92, 0.04, 0.52]} radius={0.01} position={[0, 0.02, 0]}>
             <meshStandardMaterial color="#1e293b" />
-            <Edges color={i === 0 ? accent : '#f5b942'} />
+            <Edges color={i === 0 ? accent : '#2dd4bf'} />
           </RoundedBox>
           {[-0.24, 0.2].map((px) => (
             <RoundedBox
@@ -1026,7 +1025,7 @@ function Stage04HandoverInside({ accent }: { accent: string }) {
               position={[px, 0.15, 0]}
               castShadow
             >
-              <meshStandardMaterial color={i === 0 ? '#10b981' : '#f5b942'} roughness={0.34} />
+              <meshStandardMaterial color={i === 0 ? '#10b981' : '#0d9488'} roughness={0.34} />
               <Edges color="#ffffff" lineWidth={0.8} />
             </RoundedBox>
           ))}
@@ -1048,7 +1047,7 @@ function Stage04HandoverInside({ accent }: { accent: string }) {
       <StaffCharacter3D
         position={[-0.88, 0, 0.25]}
         rotationY={Math.PI / 2}
-        vestColor="#f59e0b"
+        vestColor="#0f766e"
         animated
       />
     </group>
@@ -1092,7 +1091,7 @@ function AgvParcelShuttle({
 
   return (
     <group>
-      <Line points={points} color="#f5b942" lineWidth={1.5} dashed dashScale={4} />
+      <Line points={points} color="#14b8a6" lineWidth={1.5} dashed dashScale={4} />
       <group ref={ref}>
         <RoundedBox args={[0.22, 0.05, 0.22]} radius={0.02} position={[0, 0.035, 0]}>
           <meshStandardMaterial color="#334155" />
@@ -1156,7 +1155,7 @@ function WarehouseStageNode({
           <div
             className="flex items-center gap-1.5 rounded-full border px-3.5 py-1 text-[11px] font-semibold text-white shadow-xl backdrop-blur-md whitespace-nowrap"
             style={{
-              background: 'rgba(15, 18, 28, 0.95)',
+              background: 'rgba(8, 22, 28, 0.95)',
               borderColor: node.accent,
               boxShadow: `0 0 18px ${resolvedAccent}66`,
             }}
@@ -1206,8 +1205,8 @@ function MainScene({
 
       <ambientLight intensity={1.7} color="#ffffff" />
       <hemisphereLight args={['#ffffff', '#0f172a', 1.35]} />
-      <directionalLight position={[-10, 16, 12]} intensity={2.6} color="#fffdf7" castShadow />
-      <directionalLight position={[10, 12, -8]} intensity={1.25} color="#fde68a" />
+      <directionalLight position={[-10, 16, 12]} intensity={2.5} color="#f8fafc" castShadow />
+      <directionalLight position={[10, 12, -8]} intensity={1.25} color="#5eead4" />
 
       <EncompassingWarehouseShell scrollRef={scrollRef} isLight={isLight} />
 
@@ -1217,11 +1216,11 @@ function MainScene({
         <AgvParcelShuttle
           from={[0.45, 0, -1.75]}
           to={[1.3, 0, -1.75]}
-          color="#f5b942"
+          color="#14b8a6"
           offset={0.1}
         />
-        <AgvParcelShuttle from={[2.7, 0, -0.7]} to={[2.7, 0, 0.7]} color="#fb923c" offset={0.35} />
-        <AgvParcelShuttle from={[1.3, 0, 1.75]} to={[0.45, 0, 1.75]} color="#34d399" offset={0.6} />
+        <AgvParcelShuttle from={[2.7, 0, -0.7]} to={[2.7, 0, 0.7]} color="#34d399" offset={0.35} />
+        <AgvParcelShuttle from={[1.3, 0, 1.75]} to={[0.45, 0, 1.75]} color="#2dd4bf" offset={0.6} />
 
         {NODES_DATA.map((node) => (
           <WarehouseStageNode
@@ -1236,7 +1235,7 @@ function MainScene({
 
       <ContactShadows
         position={[0, -0.02, 0]}
-        opacity={isLight ? 0.48 : 0.55}
+        opacity={isLight ? 0.46 : 0.55}
         scale={18}
         blur={2.2}
         far={4}
@@ -1249,7 +1248,7 @@ const LandingCanvas = forwardRef<LandingCanvasHandle, LandingCanvasProps>(
   ({ onSelectNode, paused = false, theme = 'dark' }, ref) => {
     const posRef = useRef<THREE.Vector3>(new THREE.Vector3(-5.2, 4.8, 8.2));
     const lookRef = useRef<THREE.Vector3>(new THREE.Vector3(-0.6, 0.45, 0));
-    const accentRef = useRef<string>('#f5b942');
+    const accentRef = useRef<string>('#10b981');
     const sceneIndexRef = useRef<number>(0);
     const scrollRef = useRef<number>(0);
     const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
